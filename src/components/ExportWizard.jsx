@@ -7,21 +7,52 @@ import {
   CheckCircle2, 
   ArrowRight,
   ShieldCheck,
-  Wheat
+  Wheat,
+  MapPin,
+  FileCheck2,
+  Sparkles
 } from 'lucide-react';
 
+const productsList = [
+  'KAI Khushbu Chakki Fresh Whole Wheat Atta',
+  'MP Sharbati & Lokwan Premium Wheat Grain',
+  'Superfine Maida (Refined Flour)'
+];
+
+const containerOptions = [
+  { id: '20ft-fcl', label: '1 x 20ft FCL Container', mt: 24, badge: 'Standard Sea Export' },
+  { id: '40ft-fcl', label: '1 x 40ft FCL Container', mt: 28, badge: 'High Volume Load' },
+  { id: 'multi-container', label: 'Multi-Container Contract (5x FCL)', mt: 120, badge: 'Bulk Commercial Trade' },
+  { id: 'domestic-truck', label: 'Full Truck Load (Pan-India)', mt: 22, badge: 'Domestic Direct Supply' }
+];
+
+const packagingFormats = [
+  { id: '25kg-pp', label: '25 kg PP Woven Bag (Export Standard)' },
+  { id: '50kg-hdpe', label: '50 kg Heavy HDPE / Jute Export Bag' },
+  { id: '10kg-bag', label: '10 kg Master Outer Pouch' },
+  { id: '5kg-bag', label: '5 kg Master Outer Pouch' },
+  { id: '1kg-pouch', label: '1 kg Retail Laminated Pouch' }
+];
+
+const destinationPorts = [
+  'Middle East (Jebel Ali / Dammam / Doha)',
+  'European Union (Rotterdam / Hamburg / UK)',
+  'North America (New York / Long Beach)',
+  'Southeast Asia (Singapore / Port Klang)',
+  'Africa (Durban / Mombasa / Lagos)',
+  'Domestic Supply (Gujarat / Pan-India)'
+];
+
 export default function ExportWizard({ onPreFillInquiry }) {
-  const [selectedProduct, setSelectedProduct] = useState('KAI Khushbu Chakki Fresh Atta');
+  const [selectedProduct, setSelectedProduct] = useState(productsList[0]);
   const [containerType, setContainerType] = useState('20ft-fcl');
   const [packagingType, setPackagingType] = useState('25kg-pp');
-  const [destinationRegion, setDestinationRegion] = useState('Middle East (UAE / Saudi Arabia / Qatar)');
+  const [destinationRegion, setDestinationRegion] = useState(destinationPorts[0]);
+
+  const activeContainer = containerOptions.find(c => c.id === containerType) || containerOptions[0];
 
   const getEstimatedMetrics = () => {
-    let metricTons = 24;
-    if (containerType === '40ft-fcl') metricTons = 28;
-    if (containerType === 'multi-container') metricTons = 120;
-    if (containerType === 'domestic-truck') metricTons = 22;
-
+    const metricTons = activeContainer.mt;
     let bagCount = 0;
     if (packagingType === '1kg-pouch') bagCount = metricTons * 1000;
     else if (packagingType === '5kg-bag') bagCount = (metricTons * 1000) / 5;
@@ -32,8 +63,8 @@ export default function ExportWizard({ onPreFillInquiry }) {
     return {
       metricTons,
       bagCount: Math.round(bagCount).toLocaleString(),
-      fobPort: 'Mundra / Kandla Sea Port, Gujarat, India',
-      transitDocs: 'Commercial Invoice, Packing List, Bill of Lading (BL), APEDA Certificate of Origin, Phytosanitary Certificate, SGS Quality Report'
+      fobPort: 'Mundra / Kandla Port, Gujarat, India',
+      originRegion: 'Himatnagar Flour Corridor, Gujarat'
     };
   };
 
@@ -43,237 +74,286 @@ export default function ExportWizard({ onPreFillInquiry }) {
     const requirementSummary = {
       inquiryType: 'Export & International Trade',
       productInterest: selectedProduct,
-      estimatedQuantity: `${metrics.metricTons} MT (${containerType})`,
+      estimatedQuantity: `${metrics.metricTons} MT (${activeContainer.label})`,
       packagingPreference: packagingType,
       deliveryLocation: destinationRegion,
-      message: `Export Inquiry for ${selectedProduct}. Estimated Volume: ${metrics.metricTons} MT via ${containerType} in ${packagingType} format. Destination: ${destinationRegion}. Please provide CIF / FOB Mundra port quotations.`
+      message: `Export Inquiry for ${selectedProduct}. Estimated Volume: ${metrics.metricTons} MT via ${activeContainer.label} in ${packagingType} format. Destination: ${destinationRegion}. Please provide FOB Mundra port quotations.`
     };
     onPreFillInquiry(requirementSummary);
   };
 
   return (
-    <section id="export-wizard" className="section section-dark" style={{ backgroundColor: '#1c1917' }}>
-      <div className="container">
+    <section id="export-wizard" style={{ backgroundColor: '#14110e', color: '#ffffff', padding: '6rem 0', position: 'relative', overflow: 'hidden' }}>
+      
+      {/* Background Ambient Spheres */}
+      <div style={{
+        position: 'absolute',
+        top: '15%',
+        right: '-5%',
+        width: '450px',
+        height: '450px',
+        borderRadius: '50%',
+        background: 'radial-gradient(circle, rgba(107, 142, 35, 0.14) 0%, rgba(0,0,0,0) 70%)',
+        pointerEvents: 'none'
+      }} />
+
+      <div className="container-custom" style={{ position: 'relative', zIndex: 2 }}>
+        
         {/* Section Header */}
-        <div className="section-header">
-          <span className="eyebrow eyebrow-dark">
-            <Globe2 size={14} /> Trade &amp; Export Calculator
-          </span>
-          <h2 className="section-title" style={{ color: '#ffffff' }}>
-            International Wheat &amp; Flour Container Estimator
+        <div style={{ textAlign: 'center', maxWidth: '850px', margin: '0 auto 3.5rem auto' }}>
+          <div style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '0.55rem',
+            backgroundColor: 'rgba(107, 142, 35, 0.18)',
+            border: '1.5px solid rgba(107, 142, 35, 0.4)',
+            color: '#9fc152',
+            padding: '0.4rem 1.2rem',
+            borderRadius: '9999px',
+            fontSize: '0.8rem',
+            fontWeight: 800,
+            letterSpacing: '0.08em',
+            textTransform: 'uppercase',
+            marginBottom: '1.2rem'
+          }}>
+            <Globe2 size={15} color="#6b8e23" />
+            <span>Containerized Export Estimator</span>
+          </div>
+
+          <h2 style={{
+            fontFamily: 'var(--font-heading)',
+            fontSize: 'clamp(2rem, 4vw, 3.2rem)',
+            fontWeight: 900,
+            lineHeight: 1.15,
+            color: '#ffffff',
+            marginBottom: '1rem'
+          }}>
+            International Wheat &amp; Flour Shipment Calculator
           </h2>
-          <p className="section-subtitle">
-            Configure your shipment parameters to calculate container loads, packaging formats, and export compliance documentation requirements.
+
+          <p style={{
+            color: '#efe8d8',
+            fontSize: '1.05rem',
+            lineHeight: 1.6,
+            fontWeight: 400
+          }}>
+            Calculate container net cargo weights, bag counts, export documentation requirements, and FOB Mundra port consignments.
           </p>
         </div>
 
-        {/* Wizard Box */}
+        {/* Master Estimator Dashboard */}
         <div style={{
-          backgroundColor: '#ffffff',
-          borderRadius: '24px',
+          backgroundColor: '#1f1a14',
+          border: '2px solid #6b8e23',
+          borderRadius: '28px',
           padding: '2.5rem',
-          color: '#1c1917',
-          boxShadow: '0 25px 50px -12px rgba(0,0,0,0.4)',
+          boxShadow: '0 25px 60px rgba(0,0,0,0.5)',
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
           gap: '2.5rem'
         }}>
-          {/* Controls Column */}
+
+          {/* Left Controls Column */}
           <div>
-            <h3 style={{ fontSize: '1.25rem', color: '#1c1917', fontWeight: 900, marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              <Calculator size={22} color="#84a93c" /> Step 1: Select Shipment Parameters
-            </h3>
-
-            {/* Product Selector */}
-            <div style={{ marginBottom: '1.25rem' }}>
-              <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 800, color: '#475569', marginBottom: '0.4rem', textTransform: 'uppercase' }}>
-                Wheat / Flour Product:
-              </label>
-              <select
-                value={selectedProduct}
-                onChange={(e) => setSelectedProduct(e.target.value)}
-                style={{
-                  width: '100%',
-                  padding: '0.8rem',
-                  borderRadius: '10px',
-                  border: '1.5px solid #eae4d3',
-                  backgroundColor: '#f5f1e6',
-                  fontWeight: 700,
-                  color: '#1c1917',
-                  outline: 'none'
-                }}
-              >
-                <option value="KAI Khushbu Chakki Fresh Atta">KAI Khushbu Chakki Fresh Whole Wheat Atta</option>
-                <option value="MP Sharbati Premium Wheat Grain">MP Sharbati &amp; Lokwan Premium Wheat Grain</option>
-                <option value="Superfine Maida (Refined Flour)">Superfine Maida (Refined Flour)</option>
-                <option value="Granular Sooji / Rawa">Granular Sooji / Rawa (Semolina)</option>
-                <option value="Durum Wheat & Pasta Flour">Durum Wheat Flour &amp; Pasta Semolina</option>
-                <option value="Fibrous Wheat Bran (Choker)">Fibrous Wheat Bran (Choker)</option>
-              </select>
+            <div style={{
+              fontSize: '0.82rem',
+              fontWeight: 800,
+              color: '#9fc152',
+              textTransform: 'uppercase',
+              letterSpacing: '0.05em',
+              marginBottom: '1.2rem',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.5rem'
+            }}>
+              <Calculator size={18} /> Step 1: Select Shipment Parameters
             </div>
 
-            {/* Shipment Volume */}
-            <div style={{ marginBottom: '1.25rem' }}>
-              <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 800, color: '#475569', marginBottom: '0.4rem', textTransform: 'uppercase' }}>
-                Shipment Container Volume:
+            {/* Product Pills Selector */}
+            <div style={{ marginBottom: '1.5rem' }}>
+              <label style={{ display: 'block', fontSize: '0.78rem', fontWeight: 800, color: '#f4be6b', textTransform: 'uppercase', marginBottom: '0.6rem' }}>
+                1. Wheat / Flour Grade:
               </label>
-              <select
-                value={containerType}
-                onChange={(e) => setContainerType(e.target.value)}
-                style={{
-                  width: '100%',
-                  padding: '0.8rem',
-                  borderRadius: '10px',
-                  border: '1.5px solid #eae4d3',
-                  backgroundColor: '#f5f1e6',
-                  fontWeight: 700,
-                  color: '#1c1917',
-                  outline: 'none'
-                }}
-              >
-                <option value="20ft-fcl">1 x 20ft FCL Container (~ 24 Metric Tons)</option>
-                <option value="40ft-fcl">1 x 40ft FCL Container (~ 28 Metric Tons)</option>
-                <option value="multi-container">Multi-Container Contract (5 x 20ft FCL ~ 120 MT)</option>
-                <option value="domestic-truck">Full Truck Load - Domestic (20 - 25 MT)</option>
-              </select>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.45rem' }}>
+                {productsList.map((p) => (
+                  <button
+                    key={p}
+                    onClick={() => setSelectedProduct(p)}
+                    style={{
+                      backgroundColor: selectedProduct === p ? 'rgba(107, 142, 35, 0.25)' : 'rgba(15, 12, 10, 0.6)',
+                      border: selectedProduct === p ? '1.5px solid #9fc152' : '1px solid rgba(255, 255, 255, 0.1)',
+                      color: selectedProduct === p ? '#ffffff' : '#aaaaaa',
+                      padding: '0.65rem 1rem',
+                      borderRadius: '12px',
+                      fontSize: '0.85rem',
+                      fontWeight: selectedProduct === p ? 800 : 500,
+                      cursor: 'pointer',
+                      textAlign: 'left',
+                      transition: 'all 0.2s ease',
+                      outline: 'none'
+                    }}
+                  >
+                    {p}
+                  </button>
+                ))}
+              </div>
             </div>
 
-            {/* Packaging Format */}
-            <div style={{ marginBottom: '1.25rem' }}>
-              <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 800, color: '#475569', marginBottom: '0.4rem', textTransform: 'uppercase' }}>
-                Packaging &amp; Bagging Format:
+            {/* Container Volume Cards */}
+            <div style={{ marginBottom: '1.5rem' }}>
+              <label style={{ display: 'block', fontSize: '0.78rem', fontWeight: 800, color: '#f4be6b', textTransform: 'uppercase', marginBottom: '0.6rem' }}>
+                2. Shipment Container Volume:
               </label>
-              <select
-                value={packagingType}
-                onChange={(e) => setPackagingType(e.target.value)}
-                style={{
-                  width: '100%',
-                  padding: '0.8rem',
-                  borderRadius: '10px',
-                  border: '1.5px solid #eae4d3',
-                  backgroundColor: '#f5f1e6',
-                  fontWeight: 700,
-                  color: '#1c1917',
-                  outline: 'none'
-                }}
-              >
-                <option value="25kg-pp">25 kg Standard PP Woven Bag (Export Standard)</option>
-                <option value="50kg-hdpe">50 kg Heavy Duty HDPE / Jute Export Bag</option>
-                <option value="10kg-bag">10 kg Consumer Bag (Master Outer Bag)</option>
-                <option value="5kg-bag">5 kg Consumer Pouch (Master Outer Carton)</option>
-                <option value="1kg-pouch">1 kg Retail Laminated Pouch</option>
-              </select>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: '0.6rem' }}>
+                {containerOptions.map((c) => (
+                  <button
+                    key={c.id}
+                    onClick={() => setContainerType(c.id)}
+                    style={{
+                      backgroundColor: containerType === c.id ? '#6b8e23' : 'rgba(15, 12, 10, 0.6)',
+                      border: containerType === c.id ? '2px solid #9fc152' : '1px solid rgba(255, 255, 255, 0.1)',
+                      color: '#ffffff',
+                      padding: '0.75rem 0.85rem',
+                      borderRadius: '14px',
+                      cursor: 'pointer',
+                      textAlign: 'left',
+                      transition: 'all 0.2s ease',
+                      outline: 'none'
+                    }}
+                  >
+                    <div style={{ fontSize: '0.7rem', color: containerType === c.id ? '#ffffff' : '#9fc152', fontWeight: 800 }}>
+                      {c.badge}
+                    </div>
+                    <div style={{ fontSize: '0.88rem', fontWeight: 900, fontFamily: 'var(--font-heading)' }}>
+                      {c.label}
+                    </div>
+                  </button>
+                ))}
+              </div>
             </div>
 
-            {/* Destination */}
-            <div style={{ marginBottom: '1rem' }}>
-              <label style={{ display: 'block', fontSize: '0.82rem', fontWeight: 800, color: '#475569', marginBottom: '0.4rem', textTransform: 'uppercase' }}>
-                Destination Region / Port:
+            {/* Destination Selector */}
+            <div>
+              <label style={{ display: 'block', fontSize: '0.78rem', fontWeight: 800, color: '#f4be6b', textTransform: 'uppercase', marginBottom: '0.6rem' }}>
+                3. Destination Region / Port:
               </label>
               <select
                 value={destinationRegion}
                 onChange={(e) => setDestinationRegion(e.target.value)}
                 style={{
                   width: '100%',
-                  padding: '0.8rem',
-                  borderRadius: '10px',
-                  border: '1.5px solid #eae4d3',
-                  backgroundColor: '#f5f1e6',
+                  padding: '0.85rem 1rem',
+                  borderRadius: '12px',
+                  border: '1.5px solid rgba(107, 142, 35, 0.4)',
+                  backgroundColor: '#14110e',
+                  color: '#ffffff',
                   fontWeight: 700,
-                  color: '#1c1917',
+                  fontSize: '0.88rem',
                   outline: 'none'
                 }}
               >
-                <option value="Middle East (UAE / Saudi Arabia / Qatar)">Middle East (Jebel Ali / Dammam / Doha)</option>
-                <option value="European Union (Rotterdam / Hamburg / UK)">European Union (Rotterdam / Hamburg / UK)</option>
-                <option value="North America (USA / Canada)">North America (New York / Long Beach / Montreal)</option>
-                <option value="Southeast Asia (Singapore / Malaysia / Vietnam)">Southeast Asia (Singapore / Port Klang / Vietnam)</option>
-                <option value="Africa (Durban / Mombasa / Lagos)">Africa (Durban / Mombasa / Lagos)</option>
-                <option value="Domestic Indian Supply">Domestic Supply (Gujarat / Maharashtra / Pan-India)</option>
+                {destinationPorts.map((port) => (
+                  <option key={port} value={port}>{port}</option>
+                ))}
               </select>
             </div>
+
           </div>
 
-          {/* Results Column */}
+          {/* Right Metrics Output Column */}
           <div style={{
-            backgroundColor: '#f4fce8',
-            borderRadius: '18px',
+            backgroundColor: '#14110e',
+            border: '1.5px solid rgba(107, 142, 35, 0.4)',
+            borderRadius: '22px',
             padding: '2rem',
-            border: '1.5px solid #b5d867',
             display: 'flex',
             flexDirection: 'column',
-            justifyContent: 'space-between'
+            justifyContent: 'space-between',
+            boxShadow: '0 10px 30px rgba(0,0,0,0.4)'
           }}>
             <div>
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.25rem' }}>
-                <span style={{ fontSize: '0.78rem', fontWeight: 800, color: '#5c7924', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                  Consignment Summary
-                </span>
-                <span style={{ backgroundColor: '#84a93c', color: '#fff', fontSize: '0.75rem', fontWeight: 800, padding: '0.2rem 0.65rem', borderRadius: '6px' }}>
-                  FOB Mundra Port
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '1.5rem' }}>
+                <div style={{ fontSize: '0.8rem', fontWeight: 800, color: '#9fc152', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                  Live Consignment Calculation
+                </div>
+                <span style={{
+                  backgroundColor: '#6b8e23',
+                  color: '#ffffff',
+                  fontSize: '0.75rem',
+                  fontWeight: 800,
+                  padding: '0.25rem 0.75rem',
+                  borderRadius: '9999px'
+                }}>
+                  FOB Mundra Sea Port
                 </span>
               </div>
 
-              {/* Key Output Metrics */}
+              {/* Key Output Metrics Display */}
               <div style={{
-                backgroundColor: '#ffffff',
-                borderRadius: '14px',
-                padding: '1.25rem',
-                border: '1px solid #ebf5d6',
-                marginBottom: '1.25rem'
+                backgroundColor: 'rgba(43, 35, 25, 0.7)',
+                border: '1px solid rgba(107, 142, 35, 0.3)',
+                borderRadius: '18px',
+                padding: '1.5rem',
+                marginBottom: '1.5rem'
               }}>
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', marginBottom: '1rem' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1.25rem', marginBottom: '1.25rem' }}>
                   <div>
-                    <div style={{ fontSize: '0.75rem', color: '#64748b' }}>Total Net Weight</div>
-                    <div style={{ fontSize: '1.45rem', fontWeight: 900, color: '#1c1917' }}>
-                      {metrics.metricTons} Metric Tons
+                    <div style={{ fontSize: '0.75rem', color: '#aaaaaa', fontWeight: 600 }}>Estimated Cargo Weight</div>
+                    <div style={{ fontSize: '1.75rem', fontWeight: 900, color: '#ffffff', fontFamily: 'var(--font-heading)' }}>
+                      {metrics.metricTons} <span style={{ fontSize: '1rem', color: '#9fc152' }}>MT</span>
                     </div>
                   </div>
+
                   <div>
-                    <div style={{ fontSize: '0.75rem', color: '#64748b' }}>Bag / Unit Count</div>
-                    <div style={{ fontSize: '1.45rem', fontWeight: 900, color: '#84a93c' }}>
-                      {metrics.bagCount} Packs
+                    <div style={{ fontSize: '0.75rem', color: '#aaaaaa', fontWeight: 600 }}>Estimated Total Units</div>
+                    <div style={{ fontSize: '1.75rem', fontWeight: 900, color: '#f4be6b', fontFamily: 'var(--font-heading)' }}>
+                      {metrics.bagCount} <span style={{ fontSize: '1rem', color: '#f4be6b' }}>Packs</span>
                     </div>
                   </div>
                 </div>
 
-                <div style={{ borderTop: '1px solid #f1f5f9', paddingTop: '0.75rem' }}>
-                  <div style={{ fontSize: '0.75rem', color: '#64748b', marginBottom: '0.2rem' }}>Origin Port:</div>
-                  <div style={{ fontSize: '0.88rem', fontWeight: 700, color: '#1c1917' }}>
+                <div style={{ paddingTop: '1rem', borderTop: '1px solid rgba(255, 255, 255, 0.08)' }}>
+                  <div style={{ fontSize: '0.75rem', color: '#aaaaaa', marginBottom: '0.25rem' }}>Origin &amp; Dispatch Hub:</div>
+                  <div style={{ fontSize: '0.88rem', fontWeight: 800, color: '#ffffff' }}>
                     {metrics.fobPort}
                   </div>
                 </div>
               </div>
 
-              {/* Compliance list */}
-              <div style={{ marginBottom: '1.5rem' }}>
-                <div style={{ fontSize: '0.78rem', fontWeight: 800, color: '#5c7924', textTransform: 'uppercase', marginBottom: '0.5rem' }}>
-                  Included Export Documentation:
+              {/* Legal Documentation List */}
+              <div style={{ marginBottom: '1.75rem' }}>
+                <div style={{ fontSize: '0.78rem', fontWeight: 800, color: '#f4be6b', textTransform: 'uppercase', marginBottom: '0.65rem' }}>
+                  Included Export Trade Documentation:
                 </div>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.35rem', fontSize: '0.82rem', color: '#334155' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-                    <CheckCircle2 size={14} color="#84a93c" /> APEDA RCMC &amp; Certificate of Origin
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem', fontSize: '0.84rem', color: '#efe8d8' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
+                    <CheckCircle2 size={16} color="#9fc152" /> APEDA RCMC &amp; Government Certificate of Origin
                   </div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-                    <CheckCircle2 size={14} color="#84a93c" /> Government Approved Phytosanitary Certificate
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
+                    <CheckCircle2 size={16} color="#9fc152" /> Approved Phytosanitary Health &amp; Fumigation Certificate
                   </div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-                    <CheckCircle2 size={14} color="#84a93c" /> Third-Party SGS / Intertek Pre-Shipment Inspection
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
+                    <CheckCircle2 size={16} color="#9fc152" /> Third-Party SGS / Intertek Pre-Shipment Inspection Report
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem' }}>
+                    <CheckCircle2 size={16} color="#9fc152" /> Bill of Lading (BL) &amp; Commercial Customs Shipping Bill
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* Forward to Contact Form */}
+            {/* Transfer to Form Action Button */}
             <button
               onClick={handleApplyToForm}
-              className="btn btn-primary btn-block"
-              style={{ padding: '0.9rem 1.5rem', fontWeight: 800 }}
+              className="btn btn-primary btn-block btn-lg"
+              style={{ fontWeight: 900, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem' }}
             >
-              Transfer To Formal Quote Inquiry <ArrowRight size={16} />
+              Transfer Estimate To Formal Quotation Inquiry <ArrowRight size={18} />
             </button>
           </div>
+
         </div>
+
       </div>
     </section>
   );

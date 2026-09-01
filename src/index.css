@@ -1,30 +1,37 @@
 @import "tailwindcss";
 
 :root {
-  /* Warm Luxurious Beige & Wheat Palette */
+  /* Official Khushbu Agro Industries Brand Palette */
+  --ast-global-color-0: #54b435; /* Primary Fresh Leaf Green */
+  --ast-global-color-1: #379237; /* Forest Green Accent */
+  --ast-global-color-2: #0f172a; /* Deep Slate Header */
+  --ast-global-color-3: #2f3b40; /* Dark Walnut Body Text */
+  --ast-global-color-4: #edfbe2; /* Soft Mint Cream Section BG */
+  --ast-global-color-5: #ffffff;
+
   --beige-bg: #faf7f2;
   --beige-section: #f5f0e6;
   --beige-card: #ffffff;
   --beige-border: #e8dfc9;
-  
-  --dark-walnut-950: #19140e;
-  --dark-walnut-900: #2b2319;
-  --dark-walnut-800: #382f22;
-  --dark-walnut-700: #4a3e2e;
 
-  --sage-green-600: #5c7b1e;
-  --sage-green-500: #6b8e23;
-  --sage-green-400: #789a32;
-  --sage-green-300: #9fc152;
-  --sage-green-100: #eaf3d5;
+  --sage-green-600: #379237;
+  --sage-green-500: #54b435;
+  --sage-green-400: #66c846;
+  --sage-green-300: #88dc6a;
+  --sage-green-100: #edfbe2;
+
+  --dark-walnut-950: #0c1406;
+  --dark-walnut-900: #0f172a;
+  --dark-walnut-800: #1e293b;
+  --dark-walnut-700: #2f3b40;
 
   --wheat-gold-500: #d99b38;
   --wheat-gold-400: #e6a845;
   --wheat-gold-300: #f4be6b;
   --wheat-gold-100: #fdf2d9;
 
-  --font-heading: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-heading: 'Poppins', 'Outfit', sans-serif;
+  --font-body: 'Poppins', 'Plus Jakarta Sans', sans-serif;
 }
 
 *, *::before, *::after {
@@ -45,6 +52,7 @@ body {
   color: #2b2319;
   line-height: 1.6;
   overflow-x: hidden;
+  width: 100%;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -60,7 +68,12 @@ a {
   text-decoration: none;
 }
 
-/* Explicit Layout Utilities */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Explicit Mobile-First Layout Containers */
 .container-custom {
   width: 100%;
   max-width: 1280px;
@@ -70,10 +83,17 @@ a {
   padding-right: 1.5rem;
 }
 
-@media (max-width: 640px) {
+@media (max-width: 768px) {
   .container-custom {
-    padding-left: 1rem;
-    padding-right: 1rem;
+    padding-left: 1.15rem;
+    padding-right: 1.15rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .container-custom {
+    padding-left: 0.85rem;
+    padding-right: 0.85rem;
   }
 }
 
@@ -84,8 +104,8 @@ a {
 
 @media (max-width: 768px) {
   .section-padding {
-    padding-top: 3.5rem;
-    padding-bottom: 3.5rem;
+    padding-top: 3.25rem;
+    padding-bottom: 3.25rem;
   }
 }
 
@@ -107,6 +127,12 @@ a {
   max-width: 800px;
   margin: 0 auto 3.5rem auto;
   position: relative;
+}
+
+@media (max-width: 768px) {
+  .section-header {
+    margin-bottom: 2.25rem;
+  }
 }
 
 .eyebrow {
@@ -135,7 +161,7 @@ a {
 }
 
 .section-title {
-  font-size: 2.85rem;
+  font-size: clamp(1.8rem, 4vw, 2.85rem);
   font-weight: 800;
   margin-bottom: 1.25rem;
   color: #2b2319;
@@ -148,14 +174,8 @@ a {
   -webkit-text-fill-color: transparent;
 }
 
-@media (max-width: 768px) {
-  .section-title {
-    font-size: 2.1rem;
-  }
-}
-
 .section-subtitle {
-  font-size: 1.15rem;
+  font-size: clamp(0.95rem, 2vw, 1.15rem);
   color: #5c5040;
   line-height: 1.65;
 }
@@ -164,7 +184,7 @@ a {
   color: #e8dfc9;
 }
 
-/* Button System in Warm Beige & Sage Accent */
+/* Button System */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -182,18 +202,19 @@ a {
   position: relative;
   overflow: hidden;
   z-index: 1;
+  white-space: nowrap;
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, #6b8e23 0%, #5c7b1e 100%);
+  background: linear-gradient(135deg, #54b435 0%, #379237 100%);
   color: #ffffff;
-  box-shadow: 0 4px 20px rgba(107, 142, 35, 0.4);
+  box-shadow: 0 4px 20px rgba(84, 180, 53, 0.4);
 }
 
 .btn-primary:hover {
-  background: linear-gradient(135deg, #5c7b1e 0%, #4c6815 100%);
+  background: linear-gradient(135deg, #379237 0%, #286d28 100%);
   transform: translateY(-3px) scale(1.02);
-  box-shadow: 0 10px 28px rgba(107, 142, 35, 0.55);
+  box-shadow: 0 10px 28px rgba(84, 180, 53, 0.55);
 }
 
 .btn-gold {
@@ -240,9 +261,17 @@ a {
 }
 
 .btn-lg {
-  padding: 1.1rem 2.35rem;
-  font-size: 1.05rem;
-  border-radius: 20px;
+  padding: 1.05rem 2.15rem;
+  font-size: 1rem;
+  border-radius: 18px;
+}
+
+@media (max-width: 640px) {
+  .btn {
+    width: 100%;
+    font-size: 0.9rem;
+    padding: 0.8rem 1.2rem;
+  }
 }
 
 .btn-block {
@@ -269,6 +298,12 @@ a {
   animation: floatAnim 4s ease-in-out infinite;
 }
 
+@media (max-width: 900px) {
+  .hidden-mobile {
+    display: none !important;
+  }
+}
+
 /* Marquee Track */
 .marquee-container {
   overflow: hidden;
@@ -287,7 +322,7 @@ a {
   animation-play-state: paused;
 }
 
-/* Cards in Warm Beige */
+/* Responsive Cards & Hovers */
 .card-khushbu {
   background: #ffffff;
   border: 1.5px solid #e8dfc9;
@@ -297,10 +332,19 @@ a {
 }
 
 .card-khushbu:hover {
-  background: #ffffff;
-  transform: translateY(-8px);
-  box-shadow: 0 22px 40px -5px rgba(107, 142, 35, 0.22);
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px -5px rgba(107, 142, 35, 0.2);
   border-color: #6b8e23;
+}
+
+.card-khushbu-hover {
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.card-khushbu-hover:hover {
+  transform: translateY(-6px);
+  border-color: #6b8e23 !important;
+  box-shadow: 0 20px 40px rgba(107, 142, 35, 0.2) !important;
 }
 
 .card-khushbu-dark {
@@ -315,25 +359,14 @@ a {
 .card-khushbu-dark:hover {
   background: rgba(56, 47, 34, 0.98);
   border-color: #6b8e23;
-  transform: translateY(-8px);
+  transform: translateY(-6px);
   box-shadow: 0 25px 45px rgba(107, 142, 35, 0.35);
-}
-
-.purity-comparison-box {
-  background: linear-gradient(135deg, #2b2319 0%, #382f22 100%);
-  border: 1.5px solid rgba(217, 155, 56, 0.4);
-  border-radius: 28px;
-  padding: 2.5rem;
-  color: #ffffff;
-  position: relative;
-  overflow: hidden;
-  box-shadow: 0 25px 50px -12px rgba(43, 35, 25, 0.6);
 }
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 9px;
-  height: 9px;
+  width: 8px;
+  height: 8px;
 }
 ::-webkit-scrollbar-track {
   background: #f5f0e6;
@@ -342,3 +375,13 @@ a {
   background: #6b8e23;
   border-radius: 6px;
 }
+
+@media (max-width: 640px) {
+  .testimonial-prev-arrow {
+    left: 2px !important;
+  }
+  .testimonial-next-arrow {
+    right: 2px !important;
+  }
+}
+

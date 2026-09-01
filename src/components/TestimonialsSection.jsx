@@ -83,12 +83,12 @@ export default function TestimonialsSection() {
   const [isPaused, setIsPaused] = useState(false);
   const touchStartX = useRef(0);
 
-  // EXACT 5-SECOND AUTOMATIC CAROUSEL TRANSITION AS REQUESTED
+  // 2-SECOND AUTOMATIC CAROUSEL TRANSITION AS REQUESTED
   useEffect(() => {
     if (isPaused) return;
     const interval = setInterval(() => {
       setActiveIndex((prev) => (prev + 1) % testimonials.length);
-    }, 5000); // 5000ms = 5 seconds
+    }, 2000); // 2000ms = 2 seconds
     return () => clearInterval(interval);
   }, [isPaused]);
 
@@ -168,7 +168,7 @@ export default function TestimonialsSection() {
           </p>
         </div>
 
-        {/* 2. Auto-Scrolling Testimonial Carousel (Changes Every 5 Seconds) */}
+        {/* 2. Auto-Scrolling Testimonial Carousel (Changes Every 2 Seconds) */}
         <div
           onMouseEnter={() => setIsPaused(true)}
           onMouseLeave={() => setIsPaused(false)}
@@ -235,7 +235,7 @@ export default function TestimonialsSection() {
                     transform: `translateX(${translateX}) scale(${scale})`,
                     zIndex: zIndex,
                     pointerEvents: opacity > 0 ? 'auto' : 'none',
-                    transition: 'all 0.6s cubic-bezier(0.16, 1, 0.3, 1)',
+                    transition: 'all 0.5s cubic-bezier(0.16, 1, 0.3, 1)',
                     borderRadius: '24px',
                     padding: '2.25rem',
                     border: isActive ? '2.5px solid #6b8e23' : '1.5px solid #e8dfc9',
@@ -323,13 +323,14 @@ export default function TestimonialsSection() {
           <button
             onClick={handlePrev}
             aria-label="Previous Testimonial"
+            className="testimonial-prev-arrow"
             style={{
               position: 'absolute',
               top: '50%',
               left: '-20px',
               transform: 'translateY(-50%)',
-              width: '48px',
-              height: '48px',
+              width: '44px',
+              height: '44px',
               borderRadius: '50%',
               backgroundColor: '#ffffff',
               border: '2px solid #6b8e23',
@@ -353,19 +354,20 @@ export default function TestimonialsSection() {
               e.currentTarget.style.transform = 'translateY(-50%) scale(1)';
             }}
           >
-            <ChevronLeft size={24} />
+            <ChevronLeft size={22} />
           </button>
 
           <button
             onClick={handleNext}
             aria-label="Next Testimonial"
+            className="testimonial-next-arrow"
             style={{
               position: 'absolute',
               top: '50%',
               right: '-20px',
               transform: 'translateY(-50%)',
-              width: '48px',
-              height: '48px',
+              width: '44px',
+              height: '44px',
               borderRadius: '50%',
               backgroundColor: '#ffffff',
               border: '2px solid #6b8e23',
@@ -389,76 +391,53 @@ export default function TestimonialsSection() {
               e.currentTarget.style.transform = 'translateY(-50%) scale(1)';
             }}
           >
-            <ChevronRight size={24} />
+            <ChevronRight size={22} />
           </button>
 
-          {/* Pagination Indicator Dots with 5-Second Animated Timer Bar */}
+          {/* Clean Pagination Indicator Dots */}
           <div style={{
             display: 'flex',
-            flexDirection: 'column',
+            justifyContent: 'center',
             alignItems: 'center',
             gap: '0.65rem',
             marginTop: '2.5rem'
           }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
+            {testimonials.map((_, i) => (
               <button
-                onClick={() => setIsPaused(!isPaused)}
-                title={isPaused ? "Play 5s Auto Carousel" : "Pause 5s Auto Carousel"}
+                key={i}
+                onClick={() => setActiveIndex(i)}
+                aria-label={`Go to testimonial slide ${i + 1}`}
                 style={{
-                  background: 'none',
+                  width: i === activeIndex ? '32px' : '10px',
+                  height: '10px',
+                  borderRadius: '5px',
+                  backgroundColor: i === activeIndex ? '#6b8e23' : '#e8dfc9',
                   border: 'none',
-                  color: '#6b8e23',
                   cursor: 'pointer',
-                  display: 'flex',
-                  alignItems: 'center',
-                  padding: '0.2rem',
-                  marginRight: '0.5rem'
+                  transition: 'all 0.35s cubic-bezier(0.16, 1, 0.3, 1)',
+                  position: 'relative',
+                  overflow: 'hidden'
                 }}
               >
-                {isPaused ? <Play size={16} /> : <Pause size={16} />}
+                {i === activeIndex && !isPaused && (
+                  <div
+                    key={activeIndex}
+                    style={{
+                      position: 'absolute',
+                      inset: 0,
+                      backgroundColor: '#54b435',
+                      animation: 'testimonial2sProgress 2s linear infinite'
+                    }}
+                  />
+                )}
               </button>
-
-              {testimonials.map((_, i) => (
-                <button
-                  key={i}
-                  onClick={() => setActiveIndex(i)}
-                  aria-label={`Go to testimonial slide ${i + 1}`}
-                  style={{
-                    width: i === activeIndex ? '32px' : '10px',
-                    height: '10px',
-                    borderRadius: '5px',
-                    backgroundColor: i === activeIndex ? '#6b8e23' : '#e8dfc9',
-                    border: 'none',
-                    cursor: 'pointer',
-                    transition: 'all 0.35s cubic-bezier(0.16, 1, 0.3, 1)',
-                    position: 'relative',
-                    overflow: 'hidden'
-                  }}
-                >
-                  {i === activeIndex && !isPaused && (
-                    <div
-                      key={activeIndex}
-                      style={{
-                        position: 'absolute',
-                        inset: 0,
-                        backgroundColor: '#9fc152',
-                        animation: 'testimonial5sProgress 5s linear infinite'
-                      }}
-                    />
-                  )}
-                </button>
-              ))}
-            </div>
-
-            <div style={{ fontSize: '0.75rem', fontWeight: 800, color: '#6b8e23', textTransform: 'uppercase', letterSpacing: '0.06em' }}>
-              ⏱️ Auto-Changes Every 5 Seconds
-            </div>
+            ))}
           </div>
         </div>
       </div>
 
       <style>{`
-        @keyframes testimonial5sProgress {
+        @keyframes testimonial2sProgress {
           0% { width: 0%; }
           100% { width: 100%; }
         }

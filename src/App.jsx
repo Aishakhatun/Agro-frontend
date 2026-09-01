@@ -16,11 +16,12 @@ import SidebarDrawer from './components/SidebarDrawer';
 import FloatingWheatBackground from './components/FloatingWheatBackground';
 import Footer from './components/Footer';
 import { api } from './services/api';
+import { fallbackProducts, fallbackCertificates } from './data/fallbackProducts';
 import { MessageSquare } from 'lucide-react';
 
 export default function App() {
-  const [products, setProducts] = useState([]);
-  const [certificates, setCertificates] = useState([]);
+  const [products, setProducts] = useState(fallbackProducts);
+  const [certificates, setCertificates] = useState(fallbackCertificates);
   const [stats, setStats] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -42,17 +43,25 @@ export default function App() {
           api.getStats()
         ]);
 
-        if (productsRes.status === 'fulfilled') {
-          setProducts(productsRes.value.data || []);
+        if (productsRes.status === 'fulfilled' && Array.isArray(productsRes.value?.data) && productsRes.value.data.length > 0) {
+          setProducts(productsRes.value.data);
+        } else {
+          setProducts(fallbackProducts);
         }
-        if (certsRes.status === 'fulfilled') {
-          setCertificates(certsRes.value.data || []);
+
+        if (certsRes.status === 'fulfilled' && Array.isArray(certsRes.value?.data) && certsRes.value.data.length > 0) {
+          setCertificates(certsRes.value.data);
+        } else {
+          setCertificates(fallbackCertificates);
         }
+
         if (statsRes.status === 'fulfilled') {
           setStats(statsRes.value.data || null);
         }
       } catch (err) {
         console.warn('Error loading initial data, using fallback models', err);
+        setProducts(fallbackProducts);
+        setCertificates(fallbackCertificates);
       } finally {
         setIsLoading(false);
       }
@@ -197,7 +206,7 @@ export default function App() {
 
       {/* Floating Instant WhatsApp Action */}
       <a
-        href="https://wa.me/919426047829?text=Hello%20Khushbu%20Agro%2C%20I%20would%20like%20to%20inquire%20about%20chakki%20atta%20and%20wheat%20supply."
+        href="https://wa.me/919974250749?text=Hello%20Khushbu%20Agro%2C%20I%20would%20like%20to%20inquire%20about%20chakki%20atta%20and%20wheat%20supply."
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Chat on WhatsApp"

@@ -25,7 +25,7 @@ const heroSlides = [
     desc: 'Milled from sun-drenched golden kernels with zero chemical bleaching, preserving 100% natural wheat germ nutrition and rich digestive bran.'
   },
   {
-    image: 'https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=1600&q=85',
+    image: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=1600&q=85',
     kicker: 'COMMERCIAL ROLLER MILLS & BULK EXPORT',
     title: 'Export-Grade Flour Packed To Exact Mesh Specifications.',
     desc: 'From 1kg consumer pouches to 50kg HDPE export bags and container FCL consignments. Certified by FSSAI, ISO 22000, and APEDA.'
@@ -190,7 +190,7 @@ export default function Hero({ onOpenQuote, onSelectPath }) {
         {/* Title */}
         <h1 style={{
           color: '#ffffff',
-          fontSize: 'clamp(2.4rem, 5.5vw, 4.5rem)',
+          fontSize: 'clamp(1.75rem, 5vw, 4.5rem)',
           fontWeight: 900,
           lineHeight: 1.12,
           maxWidth: '960px',

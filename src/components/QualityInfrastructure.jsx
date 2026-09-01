@@ -4,323 +4,514 @@ import {
   Cpu, 
   Microscope, 
   Sparkles, 
-  CheckCircle, 
+  CheckCircle2, 
   Activity,
   Layers,
   Thermometer,
-  ArrowRightLeft,
-  Wheat
+  Award,
+  BarChart3,
+  Flame,
+  Droplets,
+  Zap,
+  ArrowRight,
+  FileCheck2
 } from 'lucide-react';
 
-export default function QualityInfrastructure() {
-  const [sliderPos, setSliderPos] = useState(50);
+const labMetrics = [
+  {
+    id: 'gluten',
+    name: 'Wet Gluten Vitality',
+    value: '32.5%',
+    unit: 'Index Value',
+    target: 'Min 28.0%',
+    industryAvg: '24.0%',
+    status: 'Optimal Elasticity',
+    icon: Flame,
+    color: '#9fc152',
+    description: 'Measures dough stretchability and elasticity. High gluten vitality guarantees rotis expand evenly and stay soft for 12+ hours without tearing.',
+    method: 'AACC Method 38-12.01 / Glutomatic 2200 System',
+    keyBenefit: 'Rotis stay 100% soft and pliable all day long'
+  },
+  {
+    id: 'water',
+    name: 'Farinograph Water Absorption',
+    value: '71.4%',
+    unit: 'Hydration Rate',
+    target: '68% - 72%',
+    industryAvg: '60.0%',
+    status: 'High Water Yield',
+    icon: Droplets,
+    color: '#6b8e23',
+    description: 'Quantifies how much water flour absorbs during kneading. Higher absorption yields higher dough output and longer-lasting moisture retention in baked goods.',
+    method: 'Brabender Farinograph-TS Electronic Testing',
+    keyBenefit: '35% higher dough volume & soft crumb structure'
+  },
+  {
+    id: 'falling',
+    name: 'Hagberg Falling Number',
+    value: '385 Sec',
+    unit: 'Enzyme Activity',
+    target: '350 - 400 Sec',
+    industryAvg: '280 Sec',
+    status: 'Sound Starch Matrix',
+    icon: Activity,
+    color: '#f4be6b',
+    description: 'Evaluates alpha-amylase enzyme activity. Optimal 380s falling number prevents sticky dough and ensures uniform golden crust color when baked.',
+    method: 'Perten Falling Number Instrument (ICC 107/1)',
+    keyBenefit: 'Crisp golden crust with zero sticky dough problems'
+  },
+  {
+    id: 'ash',
+    name: 'Mineral Ash Content',
+    value: '0.48%',
+    unit: 'Total Ash',
+    target: 'Max 0.52%',
+    industryAvg: '0.75%',
+    status: 'Ultra-Pure Endosperm',
+    icon: Zap,
+    color: '#9fc152',
+    description: 'Measures flour purity. Lower mineral ash content indicates clean endosperm extraction without excess outer pericarp husk fragments.',
+    method: 'High-Temperature Muffle Furnace Incineration (550°C)',
+    keyBenefit: 'Pure bright flour color with zero chemical bleaching'
+  }
+];
 
-  const infraItems = [
-    {
-      title: 'Buhler Roller Mill & Purifiers',
-      icon: Cpu,
-      tag: 'Milling Technology',
-      desc: 'Precision chilled iron rollers and air purifiers for clean endosperm separation, exact mesh granulation, and zero thermal degradation.'
-    },
-    {
-      title: 'In-House Cereal Testing Laboratory',
-      icon: Microscope,
-      tag: 'Flour Quality Control',
-      desc: 'Advanced testing instruments evaluating Gluten %, Farinograph water absorption (68-72%), Falling Number (350+ sec), and ash content.'
-    },
-    {
-      title: 'Density De-Stoning & Magnetic Trap',
-      icon: Layers,
-      tag: 'Foreign Matter Zero-Tolerance',
-      desc: 'Multi-stage specific gravity tables and neodymium high-intensity magnetic traps ensure 100% elimination of stones, dust, and metal particles.'
-    },
-    {
-      title: 'Hygienic Air-Sealed Bagging Lines',
-      icon: Thermometer,
-      tag: 'Food Safety Hygiene',
-      desc: 'Positive air pressure packaging chambers with nitrogen flushing and metal detection ensure zero infestation and 9-month shelf life.'
-    }
-  ];
+const infraPillars = [
+  {
+    title: 'Buhler Roller Milling & Air Purifiers',
+    icon: Cpu,
+    tag: 'Swiss Milling Tech',
+    metric: '100–300 Mesh',
+    desc: 'Chilled cast iron breaker rolls crack kernels cleanly, while high-velocity air purifiers separate dense endosperm from bran with zero thermal heat degradation.'
+  },
+  {
+    title: 'In-House Cereal Testing Laboratory',
+    icon: Microscope,
+    tag: 'Quality Control Lab',
+    metric: 'Batch-Wise COA',
+    desc: 'Equipped with Brabender Farinographs, Glutomatic systems, and rapid moisture analyzers to issue certified Certificate of Analysis for every batch.'
+  },
+  {
+    title: 'Specific Gravity De-Stoning & Magnets',
+    icon: Layers,
+    tag: 'Zero-Impurity System',
+    metric: '10,000 Gauss',
+    desc: 'Multi-deck vibratory de-stoning tables and high-intensity neodymium rare-earth magnetic traps ensure 100% elimination of stones and metal particles.'
+  },
+  {
+    title: 'Cleanroom Positive-Air Bagging Lines',
+    icon: Thermometer,
+    tag: 'Hygienic Packaging',
+    metric: 'ISO 22000 & FSSAI',
+    desc: 'Automated positive-pressure packaging chambers with nitrogen flushing and metal detection ensure zero infestation and 9-month freshness.'
+  }
+];
+
+export default function QualityInfrastructure() {
+  const [activeMetricId, setActiveMetricId] = useState('gluten');
+
+  const activeMetric = labMetrics.find(m => m.id === activeMetricId) || labMetrics[0];
+  const ActiveIcon = activeMetric.icon;
 
   return (
-    <section id="quality" className="section section-muted" style={{ backgroundColor: '#f5f1e6' }}>
-      <div className="container">
+    <section id="quality" style={{ backgroundColor: '#181410', color: '#ffffff', padding: '6rem 0', position: 'relative' }}>
+      
+      <div className="container-custom" style={{ position: 'relative', zIndex: 2 }}>
+        
         {/* Section Header */}
-        <div className="section-header">
-          <span className="eyebrow">
-            <ShieldCheck size={14} /> Laboratory &amp; Milling Infrastructure
-          </span>
-          <h2 className="section-title">
-            Engineering Pure Whole Wheat Nutrition Across Every Bag
+        <div style={{ textAlign: 'center', maxWidth: '850px', margin: '0 auto 3.5rem auto' }}>
+          <div style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '0.55rem',
+            backgroundColor: 'rgba(107, 142, 35, 0.18)',
+            border: '1.5px solid rgba(107, 142, 35, 0.4)',
+            color: '#9fc152',
+            padding: '0.4rem 1.2rem',
+            borderRadius: '9999px',
+            fontSize: '0.8rem',
+            fontWeight: 800,
+            letterSpacing: '0.08em',
+            textTransform: 'uppercase',
+            marginBottom: '1.2rem'
+          }}>
+            <ShieldCheck size={15} color="#6b8e23" />
+            <span>Cereal Laboratory &amp; Milling Infrastructure</span>
+          </div>
+
+          <h2 style={{
+            fontFamily: 'var(--font-heading)',
+            fontSize: 'clamp(2rem, 4vw, 3.2rem)',
+            fontWeight: 900,
+            lineHeight: 1.15,
+            color: '#ffffff',
+            marginBottom: '1rem'
+          }}>
+            Engineering Pure Whole Wheat Nutrition.<br />
+            <span style={{
+              background: 'linear-gradient(90deg, #9fc152 0%, #f4be6b 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent'
+            }}>
+              Scientifically Tested Quality Across Every Batch.
+            </span>
           </h2>
-          <p className="section-subtitle">
-            Advanced roller milling infrastructure coupled with traditional cold stone chakki grinding to deliver high water absorption and ultra-soft rotis.
+
+          <p style={{
+            color: '#efe8d8',
+            fontSize: '1.05rem',
+            lineHeight: 1.6,
+            fontWeight: 400
+          }}>
+            Our state-of-the-art cereal testing laboratory evaluates wet gluten, water absorption, and falling number to guarantee 100% consistent flour performance.
           </p>
         </div>
 
-        {/* Interactive Flour Fineness Comparison Widget */}
-        <div style={{ marginBottom: '4rem' }}>
-          <div className="purity-comparison-box">
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem', marginBottom: '1.5rem' }}>
-              <div>
-                <span style={{ backgroundColor: 'rgba(132, 169, 60, 0.25)', color: '#b5d867', padding: '0.3rem 0.85rem', borderRadius: '9999px', fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.08em' }}>
-                  Interactive Flour Demo
-                </span>
-                <h3 style={{ fontSize: '1.55rem', color: '#ffffff', fontWeight: 800, margin: '0.4rem 0 0 0' }}>
-                  Raw Uncleaned Grain vs. Cold Chakki Fresh Whole Wheat Atta
-                </h3>
-              </div>
-
-              <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', fontSize: '0.85rem' }}>
-                <span style={{ color: '#f87171', fontWeight: 700 }}>● Raw Uncleaned Grain</span>
-                <span style={{ color: '#b5d867', fontWeight: 700 }}>● KAI Khushbu Chakki Atta</span>
-              </div>
-            </div>
-
-            {/* Slider Container */}
-            <div style={{
-              position: 'relative',
-              height: '290px',
-              borderRadius: '18px',
-              overflow: 'hidden',
-              boxShadow: '0 10px 30px rgba(0,0,0,0.5)',
-              userSelect: 'none'
-            }}>
-              {/* After Image (Fine Soft Chakki Atta) */}
+        {/* Brand New Modern Interactive Cereal Quality Lab Dashboard */}
+        <div style={{
+          backgroundColor: '#231d17',
+          border: '2px solid #6b8e23',
+          borderRadius: '28px',
+          padding: '2.5rem',
+          marginBottom: '4rem',
+          boxShadow: '0 20px 50px rgba(0,0,0,0.5)',
+          position: 'relative',
+          overflow: 'hidden'
+        }}>
+          {/* Dashboard Header Bar */}
+          <div style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            flexWrap: 'wrap',
+            gap: '1rem',
+            paddingBottom: '1.5rem',
+            marginBottom: '2rem',
+            borderBottom: '1px solid rgba(255, 255, 255, 0.1)'
+          }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
               <div style={{
-                position: 'absolute',
-                inset: 0,
-                backgroundImage: `url('https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?auto=format&fit=crop&w=1200&q=80')`,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center'
-              }}>
-                <div style={{
-                  position: 'absolute',
-                  top: '1rem',
-                  right: '1rem',
-                  backgroundColor: 'rgba(132, 169, 60, 0.95)',
-                  color: '#ffffff',
-                  padding: '0.4rem 0.95rem',
-                  borderRadius: '8px',
-                  fontSize: '0.82rem',
-                  fontWeight: 800,
-                  backdropFilter: 'blur(8px)',
-                  boxShadow: '0 4px 14px rgba(0,0,0,0.3)'
-                }}>
-                  ✨ KAI Khushbu Chakki Fresh Atta (100% Pure Whole Wheat)
-                </div>
-              </div>
-
-              {/* Before Image (Raw Uncleaned Harvest) Clip Path */}
-              <div style={{
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                bottom: 0,
-                width: `${sliderPos}%`,
-                backgroundImage: `url('https://images.unsplash.com/photo-1500937386664-56d1dfef3854?auto=format&fit=crop&w=1200&q=80')`,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-                filter: 'sepia(0.3) contrast(1.1)',
-                borderRight: '3.5px solid #84a93c'
-              }}>
-                <div style={{
-                  position: 'absolute',
-                  top: '1rem',
-                  left: '1rem',
-                  backgroundColor: 'rgba(28, 25, 23, 0.9)',
-                  color: '#f2c179',
-                  padding: '0.4rem 0.95rem',
-                  borderRadius: '8px',
-                  fontSize: '0.82rem',
-                  fontWeight: 800,
-                  backdropFilter: 'blur(8px)',
-                  boxShadow: '0 4px 14px rgba(0,0,0,0.3)'
-                }}>
-                  🌾 Field Raw Harvest Kernels
-                </div>
-              </div>
-
-              {/* Slider Input Handle Overlay */}
-              <input
-                type="range"
-                min="0"
-                max="100"
-                value={sliderPos}
-                onChange={(e) => setSliderPos(e.target.value)}
-                style={{
-                  position: 'absolute',
-                  top: 0,
-                  left: 0,
-                  width: '100%',
-                  height: '100%',
-                  opacity: 0,
-                  cursor: 'ew-resize',
-                  zIndex: 10
-                }}
-              />
-
-              {/* Visual Divider Line Handle */}
-              <div style={{
-                position: 'absolute',
-                top: 0,
-                bottom: 0,
-                left: `${sliderPos}%`,
-                width: '4px',
-                backgroundColor: '#ffffff',
-                transform: 'translateX(-50%)',
-                boxShadow: '0 0 14px rgba(0,0,0,0.8)',
-                pointerEvents: 'none',
+                width: '42px',
+                height: '42px',
+                borderRadius: '12px',
+                backgroundColor: '#6b8e23',
+                color: '#ffffff',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center'
               }}>
-                <div style={{
-                  width: '40px',
-                  height: '40px',
-                  borderRadius: '50%',
-                  backgroundColor: '#84a93c',
-                  color: '#ffffff',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  boxShadow: '0 4px 15px rgba(0,0,0,0.4)',
-                  border: '2.5px solid #ffffff'
-                }}>
-                  <ArrowRightLeft size={18} />
+                <BarChart3 size={22} />
+              </div>
+              <div>
+                <div style={{ fontSize: '0.75rem', color: '#9fc152', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                  Real-Time Quality Standards
                 </div>
+                <h3 style={{ fontSize: '1.3rem', color: '#ffffff', fontWeight: 900, margin: 0, fontFamily: 'var(--font-heading)' }}>
+                  Interactive Cereal Testing Laboratory Dashboard
+                </h3>
               </div>
             </div>
 
-            <div style={{ marginTop: '1rem', textAlign: 'center', fontSize: '0.85rem', color: '#ded8c4' }}>
-              Drag the slider to compare raw field grain vs. KAI Khushbu cold stone-milled Chakki Fresh Atta.
+            <div style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '0.5rem',
+              backgroundColor: 'rgba(107, 142, 35, 0.2)',
+              border: '1px solid rgba(107, 142, 35, 0.4)',
+              padding: '0.4rem 0.95rem',
+              borderRadius: '9999px',
+              fontSize: '0.78rem',
+              color: '#9fc152',
+              fontWeight: 700
+            }}>
+              <FileCheck2 size={14} /> Batch Certificate of Analysis (COA) Verified
             </div>
           </div>
-        </div>
 
-        {/* 2-Column Infrastructure Grid */}
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-          gap: '2rem',
-          alignItems: 'center'
-        }}>
-          {/* Left Column */}
+          {/* Metric Selector Buttons (4 Tabs) */}
           <div style={{
             display: 'grid',
-            gridTemplateColumns: '1fr',
-            gap: '1.25rem'
+            gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
+            gap: '1rem',
+            marginBottom: '2.25rem'
           }}>
-            {infraItems.map((item, idx) => {
-              const Icon = item.icon;
+            {labMetrics.map((m) => {
+              const isActive = m.id === activeMetricId;
+              const Icon = m.icon;
               return (
-                <div
-                  key={idx}
-                  className="glass-card"
+                <button
+                  key={m.id}
+                  onClick={() => setActiveMetricId(m.id)}
                   style={{
-                    padding: '1.5rem',
-                    display: 'flex',
-                    gap: '1.25rem',
-                    alignItems: 'flex-start',
-                    borderRadius: '16px'
+                    backgroundColor: isActive ? 'rgba(107, 142, 35, 0.25)' : 'rgba(15, 12, 10, 0.6)',
+                    border: isActive ? '2px solid #9fc152' : '1px solid rgba(255, 255, 255, 0.1)',
+                    borderRadius: '18px',
+                    padding: '1.15rem 1.25rem',
+                    cursor: 'pointer',
+                    textAlign: 'left',
+                    transition: 'all 0.3s ease',
+                    boxShadow: isActive ? '0 8px 25px rgba(107, 142, 35, 0.3)' : 'none',
+                    transform: isActive ? 'translateY(-3px)' : 'none',
+                    outline: 'none'
                   }}
                 >
-                  <div style={{
-                    width: '48px',
-                    height: '48px',
-                    borderRadius: '12px',
-                    backgroundColor: '#f4fce8',
-                    border: '1.5px solid #b5d867',
-                    color: '#84a93c',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    flexShrink: 0
-                  }}>
-                    <Icon size={24} />
-                  </div>
-                  <div>
-                    <span style={{ fontSize: '0.72rem', fontWeight: 800, color: '#84a93c', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-                      {item.tag}
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.6rem' }}>
+                    <div style={{
+                      width: '36px',
+                      height: '36px',
+                      borderRadius: '10px',
+                      backgroundColor: isActive ? '#6b8e23' : 'rgba(255, 255, 255, 0.08)',
+                      color: isActive ? '#ffffff' : '#9fc152',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center'
+                    }}>
+                      <Icon size={18} />
+                    </div>
+                    <span style={{
+                      fontSize: '0.72rem',
+                      fontWeight: 800,
+                      color: isActive ? '#9fc152' : '#888888',
+                      backgroundColor: 'rgba(0,0,0,0.3)',
+                      padding: '0.15rem 0.5rem',
+                      borderRadius: '6px'
+                    }}>
+                      {m.unit}
                     </span>
-                    <h3 style={{ fontSize: '1.15rem', color: '#1c1917', fontWeight: 800, margin: '0.15rem 0 0.4rem 0' }}>
-                      {item.title}
-                    </h3>
-                    <p style={{ fontSize: '0.85rem', color: '#475569', lineHeight: 1.5, margin: 0 }}>
-                      {item.desc}
-                    </p>
                   </div>
-                </div>
+
+                  <div style={{ fontSize: '0.78rem', color: '#aaaaaa', fontWeight: 600, marginBottom: '0.2rem' }}>
+                    {m.name}
+                  </div>
+                  <div style={{ fontSize: '1.4rem', color: '#ffffff', fontWeight: 900, fontFamily: 'var(--font-heading)' }}>
+                    {m.value}
+                  </div>
+                </button>
               );
             })}
           </div>
 
-          {/* Right Column Showcase */}
-          <div className="glass-card-dark" style={{
-            padding: '2.5rem',
-            color: '#ffffff',
-            position: 'relative',
-            borderRadius: '24px'
+          {/* Detailed Metric Showcase Panel */}
+          <div style={{
+            backgroundColor: '#181410',
+            border: '1.5px solid rgba(107, 142, 35, 0.3)',
+            borderRadius: '22px',
+            padding: '2rem',
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+            gap: '2rem',
+            alignItems: 'center'
           }}>
-            <span style={{
-              backgroundColor: 'rgba(132, 169, 60, 0.25)',
-              color: '#b5d867',
-              padding: '0.35rem 0.85rem',
-              borderRadius: '9999px',
-              fontSize: '0.75rem',
-              fontWeight: 800,
-              textTransform: 'uppercase',
-              letterSpacing: '0.08em',
-              display: 'inline-block',
-              marginBottom: '1rem'
-            }}>
-              Milling Facility Standards
-            </span>
-
-            <h3 style={{ fontSize: '1.75rem', color: '#ffffff', fontWeight: 900, marginBottom: '1rem' }}>
-              Uncompromising Atta &amp; Flour Purity
-            </h3>
-
-            <p style={{ color: '#ded8c4', fontSize: '0.92rem', lineHeight: 1.6, marginBottom: '1.5rem' }}>
-              Our milling plant is engineered with isolated dust-free grinding corridors, automatic dampening mixers, and food-grade stainless steel pneumatics.
-            </p>
-
-            <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 2rem 0', display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
-              <li style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', fontSize: '0.9rem', color: '#b5d867' }}>
-                <CheckCircle size={18} color="#84a93c" /> 100% Pure Whole Wheat (Zero Maida Adulteration)
-              </li>
-              <li style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', fontSize: '0.9rem', color: '#b5d867' }}>
-                <CheckCircle size={18} color="#84a93c" /> Cold air-cooled stone chakki grinding
-              </li>
-              <li style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', fontSize: '0.9rem', color: '#b5d867' }}>
-                <CheckCircle size={18} color="#84a93c" /> High Farinograph water absorption (68-72%)
-              </li>
-              <li style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', fontSize: '0.9rem', color: '#b5d867' }}>
-                <CheckCircle size={18} color="#84a93c" /> Sealed nitrogen-flushed consumer bags
-              </li>
-            </ul>
-
-            <div style={{
-              backgroundColor: 'rgba(255, 255, 255, 0.08)',
-              borderRadius: '14px',
-              padding: '1.25rem',
-              border: '1px solid rgba(255, 255, 255, 0.15)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              flexWrap: 'wrap',
-              gap: '1rem'
-            }}>
-              <div>
-                <div style={{ fontSize: '0.75rem', color: '#94a3b8' }}>Plant Daily Capacity</div>
-                <div style={{ fontSize: '1.4rem', fontWeight: 900, color: '#f2c179' }}>300+ Metric Tons</div>
+            {/* Left Info Column */}
+            <div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.75rem' }}>
+                <div style={{
+                  width: '46px',
+                  height: '46px',
+                  borderRadius: '14px',
+                  backgroundColor: '#6b8e23',
+                  color: '#ffffff',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}>
+                  <ActiveIcon size={24} />
+                </div>
+                <div>
+                  <span style={{ fontSize: '0.75rem', color: '#f4be6b', fontWeight: 800, textTransform: 'uppercase' }}>
+                    {activeMetric.status}
+                  </span>
+                  <h4 style={{ fontSize: '1.45rem', color: '#ffffff', fontWeight: 900, margin: 0, fontFamily: 'var(--font-heading)' }}>
+                    {activeMetric.name} ({activeMetric.value})
+                  </h4>
+                </div>
               </div>
-              <a href="#contact" className="btn btn-primary btn-sm">
-                Schedule Mill Tour
-              </a>
+
+              <p style={{ color: '#efe8d8', fontSize: '0.95rem', lineHeight: 1.6, marginBottom: '1.25rem' }}>
+                {activeMetric.description}
+              </p>
+
+              <div style={{
+                backgroundColor: 'rgba(217, 155, 56, 0.15)',
+                border: '1px solid rgba(217, 155, 56, 0.35)',
+                borderRadius: '12px',
+                padding: '0.75rem 1rem',
+                fontSize: '0.85rem',
+                color: '#f4be6b',
+                fontWeight: 700,
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '0.5rem'
+              }}>
+                <CheckCircle2 size={16} color="#f4be6b" />
+                <span>Commercial Benefit: {activeMetric.keyBenefit}</span>
+              </div>
             </div>
+
+            {/* Right Comparison Chart & Method Column */}
+            <div style={{
+              backgroundColor: 'rgba(43, 35, 25, 0.5)',
+              border: '1px solid rgba(255, 255, 255, 0.08)',
+              borderRadius: '18px',
+              padding: '1.5rem',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '1.25rem'
+            }}>
+              <div style={{ fontSize: '0.8rem', color: '#9fc152', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                Benchmark Comparison &amp; Protocol
+              </div>
+
+              {/* Comparative Progress Bars */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.85rem' }}>
+                {/* KAI Khushbu Standard */}
+                <div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.82rem', marginBottom: '0.35rem' }}>
+                    <span style={{ color: '#ffffff', fontWeight: 800 }}>KAI Khushbu Mill Standard</span>
+                    <span style={{ color: '#9fc152', fontWeight: 900 }}>{activeMetric.value}</span>
+                  </div>
+                  <div style={{ height: '10px', backgroundColor: 'rgba(255,255,255,0.1)', borderRadius: '5px', overflow: 'hidden' }}>
+                    <div style={{ height: '100%', width: '92%', background: 'linear-gradient(90deg, #6b8e23 0%, #9fc152 100%)', borderRadius: '5px' }} />
+                  </div>
+                </div>
+
+                {/* Industry Average */}
+                <div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.82rem', marginBottom: '0.35rem' }}>
+                    <span style={{ color: '#aaaaaa', fontWeight: 600 }}>Standard Market Flour Average</span>
+                    <span style={{ color: '#aaaaaa', fontWeight: 700 }}>{activeMetric.industryAvg}</span>
+                  </div>
+                  <div style={{ height: '10px', backgroundColor: 'rgba(255,255,255,0.1)', borderRadius: '5px', overflow: 'hidden' }}>
+                    <div style={{ height: '100%', width: '65%', backgroundColor: 'rgba(255,255,255,0.3)', borderRadius: '5px' }} />
+                  </div>
+                </div>
+              </div>
+
+              <div style={{
+                paddingTop: '0.85rem',
+                borderTop: '1px solid rgba(255, 255, 255, 0.08)',
+                fontSize: '0.78rem',
+                color: '#aaaaaa'
+              }}>
+                <span style={{ color: '#ffffff', fontWeight: 700 }}>Testing Protocol:</span> {activeMetric.method}
+              </div>
+            </div>
+
           </div>
         </div>
+
+        {/* 4 Infrastructure Pillars Grid */}
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(270px, 1fr))',
+          gap: '1.5rem',
+          marginBottom: '3.5rem'
+        }}>
+          {infraPillars.map((item, idx) => {
+            const Icon = item.icon;
+            return (
+              <div
+                key={idx}
+                style={{
+                  backgroundColor: '#231d17',
+                  border: '1.5px solid rgba(107, 142, 35, 0.3)',
+                  borderRadius: '20px',
+                  padding: '1.6rem',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '1rem',
+                  transition: 'all 0.3s ease'
+                }}
+              >
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <div style={{
+                    width: '46px',
+                    height: '46px',
+                    borderRadius: '12px',
+                    backgroundColor: 'rgba(107, 142, 35, 0.2)',
+                    border: '1.5px solid rgba(107, 142, 35, 0.4)',
+                    color: '#9fc152',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                  }}>
+                    <Icon size={22} />
+                  </div>
+                  <span style={{
+                    backgroundColor: 'rgba(217, 155, 56, 0.2)',
+                    color: '#f4be6b',
+                    padding: '0.25rem 0.65rem',
+                    borderRadius: '6px',
+                    fontSize: '0.72rem',
+                    fontWeight: 800
+                  }}>
+                    {item.metric}
+                  </span>
+                </div>
+
+                <div>
+                  <div style={{ fontSize: '0.72rem', color: '#9fc152', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.04em', marginBottom: '0.2rem' }}>
+                    {item.tag}
+                  </div>
+                  <h4 style={{ fontSize: '1.1rem', color: '#ffffff', fontWeight: 900, margin: '0 0 0.5rem 0', fontFamily: 'var(--font-heading)' }}>
+                    {item.title}
+                  </h4>
+                  <p style={{ fontSize: '0.84rem', color: '#efe8d8', lineHeight: 1.55, margin: 0 }}>
+                    {item.desc}
+                  </p>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Bottom Mill Tour & COA Action Banner */}
+        <div style={{
+          background: 'linear-gradient(135deg, rgba(43, 35, 25, 0.95) 0%, rgba(20, 17, 14, 0.98) 100%)',
+          border: '1.5px solid #d99b38',
+          borderRadius: '24px',
+          padding: '2rem 2.5rem',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          flexWrap: 'wrap',
+          gap: '1.5rem',
+          boxShadow: '0 15px 40px rgba(0,0,0,0.4)'
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem' }}>
+            <div style={{
+              width: '54px',
+              height: '54px',
+              borderRadius: '16px',
+              backgroundColor: '#d99b38',
+              color: '#ffffff',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              flexShrink: 0,
+              boxShadow: '0 8px 20px rgba(217, 155, 56, 0.4)'
+            }}>
+              <Award size={30} />
+            </div>
+            <div>
+              <h4 style={{ color: '#ffffff', fontSize: '1.25rem', margin: 0, fontWeight: 900, fontFamily: 'var(--font-heading)' }}>
+                Certified Batch Quality &amp; Zero Additives
+              </h4>
+              <p style={{ color: '#efe8d8', fontSize: '0.88rem', margin: '0.3rem 0 0 0' }}>
+                Request a formal Certificate of Analysis (COA) for your bulk wheat flour order or schedule a physical plant audit.
+              </p>
+            </div>
+          </div>
+
+          <a 
+            href="#contact" 
+            className="btn btn-primary btn-md" 
+            style={{ flexShrink: 0, whiteSpace: 'nowrap' }}
+          >
+            Request Batch COA / Schedule Audit <ArrowRight size={16} />
+          </a>
+        </div>
+
       </div>
     </section>
   );
