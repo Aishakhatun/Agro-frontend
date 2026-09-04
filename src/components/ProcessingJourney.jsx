@@ -580,18 +580,21 @@ export default function ProcessingJourney() {
                 <Cpu size={15} /> Stage Technical Specifications
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(120px, 1fr))', gap: '0.85rem' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(105px, 1fr))', gap: '0.75rem' }}>
                 {current.specs.map((spec, idx) => (
                   <div key={idx} style={{
-                    backgroundColor: 'rgba(43, 35, 25, 0.7)',
-                    border: '1px solid rgba(107, 142, 35, 0.25)',
+                    backgroundColor: 'rgba(43, 35, 25, 0.75)',
+                    border: '1px solid rgba(107, 142, 35, 0.3)',
                     borderRadius: '12px',
-                    padding: '0.75rem 0.9rem'
+                    padding: '0.7rem 0.85rem',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'center'
                   }}>
-                    <div style={{ fontSize: '0.7rem', color: '#aaaaaa', fontWeight: 600, marginBottom: '0.2rem' }}>
+                    <div style={{ fontSize: '0.68rem', color: '#aaaaaa', fontWeight: 600, marginBottom: '0.2rem' }}>
                       {spec.label}
                     </div>
-                    <div style={{ fontSize: '0.98rem', color: '#ffffff', fontWeight: 800, fontFamily: 'var(--font-heading)' }}>
+                    <div style={{ fontSize: '0.92rem', color: '#ffffff', fontWeight: 800, fontFamily: 'var(--font-heading)' }}>
                       {spec.val}
                     </div>
                   </div>
@@ -602,25 +605,60 @@ export default function ProcessingJourney() {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'space-between',
-                paddingTop: '0.75rem',
-                borderTop: '1px solid rgba(255, 255, 255, 0.08)'
+                gap: '0.75rem',
+                paddingTop: '0.85rem',
+                borderTop: '1px solid rgba(255, 255, 255, 0.1)',
+                marginTop: '0.25rem'
               }}>
                 <button
                   onClick={() => setActiveStep((prev) => (prev - 1 + processSteps.length) % processSteps.length)}
                   className="btn btn-outline-white btn-sm"
-                  style={{ padding: '0.45rem 0.85rem', fontSize: '0.8rem', display: 'inline-flex', alignItems: 'center', gap: '0.3rem' }}
+                  style={{
+                    flex: '1 1 0px',
+                    padding: '0.55rem 0.65rem',
+                    fontSize: '0.82rem',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: '0.35rem',
+                    whiteSpace: 'nowrap'
+                  }}
                 >
                   <ChevronLeft size={16} /> Previous
                 </button>
 
-                <span style={{ fontSize: '0.78rem', color: '#888', fontWeight: 700 }}>
-                  {activeStep + 1} / {processSteps.length}
-                </span>
+                <div style={{
+                  padding: '0.35rem 0.75rem',
+                  backgroundColor: 'rgba(255, 255, 255, 0.08)',
+                  borderRadius: '9999px',
+                  fontSize: '0.76rem',
+                  color: '#efe8d8',
+                  fontWeight: 800,
+                  whiteSpace: 'nowrap',
+                  flexShrink: 0,
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '0.35rem',
+                  border: '1px solid rgba(255, 255, 255, 0.12)'
+                }}>
+                  <span style={{ color: '#88dc6a' }}>0{activeStep + 1}</span>
+                  <span style={{ color: '#888888' }}>/</span>
+                  <span>0{processSteps.length}</span>
+                </div>
 
                 <button
                   onClick={() => setActiveStep((prev) => (prev + 1) % processSteps.length)}
                   className="btn btn-primary btn-sm"
-                  style={{ padding: '0.45rem 0.95rem', fontSize: '0.8rem', display: 'inline-flex', alignItems: 'center', gap: '0.3rem' }}
+                  style={{
+                    flex: '1 1 0px',
+                    padding: '0.55rem 0.65rem',
+                    fontSize: '0.82rem',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: '0.35rem',
+                    whiteSpace: 'nowrap'
+                  }}
                 >
                   Next <ChevronRight size={16} />
                 </button>
