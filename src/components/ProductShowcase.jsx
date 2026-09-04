@@ -518,7 +518,7 @@ export default function ProductShowcase({ products, onSelectProduct, onQuickInqu
                       className="btn btn-primary btn-sm"
                       style={{ flex: 1, padding: '0.6rem 0.5rem', fontSize: '0.82rem' }}
                     >
-                      Inquire Quote <ArrowUpRight size={15} />
+                      Contact Us <ArrowUpRight size={15} />
                     </button>
                   </div>
 

@@ -267,9 +267,9 @@ export default function ProductDetailModal({ product, onClose, onInquire }) {
                 onInquire(product);
               }}
               className="btn btn-primary btn-sm"
-              style={{ minWidth: '180px' }}
+              style={{ minWidth: '130px', display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '0.45rem' }}
             >
-              <Send size={15} /> Inquire For {product.name}
+              <Send size={15} /> Contact Us
             </button>
           </div>
         </div>
