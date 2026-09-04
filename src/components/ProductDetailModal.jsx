@@ -46,44 +46,65 @@ export default function ProductDetailModal({ product, onClose, onInquire }) {
       >
         {/* Modal Header Bar */}
         <div style={{
-          padding: '1.25rem 1.75rem',
-          borderBottom: '1px solid #e2e8f0',
+          padding: 'clamp(0.85rem, 3vw, 1.25rem) clamp(1rem, 4vw, 1.5rem)',
+          borderBottom: '1.5px solid #e8dfc9',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          backgroundColor: '#f8fafc',
+          backgroundColor: '#faf7f2',
           borderTopLeftRadius: '20px',
-          borderTopRightRadius: '20px'
+          borderTopRightRadius: '20px',
+          gap: '0.75rem'
         }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', flexWrap: 'wrap', minWidth: 0 }}>
             <span style={{
-              backgroundColor: '#144e3b',
-              color: '#ffffff',
+              backgroundColor: '#edfbe2',
+              color: '#2d7a2d',
+              border: '1px solid #9fc152',
               fontSize: '0.75rem',
-              fontWeight: 700,
-              padding: '0.25rem 0.65rem',
-              borderRadius: '6px'
+              fontWeight: 800,
+              padding: '0.25rem 0.75rem',
+              borderRadius: '9999px',
+              textTransform: 'uppercase',
+              letterSpacing: '0.04em',
+              whiteSpace: 'nowrap'
             }}>
-              {product.categoryLabel}
+              {product.categoryLabel || 'Atta & Flour'}
             </span>
-            <span style={{ fontSize: '0.85rem', color: '#64748b', fontWeight: 600 }}>
-              Export &amp; Domestic Specification Sheet
+            <span style={{ fontSize: '0.8rem', color: '#64748b', fontWeight: 600, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+              Product Specifications Sheet
             </span>
           </div>
+
           <button
             onClick={onClose}
+            aria-label="Close Product Details"
             style={{
-              background: '#f1f5f9',
-              border: 'none',
+              background: '#ffffff',
+              border: '1.5px solid #e8dfc9',
               borderRadius: '50%',
-              width: '34px',
-              height: '34px',
+              width: '38px',
+              height: '38px',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               cursor: 'pointer',
-              color: '#475569',
-              transition: 'background 0.2s'
+              color: '#2b2319',
+              transition: 'all 0.2s ease',
+              boxShadow: '0 2px 8px rgba(0, 0, 0, 0.05)',
+              flexShrink: 0
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.backgroundColor = '#fee2e2';
+              e.currentTarget.style.borderColor = '#ef4444';
+              e.currentTarget.style.color = '#dc2626';
+              e.currentTarget.style.transform = 'scale(1.08)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.backgroundColor = '#ffffff';
+              e.currentTarget.style.borderColor = '#e8dfc9';
+              e.currentTarget.style.color = '#2b2319';
+              e.currentTarget.style.transform = 'scale(1)';
             }}
           >
             <X size={18} />
