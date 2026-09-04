@@ -29,7 +29,7 @@ export default function ProductShowcase({ products, onSelectProduct, onQuickInqu
   const [activeCategory, setActiveCategory] = useState('all');
   const [searchTerm, setSearchTerm] = useState('');
   const [isMobile, setIsMobile] = useState(() => typeof window !== 'undefined' ? window.innerWidth <= 768 : false);
-  const [showAllMobile, setShowAllMobile] = useState(false);
+  const [showAll, setShowAll] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {
@@ -70,9 +70,10 @@ export default function ProductShowcase({ products, onSelectProduct, onQuickInqu
     return matchesCat && matchesSearch;
   });
 
-  // In mobile mode, display 5 products unless the user clicks "See More"
-  const displayedProducts = isMobile && !showAllMobile 
-    ? filteredProducts.slice(0, 5) 
+  // Default limit: 5 on mobile, 8 on laptop/desktop
+  const defaultLimit = isMobile ? 5 : 8;
+  const displayedProducts = !showAll 
+    ? filteredProducts.slice(0, defaultLimit) 
     : filteredProducts;
 
   // Calculate count for each category badge
@@ -545,22 +546,22 @@ export default function ProductShowcase({ products, onSelectProduct, onQuickInqu
               ))}
             </div>
 
-            {/* Mobile "See More" / "Show Less" Button */}
-            {isMobile && filteredProducts.length > 5 && (
+            {/* "See More" / "Show Less" Action Button (5 products on mobile, 8 on laptop/desktop) */}
+            {filteredProducts.length > defaultLimit && (
               <div style={{
                 display: 'flex',
                 justifyContent: 'center',
-                marginTop: '2.5rem'
+                marginTop: '2.75rem'
               }}>
-                {!showAllMobile ? (
+                {!showAll ? (
                   <button
-                    onClick={() => setShowAllMobile(true)}
+                    onClick={() => setShowAll(true)}
                     className="btn btn-primary btn-lg"
                     style={{
                       display: 'inline-flex',
                       alignItems: 'center',
                       gap: '0.75rem',
-                      padding: '0.85rem 2rem',
+                      padding: '0.9rem 2.25rem',
                       borderRadius: '9999px',
                       fontSize: '0.98rem',
                       fontWeight: 800,
@@ -569,13 +570,13 @@ export default function ProductShowcase({ products, onSelectProduct, onQuickInqu
                     }}
                   >
                     <Sparkles size={18} />
-                    <span>See More Products ({filteredProducts.length - 5} More)</span>
+                    <span>See More Products ({filteredProducts.length - defaultLimit} More)</span>
                     <ChevronDown size={18} />
                   </button>
                 ) : (
                   <button
                     onClick={() => {
-                      setShowAllMobile(false);
+                      setShowAll(false);
                       const el = document.getElementById('products');
                       if (el) el.scrollIntoView({ behavior: 'smooth' });
                     }}
@@ -591,7 +592,7 @@ export default function ProductShowcase({ products, onSelectProduct, onQuickInqu
                       cursor: 'pointer'
                     }}
                   >
-                    <span>Show Less (Displaying 5 Only)</span>
+                    <span>Show Less (Displaying {defaultLimit} Only)</span>
                     <ChevronUp size={16} />
                   </button>
                 )}
