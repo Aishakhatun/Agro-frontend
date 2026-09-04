@@ -43,8 +43,12 @@ export default function App() {
           api.getStats()
         ]);
 
-        if (productsRes.status === 'fulfilled' && Array.isArray(productsRes.value?.data) && productsRes.value.data.length > 0) {
-          setProducts(productsRes.value.data);
+        if (productsRes.status === 'fulfilled' && Array.isArray(productsRes.value?.data) && productsRes.value.data.length >= fallbackProducts.length) {
+          const merged = productsRes.value.data.map(p => {
+            const local = fallbackProducts.find(f => f.slug === p.slug || f.name === p.name);
+            return local ? { ...p, imageUrl: local.imageUrl || p.imageUrl } : p;
+          });
+          setProducts(merged);
         } else {
           setProducts(fallbackProducts);
         }
