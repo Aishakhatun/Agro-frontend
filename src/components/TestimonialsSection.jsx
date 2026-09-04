@@ -114,20 +114,57 @@ export default function TestimonialsSection() {
 
   return (
     <section className="section" style={{ backgroundColor: '#ffffff', overflow: 'hidden' }}>
+      {/* 1. Auto-Scrolling Press & Industry Recognition Marquee Ticker */}
+      <div style={{
+        backgroundColor: '#2b2319',
+        padding: '1.1rem 0',
+        marginBottom: '4.5rem',
+        borderTop: '2px solid #6b8e23',
+        borderBottom: '2px solid #6b8e23',
+        boxShadow: '0 10px 25px rgba(0,0,0,0.2)'
+      }}>
+        <div className="marquee-container">
+          <div className="marquee-content">
+            {pressLogos.concat(pressLogos).concat(pressLogos).map((item, idx) => {
+              const Icon = item.icon;
+              return (
+                <div
+                  key={idx}
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '0.75rem',
+                    backgroundColor: 'rgba(107, 142, 35, 0.2)',
+                    border: '1px solid rgba(107, 142, 35, 0.4)',
+                    padding: '0.5rem 1.35rem',
+                    borderRadius: '9999px',
+                    color: '#ffffff',
+                    fontSize: '0.85rem',
+                    fontWeight: 800,
+                    letterSpacing: '0.06em',
+                    whiteSpace: 'nowrap'
+                  }}
+                >
+                  <Icon size={16} color="#6b8e23" />
+                  <span>{item.text}</span>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+
       <div className="container-custom">
-        {/* Section Header — minimal */}
-        <div style={{ textAlign: 'center', maxWidth: '580px', margin: '0 auto 2.5rem auto' }}>
-          <h2 style={{
-            fontFamily: 'var(--font-heading)',
-            fontSize: 'clamp(1.75rem, 4vw, 2.8rem)',
-            fontWeight: 900,
-            color: '#2b2319',
-            marginBottom: '0.6rem'
-          }}>
-            What Our Customers Say
+        {/* Section Header */}
+        <div className="section-header">
+          <span className="eyebrow">
+            <Sparkles size={14} /> Client Testimonials
+          </span>
+          <h2 className="section-title">
+            What Our <span style={{ color: '#6b8e23' }}>Customers &amp; Partners</span> Say
           </h2>
-          <p style={{ color: '#55493b', fontSize: '1rem', lineHeight: 1.55 }}>
-            Trusted by bakeries, hypermarkets, and importers across 20+ countries.
+          <p className="section-subtitle">
+            Trusted by commercial bakeries, hypermarkets, and global importers for consistent flour quality.
           </p>
         </div>
 

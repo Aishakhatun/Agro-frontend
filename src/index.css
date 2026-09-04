@@ -98,14 +98,14 @@ img {
 }
 
 .section-padding {
-  padding-top: 3.5rem;
-  padding-bottom: 3.5rem;
+  padding-top: 5rem;
+  padding-bottom: 5rem;
 }
 
 @media (max-width: 768px) {
   .section-padding {
-    padding-top: 2.5rem;
-    padding-bottom: 2.5rem;
+    padding-top: 3.25rem;
+    padding-bottom: 3.25rem;
   }
 }
 
@@ -124,8 +124,8 @@ img {
 
 .section-header {
   text-align: center;
-  max-width: 700px;
-  margin: 0 auto 2.25rem auto;
+  max-width: 800px;
+  margin: 0 auto 3.5rem auto;
   position: relative;
 }
 

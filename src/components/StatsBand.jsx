@@ -5,25 +5,25 @@ export default function StatsBand({ stats }) {
   const defaultStats = [
     {
       value: stats?.yearsOfExcellence || '38+ Years',
-      label: 'Trusted Since 1988',
-      sub: 'Milling pure wheat for 3 generations',
+      label: 'Agricultural Heritage',
+      sub: 'Milling & Trading since 1988',
       icon: Award
     },
     {
       value: stats?.dailyMillingCapacity || '300+ MT / Day',
-      label: 'Flour Milled Every Day',
-      sub: 'Modern roller mills + stone chakki',
+      label: 'Daily Processing Capacity',
+      sub: 'Automated Buhler Roller & Chakki',
       icon: Factory
     },
     {
-      value: stats?.productGrades || '15+ Products',
-      label: 'Wheat, Atta & Flour Varieties',
-      sub: 'For home, bakery & bulk export',
+      value: stats?.productGrades || '15+ Flour Varieties',
+      label: 'Graded Wheat & Atta',
+      sub: 'Custom mesh & gluten specs',
       icon: Layers
     },
     {
       value: stats?.exportCountries || '20+ Countries',
-      label: 'Countries We Deliver To',
+      label: 'Global Supply Footprint',
       sub: 'Middle East, Europe & Asia',
       icon: Globe
     }
