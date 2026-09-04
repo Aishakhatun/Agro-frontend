@@ -226,7 +226,7 @@ export default function Hero({ onOpenQuote, onSelectPath, onSelectProduct, produ
         </div>
 
         {/* Subtitle Container with Stable Minimum Height */}
-        <div style={{ minHeight: 'clamp(3.8rem, 6vw, 4.8rem)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '2rem' }}>
+        <div style={{ minHeight: 'clamp(3.8rem, 6vw, 4.8rem)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '2.75rem' }}>
           <p style={{
             color: '#efe8d8',
             fontSize: 'clamp(1rem, 2vw, 1.25rem)',
@@ -238,67 +238,6 @@ export default function Hero({ onOpenQuote, onSelectPath, onSelectProduct, produ
           }}>
             {slide.desc}
           </p>
-        </div>
-
-        {/* Active Slide Product Packaging Showcase */}
-        <div 
-          onClick={() => {
-            if (onSelectProduct) {
-              const matchedProd = products?.find(p => 
-                p.imageUrl === slide.productImg || 
-                p.name?.toLowerCase().includes(slide.productName?.toLowerCase().slice(0, 15))
-              ) || (products && products[0]);
-              if (matchedProd) onSelectProduct(matchedProd);
-            }
-          }}
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '1.25rem',
-            background: 'linear-gradient(135deg, rgba(38, 30, 20, 0.9) 0%, rgba(22, 17, 12, 0.94) 100%)',
-            border: '1.5px solid rgba(217, 155, 56, 0.55)',
-            backdropFilter: 'blur(20px)',
-            borderRadius: '20px',
-            padding: 'clamp(0.7rem, 2.5vw, 0.9rem) clamp(1rem, 3vw, 1.75rem)',
-            marginBottom: '2.5rem',
-            boxShadow: '0 20px 45px rgba(0, 0, 0, 0.6), 0 0 25px rgba(217, 155, 56, 0.12)',
-            transition: 'all 0.3s ease',
-            maxWidth: '100%',
-            minHeight: '90px',
-            cursor: 'pointer'
-          }}
-        >
-          <div style={{
-            width: '64px',
-            height: '74px',
-            borderRadius: '14px',
-            background: 'linear-gradient(145deg, #ffffff 0%, #fef9f0 100%)',
-            border: '1.5px solid rgba(217, 155, 56, 0.35)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            padding: '5px',
-            flexShrink: 0,
-            boxShadow: '0 8px 24px rgba(0,0,0,0.4)'
-          }}>
-            <img 
-              src={slide.productImg} 
-              alt={slide.productName} 
-              style={{ maxHeight: '100%', maxWidth: '100%', objectFit: 'contain', filter: 'drop-shadow(0 2px 5px rgba(0,0,0,0.15))' }}
-            />
-          </div>
-          <div style={{ textAlign: 'left', minWidth: 0 }}>
-            <div style={{ fontSize: '0.72rem', color: '#88dc6a', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.04em', display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
-              <Sparkles size={12} color="#88dc6a" />
-              <span>Flagship Khushbu Brand Packaging</span>
-            </div>
-            <div style={{ fontSize: 'clamp(0.92rem, 2.5vw, 1.05rem)', color: '#ffffff', fontWeight: 900, fontFamily: 'var(--font-heading)', wordBreak: 'break-word', marginTop: '2px' }}>
-              {slide.productName}
-            </div>
-            <div style={{ fontSize: '0.8rem', color: '#f4be6b', fontWeight: 700, marginTop: '2px' }}>
-              {slide.productNet}
-            </div>
-          </div>
         </div>
 
         {/* Action Buttons */}
@@ -316,7 +255,7 @@ export default function Hero({ onOpenQuote, onSelectPath, onSelectProduct, produ
             className="btn btn-primary btn-lg"
             style={{ flex: '1 1 200px' }}
           >
-            Get Wholesale Atta Quote <ArrowRight size={18} />
+            Contact Us <ArrowRight size={18} />
           </button>
 
           <a
@@ -324,7 +263,7 @@ export default function Hero({ onOpenQuote, onSelectPath, onSelectProduct, produ
             className="btn btn-outline-white btn-lg"
             style={{ flex: '1 1 200px' }}
           >
-            Explore Wheat Range
+            Explore Our Products
           </a>
         </div>
 
