@@ -304,6 +304,7 @@ export default function ProductShowcase({ products, onSelectProduct, onQuickInqu
             {filteredProducts.map((product) => (
               <div
                 key={product.slug || product._id}
+                onClick={() => onSelectProduct(product)}
                 style={{
                   backgroundColor: '#ffffff',
                   borderRadius: '22px',
@@ -312,7 +313,8 @@ export default function ProductShowcase({ products, onSelectProduct, onQuickInqu
                   display: 'flex',
                   flexDirection: 'column',
                   boxShadow: '0 8px 25px rgba(43, 35, 25, 0.05)',
-                  transition: 'all 0.35s cubic-bezier(0.16, 1, 0.3, 1)'
+                  transition: 'all 0.35s cubic-bezier(0.16, 1, 0.3, 1)',
+                  cursor: 'pointer'
                 }}
                 className="card-khushbu-hover"
               >
@@ -509,7 +511,10 @@ export default function ProductShowcase({ products, onSelectProduct, onQuickInqu
                     </button>
 
                     <button
-                      onClick={() => onQuickInquiry(product)}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        onQuickInquiry(product);
+                      }}
                       className="btn btn-primary btn-sm"
                       style={{ flex: 1, padding: '0.6rem 0.5rem', fontSize: '0.82rem' }}
                     >

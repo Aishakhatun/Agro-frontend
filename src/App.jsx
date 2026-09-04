@@ -123,6 +123,8 @@ export default function App() {
       <main style={{ flexGrow: 1, position: 'relative', zIndex: 2 }}>
         {/* 1. Hero Section with Carousel & Buyer Paths */}
         <Hero
+          products={products}
+          onSelectProduct={(prod) => setSelectedProduct(prod)}
           onOpenQuote={(type) => {
             setPreFilledInquiry({ inquiryType: type || 'Wholesale Supply' });
             scrollToContact();

@@ -51,7 +51,7 @@ const heroSlides = [
   }
 ];
 
-export default function Hero({ onOpenQuote, onSelectPath }) {
+export default function Hero({ onOpenQuote, onSelectPath, onSelectProduct, products }) {
   const [activeSlide, setActiveSlide] = useState(0);
 
   // 3 SECONDS AUTOMATIC TRANSITION AS REQUESTED BY USER
@@ -240,21 +240,33 @@ export default function Hero({ onOpenQuote, onSelectPath }) {
         </div>
 
         {/* Active Slide Product Packaging Showcase */}
-        <div style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: '1.25rem',
-          backgroundColor: 'rgba(25, 20, 14, 0.82)',
-          border: '1.5px solid rgba(217, 155, 56, 0.5)',
-          backdropFilter: 'blur(16px)',
-          borderRadius: '20px',
-          padding: 'clamp(0.65rem, 2.5vw, 0.85rem) clamp(0.9rem, 3vw, 1.6rem)',
-          marginBottom: '2.5rem',
-          boxShadow: '0 20px 45px rgba(0, 0, 0, 0.5)',
-          transition: 'all 0.3s ease',
-          maxWidth: '100%',
-          minHeight: '86px'
-        }}>
+        <div 
+          onClick={() => {
+            if (onSelectProduct) {
+              const matchedProd = products?.find(p => 
+                p.imageUrl === slide.productImg || 
+                p.name?.toLowerCase().includes(slide.productName?.toLowerCase().slice(0, 15))
+              ) || (products && products[0]);
+              if (matchedProd) onSelectProduct(matchedProd);
+            }
+          }}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '1.25rem',
+            backgroundColor: 'rgba(25, 20, 14, 0.82)',
+            border: '1.5px solid rgba(217, 155, 56, 0.5)',
+            backdropFilter: 'blur(16px)',
+            borderRadius: '20px',
+            padding: 'clamp(0.65rem, 2.5vw, 0.85rem) clamp(0.9rem, 3vw, 1.6rem)',
+            marginBottom: '2.5rem',
+            boxShadow: '0 20px 45px rgba(0, 0, 0, 0.5)',
+            transition: 'all 0.3s ease',
+            maxWidth: '100%',
+            minHeight: '86px',
+            cursor: 'pointer'
+          }}
+        >
           <div style={{
             width: '60px',
             height: '70px',
