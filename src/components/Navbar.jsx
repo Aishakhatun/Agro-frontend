@@ -15,6 +15,7 @@ export default function Navbar({ onOpenSidebar, onOpenTracker, onOpenAdmin, onOp
 
   // Streamlined navigation links
   const navLinks = [
+    { label: 'Home', href: '#home' },
     { label: 'Products', href: '#products' },
     { label: 'Milling Process', href: '#process' },
     { label: 'Quality & Lab', href: '#quality' },

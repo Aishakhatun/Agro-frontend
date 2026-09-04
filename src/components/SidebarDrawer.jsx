@@ -22,12 +22,12 @@ export default function SidebarDrawer({ isOpen, onClose, onOpenQuote, onOpenTrac
   if (!isOpen) return null;
 
   const links = [
-    { label: 'Home Overview', href: '#home' },
-    { label: 'Wheat & Flour Products', href: '#products' },
-    { label: '7-Stage Roller Milling', href: '#process' },
-    { label: 'Cereal Testing Lab', href: '#quality' },
-    { label: 'Food Safety Certifications', href: '#certificates' },
-    { label: 'Bulk Export Calculator', href: '#export-wizard' },
+    { label: 'Home', href: '#home' },
+    { label: 'Products', href: '#products' },
+    { label: 'Milling Process', href: '#process' },
+    { label: 'Quality & Lab', href: '#quality' },
+    { label: 'Certifications', href: '#certificates' },
+    { label: 'Bulk Export', href: '#export-wizard' },
     { label: 'Contact Us', href: '#contact' }
   ];
 
