@@ -113,6 +113,15 @@ const processSteps = [
 export default function ProcessingJourney() {
   const [activeStep, setActiveStep] = useState(0);
   const [autoPlay, setAutoPlay] = useState(true);
+  const [isMobile, setIsMobile] = useState(() => typeof window !== 'undefined' ? window.innerWidth <= 768 : false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   // Auto transition step every 4.5 seconds unless hovered
   useEffect(() => {
@@ -213,105 +222,247 @@ export default function ProcessingJourney() {
         </div>
 
         {/* 2. Interactive Stepper Timeline Bar */}
-        <div style={{
-          position: 'relative',
-          marginBottom: '2.5rem',
-          padding: '1.25rem 1rem',
-          backgroundColor: 'rgba(43, 35, 25, 0.6)',
-          border: '1px solid rgba(107, 142, 35, 0.3)',
-          borderRadius: '24px',
-          backdropFilter: 'blur(12px)'
-        }}>
-          {/* Connector Progress Line */}
+        {isMobile ? (
+          /* Mobile Stage Tracker & Segments */
           <div style={{
-            position: 'absolute',
-            top: '50%',
-            left: '5%',
-            right: '5%',
-            height: '3px',
-            backgroundColor: 'rgba(255, 255, 255, 0.12)',
-            transform: 'translateY(-50%)',
-            zIndex: 1
+            backgroundColor: 'rgba(35, 28, 20, 0.9)',
+            border: '1.5px solid rgba(107, 142, 35, 0.5)',
+            borderRadius: '20px',
+            padding: '1rem',
+            marginBottom: '1.75rem',
+            backdropFilter: 'blur(16px)',
+            boxShadow: '0 12px 30px rgba(0,0,0,0.45), 0 0 20px rgba(107, 142, 35, 0.15)'
           }}>
+            {/* Stage Quick Header & Next/Prev Controls */}
             <div style={{
-              height: '100%',
-              width: `${(activeStep / (processSteps.length - 1)) * 100}%`,
-              background: 'linear-gradient(90deg, #6b8e23 0%, #d99b38 100%)',
-              transition: 'width 0.5s ease'
-            }} />
-          </div>
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              gap: '0.75rem',
+              marginBottom: '0.9rem'
+            }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', minWidth: 0 }}>
+                <div style={{
+                  width: '36px',
+                  height: '36px',
+                  borderRadius: '10px',
+                  backgroundColor: '#54b435',
+                  color: '#ffffff',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  flexShrink: 0,
+                  boxShadow: '0 4px 14px rgba(84, 180, 53, 0.45)'
+                }}>
+                  <CurrentIcon size={19} />
+                </div>
+                <div style={{ minWidth: 0 }}>
+                  <div style={{
+                    fontSize: '0.7rem',
+                    color: '#9fc152',
+                    fontWeight: 800,
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.05em'
+                  }}>
+                    Stage {current.step} of 07
+                  </div>
+                  <div style={{
+                    fontSize: '0.88rem',
+                    color: '#ffffff',
+                    fontWeight: 800,
+                    fontFamily: 'var(--font-heading)',
+                    whiteSpace: 'nowrap',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis'
+                  }}>
+                    {current.title}
+                  </div>
+                </div>
+              </div>
 
-          <div 
-            className="horizontal-scroll-touch"
-            style={{
+              {/* Prev / Next Touch Buttons */}
+              <div style={{ display: 'flex', gap: '0.4rem', flexShrink: 0 }}>
+                <button
+                  onClick={() => setActiveStep((prev) => (prev - 1 + processSteps.length) % processSteps.length)}
+                  aria-label="Previous Stage"
+                  style={{
+                    width: '34px',
+                    height: '34px',
+                    borderRadius: '50%',
+                    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                    border: '1px solid rgba(255, 255, 255, 0.25)',
+                    color: '#ffffff',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    cursor: 'pointer'
+                  }}
+                >
+                  <ChevronLeft size={18} />
+                </button>
+                <button
+                  onClick={() => setActiveStep((prev) => (prev + 1) % processSteps.length)}
+                  aria-label="Next Stage"
+                  style={{
+                    width: '34px',
+                    height: '34px',
+                    borderRadius: '50%',
+                    backgroundColor: '#54b435',
+                    border: '1px solid #88dc6a',
+                    color: '#ffffff',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    cursor: 'pointer',
+                    boxShadow: '0 4px 12px rgba(84, 180, 53, 0.4)'
+                  }}
+                >
+                  <ChevronRight size={18} />
+                </button>
+              </div>
+            </div>
+
+            {/* 7 Evenly Spaced Touch Segment Pills */}
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(7, 1fr)',
+              gap: '0.35rem',
+              alignItems: 'center'
+            }}>
+              {processSteps.map((s, idx) => {
+                const isActive = idx === activeStep;
+                const isPassed = idx < activeStep;
+                return (
+                  <button
+                    key={idx}
+                    onClick={() => setActiveStep(idx)}
+                    style={{
+                      height: '32px',
+                      borderRadius: '8px',
+                      backgroundColor: isActive 
+                        ? '#54b435' 
+                        : isPassed 
+                        ? 'rgba(107, 142, 35, 0.35)' 
+                        : 'rgba(255, 255, 255, 0.08)',
+                      border: isActive 
+                        ? '1.5px solid #88dc6a' 
+                        : isPassed 
+                        ? '1px solid rgba(107, 142, 35, 0.6)' 
+                        : '1px solid rgba(255, 255, 255, 0.12)',
+                      color: isActive ? '#ffffff' : isPassed ? '#9fc152' : '#888888',
+                      fontSize: '0.74rem',
+                      fontWeight: 900,
+                      fontFamily: 'var(--font-heading)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      cursor: 'pointer',
+                      transition: 'all 0.25s ease',
+                      boxShadow: isActive ? '0 0 12px rgba(84, 180, 53, 0.5)' : 'none',
+                      padding: 0
+                    }}
+                  >
+                    {s.step}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        ) : (
+          /* Desktop Stepper Timeline */
+          <div style={{
+            position: 'relative',
+            marginBottom: '2.5rem',
+            padding: '1.5rem 1.25rem',
+            backgroundColor: 'rgba(43, 35, 25, 0.6)',
+            border: '1px solid rgba(107, 142, 35, 0.3)',
+            borderRadius: '24px',
+            backdropFilter: 'blur(12px)'
+          }}>
+            {/* Connector Progress Line */}
+            <div style={{
+              position: 'absolute',
+              top: '38%',
+              left: '6%',
+              right: '6%',
+              height: '3px',
+              backgroundColor: 'rgba(255, 255, 255, 0.12)',
+              transform: 'translateY(-50%)',
+              zIndex: 1
+            }}>
+              <div style={{
+                height: '100%',
+                width: `${(activeStep / (processSteps.length - 1)) * 100}%`,
+                background: 'linear-gradient(90deg, #6b8e23 0%, #d99b38 100%)',
+                transition: 'width 0.5s ease'
+              }} />
+            </div>
+
+            <div style={{
               display: 'flex',
               justifyContent: 'space-between',
               alignItems: 'center',
               position: 'relative',
-              zIndex: 2,
-              overflowX: 'auto',
-              gap: '0.5rem',
-              padding: '0.25rem 0'
-            }}
-          >
-            {processSteps.map((s, idx) => {
-              const isActive = idx === activeStep;
-              const isPassed = idx < activeStep;
-              return (
-                <button
-                  key={idx}
-                  onClick={() => setActiveStep(idx)}
-                  style={{
-                    background: 'none',
-                    border: 'none',
-                    padding: '0.4rem',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    gap: '0.5rem',
-                    cursor: 'pointer',
-                    minWidth: '70px',
-                    outline: 'none',
-                    flexShrink: 0
-                  }}
-                >
-                  <div style={{
-                    width: isActive ? '44px' : '34px',
-                    height: isActive ? '44px' : '34px',
-                    borderRadius: '50%',
-                    backgroundColor: isActive ? '#54b435' : isPassed ? '#2b2319' : '#1c1712',
-                    border: isActive 
-                      ? '3px solid #88dc6a' 
-                      : isPassed 
-                      ? '2px solid #54b435' 
-                      : '2px solid rgba(255, 255, 255, 0.2)',
-                    boxShadow: isActive ? '0 0 18px rgba(84, 180, 53, 0.6)' : 'none',
-                    color: isActive ? '#ffffff' : isPassed ? '#88dc6a' : '#888888',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    fontSize: isActive ? '0.92rem' : '0.78rem',
-                    fontWeight: 900,
-                    fontFamily: 'var(--font-heading)',
-                    transition: 'all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)'
-                  }}>
-                    {s.step}
-                  </div>
+              zIndex: 2
+            }}>
+              {processSteps.map((s, idx) => {
+                const isActive = idx === activeStep;
+                const isPassed = idx < activeStep;
+                return (
+                  <button
+                    key={idx}
+                    onClick={() => setActiveStep(idx)}
+                    style={{
+                      background: 'none',
+                      border: 'none',
+                      padding: '0.4rem',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'center',
+                      gap: '0.5rem',
+                      cursor: 'pointer',
+                      outline: 'none',
+                      transition: 'all 0.25s ease'
+                    }}
+                  >
+                    <div style={{
+                      width: isActive ? '46px' : '36px',
+                      height: isActive ? '46px' : '36px',
+                      borderRadius: '50%',
+                      backgroundColor: isActive ? '#54b435' : isPassed ? '#2b2319' : '#1c1712',
+                      border: isActive 
+                        ? '3px solid #88dc6a' 
+                        : isPassed 
+                        ? '2px solid #54b435' 
+                        : '2px solid rgba(255, 255, 255, 0.2)',
+                      boxShadow: isActive ? '0 0 18px rgba(84, 180, 53, 0.6)' : 'none',
+                      color: isActive ? '#ffffff' : isPassed ? '#88dc6a' : '#888888',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      fontSize: isActive ? '0.95rem' : '0.8rem',
+                      fontWeight: 900,
+                      fontFamily: 'var(--font-heading)',
+                      transition: 'all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)'
+                    }}>
+                      {s.step}
+                    </div>
 
-                  <span style={{
-                    fontSize: '0.7rem',
-                    fontWeight: isActive ? 800 : 500,
-                    color: isActive ? '#88dc6a' : '#888888',
-                    textAlign: 'center',
-                    whiteSpace: 'nowrap'
-                  }}>
-                    Stage {s.step}
-                  </span>
-                </button>
-              );
-            })}
+                    <span style={{
+                      fontSize: '0.74rem',
+                      fontWeight: isActive ? 800 : 500,
+                      color: isActive ? '#88dc6a' : '#888888',
+                      textAlign: 'center',
+                      whiteSpace: 'nowrap'
+                    }}>
+                      Stage {s.step}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
           </div>
-        </div>
+        )}
 
         {/* 3. Detailed Stage Spotlight Card */}
         <div style={{
@@ -479,14 +630,17 @@ export default function ProcessingJourney() {
           </div>
         </div>
 
-        {/* 4. Sleek Horizontal Stage Selector Strip (Replaces cluttered 7-card grid!) */}
-        <div style={{
-          display: 'flex',
-          gap: '0.75rem',
-          overflowX: 'auto',
-          paddingBottom: '1rem',
-          marginBottom: '2.5rem'
-        }}>
+        {/* 4. Sleek Horizontal Stage Selector Strip (Desktop only to prevent mobile clutter) */}
+        <div 
+          className="hidden-mobile"
+          style={{
+            display: 'flex',
+            gap: '0.75rem',
+            overflowX: 'auto',
+            paddingBottom: '1rem',
+            marginBottom: '2.5rem'
+          }}
+        >
           {processSteps.map((item, idx) => {
             const Icon = item.icon;
             const isHighlighted = idx === activeStep;
