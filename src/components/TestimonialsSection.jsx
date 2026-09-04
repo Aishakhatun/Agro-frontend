@@ -34,7 +34,7 @@ const testimonials = [
     avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80',
     rating: 5,
     category: 'Commercial Bakery',
-    quote: 'Khushbu Agro has been supplying Superfine Maida and Sooji for our bakery lines since 2016. The flour water absorption and dough elasticity remain 100% consistent lot after lot. Their timely dispatch is unmatched.'
+    quote: 'Khushbu Agro supplies Superfine Maida and Sooji for our bakery lines. Water absorption and dough elasticity remain 100% consistent across every dispatch.'
   },
   {
     id: 2,
@@ -44,7 +44,7 @@ const testimonials = [
     avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&q=80',
     rating: 5,
     category: 'International Trade',
-    quote: 'We regularly import 20ft FCL container shipments of KAI Khushbu MP Sharbati Whole Wheat Atta to Dubai. The phytosanitary standards, moisture control, and 25kg PP export packaging meet strict UAE municipality requirements.'
+    quote: 'We regularly import 20ft FCL shipments to Dubai. Phytosanitary compliance and 25kg PP export packaging meet strict UAE municipality standards.'
   },
   {
     id: 3,
@@ -54,7 +54,7 @@ const testimonials = [
     avatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=200&q=80',
     rating: 5,
     category: 'Retail Grocery Chain',
-    quote: 'Khushbu Chakki Fresh Atta is one of our top-selling consumer wheat flour brands across our 45 hypermarkets. Rotis prepared with Khushbu Atta stay soft for over 12 hours. Our retail shoppers love the sweet natural aroma.'
+    quote: 'A top-selling flour brand across our 45 hypermarkets. Rotis stay soft for over 12 hours, and customers love the sweet natural aroma.'
   },
   {
     id: 4,
@@ -64,7 +64,7 @@ const testimonials = [
     avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=200&q=80',
     rating: 5,
     category: 'Institutional Catering',
-    quote: 'Serving over 25,000 meals daily requires reliable flour consistency. Khushbu stone chakki whole wheat flour absorbs 70%+ water, giving maximum roti yield with zero dough stickiness. Excellent partner for 8+ years.'
+    quote: 'Serving 25,000+ daily meals requires dependable flour. Khushbu chakki atta delivers 70%+ water absorption with maximum roti yield.'
   },
   {
     id: 5,
@@ -74,7 +74,7 @@ const testimonials = [
     avatar: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=200&q=80',
     rating: 5,
     category: 'Wholesale Trade',
-    quote: 'Their MP Sharbati & Lokwan wheat grains are 99.8% Sortex clean with zero dust or stones. As wholesale dealers, we receive prompt delivery and transparent commercial terms on every truckload.'
+    quote: 'Their MP Sharbati & Lokwan wheat grains are 99.8% Sortex clean. Prompt delivery and transparent terms on every truckload.'
   }
 ];
 
@@ -114,57 +114,20 @@ export default function TestimonialsSection() {
 
   return (
     <section className="section" style={{ backgroundColor: '#ffffff', overflow: 'hidden' }}>
-      {/* 1. Auto-Scrolling Press & Industry Recognition Marquee Ticker */}
-      <div style={{
-        backgroundColor: '#2b2319',
-        padding: '1.1rem 0',
-        marginBottom: '4.5rem',
-        borderTop: '2px solid #6b8e23',
-        borderBottom: '2px solid #6b8e23',
-        boxShadow: '0 10px 25px rgba(0,0,0,0.2)'
-      }}>
-        <div className="marquee-container">
-          <div className="marquee-content">
-            {pressLogos.concat(pressLogos).concat(pressLogos).map((item, idx) => {
-              const Icon = item.icon;
-              return (
-                <div
-                  key={idx}
-                  style={{
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: '0.75rem',
-                    backgroundColor: 'rgba(107, 142, 35, 0.2)',
-                    border: '1px solid rgba(107, 142, 35, 0.4)',
-                    padding: '0.5rem 1.35rem',
-                    borderRadius: '9999px',
-                    color: '#ffffff',
-                    fontSize: '0.85rem',
-                    fontWeight: 800,
-                    letterSpacing: '0.06em',
-                    whiteSpace: 'nowrap'
-                  }}
-                >
-                  <Icon size={16} color="#6b8e23" />
-                  <span>{item.text}</span>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </div>
-
       <div className="container-custom">
-        {/* Section Header */}
-        <div className="section-header">
-          <span className="eyebrow">
-            <Sparkles size={14} /> Client Testimonials
-          </span>
-          <h2 className="section-title">
-            What Our <span style={{ color: '#6b8e23' }}>Customers &amp; Partners</span> Say
+        {/* Section Header — minimal */}
+        <div style={{ textAlign: 'center', maxWidth: '580px', margin: '0 auto 2.5rem auto' }}>
+          <h2 style={{
+            fontFamily: 'var(--font-heading)',
+            fontSize: 'clamp(1.75rem, 4vw, 2.8rem)',
+            fontWeight: 900,
+            color: '#2b2319',
+            marginBottom: '0.6rem'
+          }}>
+            What Our Customers Say
           </h2>
-          <p className="section-subtitle">
-            Trusted by commercial bakeries, retail hypermarkets, international trade importers, and food processors across India and global markets.
+          <p style={{ color: '#55493b', fontSize: '1rem', lineHeight: 1.55 }}>
+            Trusted by bakeries, hypermarkets, and importers across 20+ countries.
           </p>
         </div>
 

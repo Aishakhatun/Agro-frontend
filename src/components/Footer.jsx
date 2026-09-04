@@ -114,7 +114,7 @@ export default function Footer({ onOpenTracker, onOpenAdmin, onSelectCategory })
             </div>
 
             <p style={{ color: '#efe8d8', fontSize: '0.88rem', lineHeight: 1.6, marginBottom: '1.5rem' }}>
-              Pioneers in 100% Whole Wheat Chakki Fresh Atta, MP Sharbati Grain processing, Superfine Roller-Milled Maida, Semolina granules, and global containerized flour export since 1988.
+              Miller and supplier of 100% natural Chakki Fresh Atta, MP Sharbati wheat, Maida, Sooji, and pulses since 1988.
             </p>
 
             <div style={{
@@ -195,12 +195,13 @@ export default function Footer({ onOpenTracker, onOpenAdmin, onSelectCategory })
               Quick Navigation
             </h4>
             <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.65rem', fontSize: '0.88rem', color: '#efe8d8' }}>
-              <li><a href="#home" style={{ color: '#efe8d8', textDecoration: 'none', transition: 'color 0.2s' }} onMouseEnter={(e) => e.target.style.color = '#9fc152'} onMouseLeave={(e) => e.target.style.color = '#efe8d8'}>Company Overview</a></li>
-              <li><a href="#process" style={{ color: '#efe8d8', textDecoration: 'none', transition: 'color 0.2s' }} onMouseEnter={(e) => e.target.style.color = '#9fc152'} onMouseLeave={(e) => e.target.style.color = '#efe8d8'}>7-Stage Roller Milling</a></li>
-              <li><a href="#quality" style={{ color: '#efe8d8', textDecoration: 'none', transition: 'color 0.2s' }} onMouseEnter={(e) => e.target.style.color = '#9fc152'} onMouseLeave={(e) => e.target.style.color = '#efe8d8'}>Cereal Testing Laboratory</a></li>
-              <li><a href="#certificates" style={{ color: '#efe8d8', textDecoration: 'none', transition: 'color 0.2s' }} onMouseEnter={(e) => e.target.style.color = '#9fc152'} onMouseLeave={(e) => e.target.style.color = '#efe8d8'}>Food Safety Accreditations</a></li>
-              <li><a href="#export-wizard" style={{ color: '#efe8d8', textDecoration: 'none', transition: 'color 0.2s' }} onMouseEnter={(e) => e.target.style.color = '#9fc152'} onMouseLeave={(e) => e.target.style.color = '#efe8d8'}>Container Export Calculator</a></li>
-              <li><a href="#contact" style={{ color: '#efe8d8', textDecoration: 'none', transition: 'color 0.2s' }} onMouseEnter={(e) => e.target.style.color = '#9fc152'} onMouseLeave={(e) => e.target.style.color = '#efe8d8'}>Get Commercial Quotation</a></li>
+              <li><a href="#home" style={{ color: '#efe8d8', textDecoration: 'none', transition: 'color 0.2s' }} onMouseEnter={(e) => e.target.style.color = '#9fc152'} onMouseLeave={(e) => e.target.style.color = '#efe8d8'}>Home</a></li>
+              <li><a href="#about" style={{ color: '#efe8d8', textDecoration: 'none', transition: 'color 0.2s' }} onMouseEnter={(e) => e.target.style.color = '#9fc152'} onMouseLeave={(e) => e.target.style.color = '#efe8d8'}>About Us</a></li>
+              <li><a href="#products" style={{ color: '#efe8d8', textDecoration: 'none', transition: 'color 0.2s' }} onMouseEnter={(e) => e.target.style.color = '#9fc152'} onMouseLeave={(e) => e.target.style.color = '#efe8d8'}>Our Products</a></li>
+              <li><a href="#process" style={{ color: '#efe8d8', textDecoration: 'none', transition: 'color 0.2s' }} onMouseEnter={(e) => e.target.style.color = '#9fc152'} onMouseLeave={(e) => e.target.style.color = '#efe8d8'}>Milling Process</a></li>
+              <li><a href="#certificates" style={{ color: '#efe8d8', textDecoration: 'none', transition: 'color 0.2s' }} onMouseEnter={(e) => e.target.style.color = '#9fc152'} onMouseLeave={(e) => e.target.style.color = '#efe8d8'}>Certificates</a></li>
+              <li><a href="#export-wizard" style={{ color: '#efe8d8', textDecoration: 'none', transition: 'color 0.2s' }} onMouseEnter={(e) => e.target.style.color = '#9fc152'} onMouseLeave={(e) => e.target.style.color = '#efe8d8'}>Bulk Export Calculator</a></li>
+              <li><a href="#contact" style={{ color: '#efe8d8', textDecoration: 'none', transition: 'color 0.2s' }} onMouseEnter={(e) => e.target.style.color = '#9fc152'} onMouseLeave={(e) => e.target.style.color = '#efe8d8'}>Contact Us</a></li>
               <li style={{ paddingTop: '0.3rem' }}>
                 <button
                   onClick={onOpenTracker}

@@ -5,7 +5,7 @@ import StatsBand from './components/StatsBand';
 import ProductShowcase from './components/ProductShowcase';
 import ProductDetailModal from './components/ProductDetailModal';
 import ProcessingJourney from './components/ProcessingJourney';
-import QualityInfrastructure from './components/QualityInfrastructure';
+import AboutUsSection from './components/AboutUsSection';
 import TestimonialsSection from './components/TestimonialsSection';
 import CertificatesSection from './components/CertificatesSection';
 import ExportWizard from './components/ExportWizard';
@@ -135,18 +135,18 @@ export default function App() {
         {/* 2. Commercial Credibility & Stats Band */}
         <StatsBand stats={stats} />
 
-        {/* 3. Wheat & Flour Product Catalog */}
+        {/* 3. About Us & Heritage */}
+        <AboutUsSection onOpenQuote={() => scrollToContact()} />
+
+        {/* 4. Wheat & Flour Product Catalog */}
         <ProductShowcase
           products={products}
           onSelectProduct={(prod) => setSelectedProduct(prod)}
           onQuickInquiry={handleQuickInquiry}
         />
 
-        {/* 4. 7-Stage Buhler Roller Milling & Stone Chakki Journey */}
+        {/* 5. 7-Stage Buhler Roller Milling & Stone Chakki Journey */}
         <ProcessingJourney />
-
-        {/* 5. Cereal Testing Laboratory & Interactive Flour Fineness Slider */}
-        <QualityInfrastructure />
 
         {/* 6. Auto-Scrolling Press Marquee & Customer Testimonials Carousel */}
         <TestimonialsSection />

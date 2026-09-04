@@ -83,88 +83,22 @@ export default function ProductShowcase({ products, onSelectProduct, onQuickInqu
   };
 
   return (
-    <section id="products" style={{ backgroundColor: '#faf7f2', padding: '5rem 0', position: 'relative' }}>
-      
-      {/* 1. Ticker Bar with Purity & Product Highlights */}
-      <div style={{
-        backgroundColor: '#19140e',
-        padding: '0.85rem 0',
-        marginBottom: '4rem',
-        borderTop: '1px solid rgba(107, 142, 35, 0.3)',
-        borderBottom: '1px solid rgba(107, 142, 35, 0.3)',
-        overflow: 'hidden'
-      }}>
-        <div className="marquee-container">
-          <div className="marquee-content">
-            {(products.length > 0 ? products.concat(products) : []).map((p, idx) => (
-              <div
-                key={idx}
-                onClick={() => onSelectProduct(p)}
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '0.65rem',
-                  backgroundColor: 'rgba(107, 142, 35, 0.18)',
-                  border: '1.5px solid rgba(107, 142, 35, 0.4)',
-                  padding: '0.45rem 1.15rem',
-                  borderRadius: '9999px',
-                  color: '#ffffff',
-                  fontSize: '0.82rem',
-                  cursor: 'pointer',
-                  fontWeight: 700,
-                  whiteSpace: 'nowrap',
-                  transition: 'all 0.2s ease'
-                }}
-              >
-                <Wheat size={15} color="#9fc152" />
-                <span>{p.name}</span>
-                <span style={{ color: '#f4be6b', fontSize: '0.74rem' }}>• {p.specifications?.purity || '100% Pure'}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
+    <section id="products" style={{ backgroundColor: '#faf7f2', padding: '4rem 0', position: 'relative' }}>
       <div className="container-custom">
-        {/* 2. Section Header */}
-        <div style={{ textAlign: 'center', maxWidth: '850px', margin: '0 auto 3.5rem auto' }}>
-          <div style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: '0.55rem',
-            backgroundColor: 'rgba(107, 142, 35, 0.12)',
-            border: '1.5px solid rgba(107, 142, 35, 0.3)',
-            color: '#5c7b1e',
-            padding: '0.4rem 1.2rem',
-            borderRadius: '9999px',
-            fontSize: '0.8rem',
-            fontWeight: 800,
-            letterSpacing: '0.08em',
-            textTransform: 'uppercase',
-            marginBottom: '1.2rem'
-          }}>
-            <Sparkles size={15} color="#6b8e23" />
-            <span>Wheat &amp; Flour Product Portfolio</span>
-          </div>
-
+        {/* Section Header — minimal */}
+        <div style={{ textAlign: 'center', maxWidth: '650px', margin: '0 auto 2.5rem auto' }}>
           <h2 style={{
             fontFamily: 'var(--font-heading)',
-            fontSize: 'clamp(2rem, 4vw, 3.2rem)',
+            fontSize: 'clamp(1.75rem, 4vw, 2.8rem)',
             fontWeight: 900,
-            lineHeight: 1.15,
+            lineHeight: 1.2,
             color: '#2b2319',
-            marginBottom: '1rem'
+            marginBottom: '0.6rem'
           }}>
-            Chakki Fresh Atta, Grain &amp; Commercial Flour
+            Our Products
           </h2>
-
-          <p style={{
-            color: '#55493b',
-            fontSize: '1.05rem',
-            lineHeight: 1.6,
-            fontWeight: 500
-          }}>
-            Explore our cold-milled stone chakki whole wheat atta, superfine roller-milled maida, semolina granules, and export-grade MP Sharbati wheat kernels.
+          <p style={{ color: '#55493b', fontSize: '1rem', lineHeight: 1.55, fontWeight: 400 }}>
+            Whole wheat atta, maida, sooji, and premium MP Sharbati wheat — for retail, bakeries & export.
           </p>
         </div>
 

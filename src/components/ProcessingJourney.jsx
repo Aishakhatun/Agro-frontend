@@ -22,7 +22,7 @@ const processSteps = [
     title: 'Grain Sourcing & Selection',
     subtitle: 'MP Sharbati & Lokwan Wheat',
     icon: Wheat,
-    desc: 'Golden wheat kernels harvested from Madhya Pradesh farms are rigorously tested for moisture, falling number, and wet gluten vitality before entering storage silos.',
+    desc: 'MP Sharbati & Lokwan wheat rigorously lab-tested for moisture, gluten, and purity before silo storage.',
     specs: [
       { label: 'Kernel Density', val: '78–82 kg/hL' },
       { label: 'Moisture Limit', val: '< 11.5%' },
@@ -35,7 +35,7 @@ const processSteps = [
     title: 'Cyclone Pre-Cleaning & Scouring',
     subtitle: 'Aspiration & Dust Removal',
     icon: Wind,
-    desc: 'High-volume cyclone aspirators and vibratory classifiers remove dust, field straw, loose husks, and lightweight chaff in sealed negative-pressure chambers.',
+    desc: 'Cyclone aspirators and vibrating classifiers strip chaff, dust, and straw in sealed vacuum chambers.',
     specs: [
       { label: 'Efficiency', val: '99.4% Chaff Free' },
       { label: 'Air Speed', val: '4,500 m³/h' },
@@ -48,7 +48,7 @@ const processSteps = [
     title: 'De-Stoning & Magnetic Separation',
     subtitle: 'Specific Gravity Sorting',
     icon: Layers,
-    desc: 'Vibratory de-stoning tables separate heavy stones and clods, while high-potency neodymium magnetic traps eliminate minute metal particles.',
+    desc: 'Specific gravity tables remove stones while 10,000 Gauss neodymium magnets eliminate metal traces.',
     specs: [
       { label: 'Magnet Power', val: '10,000 Gauss' },
       { label: 'Stone Purity', val: '100% Removal' },
@@ -61,7 +61,7 @@ const processSteps = [
     title: 'Conditioning & Tempering',
     subtitle: 'Controlled Moisture Infusion',
     icon: Settings,
-    desc: 'Kernels undergo precise water conditioning for 18–24 hours, toughening the outer pericarp bran layer to allow clean separation of the inner endosperm.',
+    desc: 'Controlled 18–24h hydration toughens the bran layer for clean endosperm separation.',
     specs: [
       { label: 'Resting Time', val: '18–24 Hours' },
       { label: 'Water Temp', val: 'Controlled 24°C' },
@@ -74,7 +74,7 @@ const processSteps = [
     title: 'Buhler Roller Milling',
     subtitle: 'Sequential Break & Reduction',
     icon: ScanSearch,
-    desc: 'Chilled iron breaker rolls crack the grain cleanly, releasing pure white endosperm while preserving nutrition and avoiding excessive heat generation.',
+    desc: 'Chilled iron rolls gently crack kernels without frictional heat, preserving natural enzymes and nutrition.',
     specs: [
       { label: 'Roll Tech', val: 'Chilled Cast Iron' },
       { label: 'Precision', val: 'Micro-Mesh Gap' },
@@ -87,7 +87,7 @@ const processSteps = [
     title: 'Plan-Sifter Mesh Filtration',
     subtitle: 'Multi-Deck Fractionation',
     icon: BadgeCheck,
-    desc: 'High-speed plan-sifters sort flour into ultra-pure streams: Whole Wheat Chakki Atta, Superfine Maida, Granular Sooji, and Coarse Bran.',
+    desc: '12-deck precision sieves fractionate flour into Atta, Maida, Sooji, and Bran by micron mesh size.',
     specs: [
       { label: 'Sieve Decks', val: '12 Screen Layers' },
       { label: 'Fineness Range', val: '100–300 Mesh' },
@@ -100,7 +100,7 @@ const processSteps = [
     title: 'Cold Air Chakki & Packaging',
     subtitle: 'Nitrogen Flush Pouching',
     icon: PackageCheck,
-    desc: 'Traditional natural granite stone chakkis cooled with refrigerated air grind the bran and endosperm into soft, fragrant Atta, bagged under cleanroom conditions.',
+    desc: 'Sub-30°C cold-air stone chakkis grind whole wheat into fine atta, packed in cleanroom pouches.',
     specs: [
       { label: 'Grinding Temp', val: '< 30°C Cold Air' },
       { label: 'Hygiene Standard', val: 'ISO 22000 & FSSAI' },
@@ -217,7 +217,7 @@ export default function ProcessingJourney() {
             lineHeight: 1.6,
             fontWeight: 400
           }}>
-            Combining traditional stone chakki cold grinding with Swiss Buhler roller mill filtration to produce 100% natural, golden whole wheat flour.
+            Swiss Buhler roller milling and cold-air stone chakkis for 100% natural, nutrient-dense flour.
           </p>
         </div>
 
@@ -758,10 +758,10 @@ export default function ProcessingJourney() {
             </div>
             <div>
               <h4 style={{ color: '#ffffff', fontSize: '1.2rem', margin: 0, fontWeight: 900, fontFamily: 'var(--font-heading)' }}>
-                100% Cold Air Stone Chakki Milling Guarantee
+                100% Cold Air Stone Chakki Guarantee
               </h4>
               <p style={{ color: '#efe8d8', fontSize: '0.85rem', margin: '0.25rem 0 0 0' }}>
-                Every consignment is pre-certified for Gluten %, Falling Number, Ash Content, and Zero Chemical Bleaching.
+                Pre-tested for Gluten %, Falling Number, Ash Content, and 100% Zero Chemical Bleaching.
               </p>
             </div>
           </div>
@@ -771,7 +771,7 @@ export default function ProcessingJourney() {
             className="btn btn-primary btn-md" 
             style={{ flexShrink: 0, whiteSpace: 'nowrap' }}
           >
-            Request Milling Audit &amp; Flour Samples <ArrowRight size={16} />
+            Request Milling Audit &amp; Samples <ArrowRight size={16} />
           </a>
         </div>
 

@@ -137,7 +137,7 @@ export default function ExportWizard({ onPreFillInquiry }) {
             lineHeight: 1.6,
             fontWeight: 400
           }}>
-            Calculate container net cargo weights, bag counts, export documentation requirements, and FOB Mundra port consignments.
+            Calculate container cargo weights, bag counts, and export documentation for FOB Mundra consignments.
           </p>
         </div>
 
@@ -348,7 +348,7 @@ export default function ExportWizard({ onPreFillInquiry }) {
               className="btn btn-primary btn-block btn-lg"
               style={{ fontWeight: 900, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem' }}
             >
-              Transfer Estimate To Formal Quotation Inquiry <ArrowRight size={18} />
+              Apply Estimate to Quote Inquiry <ArrowRight size={18} />
             </button>
           </div>
 

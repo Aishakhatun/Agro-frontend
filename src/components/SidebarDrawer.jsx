@@ -23,9 +23,9 @@ export default function SidebarDrawer({ isOpen, onClose, onOpenQuote, onOpenTrac
 
   const links = [
     { label: 'Home', href: '#home' },
+    { label: 'About Us', href: '#about' },
     { label: 'Products', href: '#products' },
     { label: 'Milling Process', href: '#process' },
-    { label: 'Quality & Lab', href: '#quality' },
     { label: 'Certifications', href: '#certificates' },
     { label: 'Bulk Export', href: '#export-wizard' },
     { label: 'Contact Us', href: '#contact' }

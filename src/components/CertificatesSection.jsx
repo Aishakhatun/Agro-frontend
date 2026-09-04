@@ -73,7 +73,7 @@ export default function CertificatesSection({ certificates }) {
             lineHeight: 1.6,
             fontWeight: 500
           }}>
-            Our milling plant and container export operations strictly conform to national food safety guidelines and international agricultural trade frameworks.
+            Our milling facility and export operations strictly comply with national and global food safety standards.
           </p>
         </div>
 

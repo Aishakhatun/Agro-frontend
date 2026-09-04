@@ -28,9 +28,9 @@ const labMetrics = [
     status: 'Optimal Elasticity',
     icon: Flame,
     color: '#9fc152',
-    description: 'Measures dough stretchability and elasticity. High gluten vitality guarantees rotis expand evenly and stay soft for 12+ hours without tearing.',
+    description: 'Dough stretchability metric ensuring rotis puff evenly and stay soft for 12+ hours.',
     method: 'AACC Method 38-12.01 / Glutomatic 2200 System',
-    keyBenefit: 'Rotis stay 100% soft and pliable all day long'
+    keyBenefit: 'Soft, pliable rotis with high elasticity'
   },
   {
     id: 'water',
@@ -42,9 +42,9 @@ const labMetrics = [
     status: 'High Water Yield',
     icon: Droplets,
     color: '#6b8e23',
-    description: 'Quantifies how much water flour absorbs during kneading. Higher absorption yields higher dough output and longer-lasting moisture retention in baked goods.',
+    description: 'High hydration rate yields higher dough volume and superior moisture retention.',
     method: 'Brabender Farinograph-TS Electronic Testing',
-    keyBenefit: '35% higher dough volume & soft crumb structure'
+    keyBenefit: '+35% dough yield with fluffy texture'
   },
   {
     id: 'falling',
@@ -56,9 +56,9 @@ const labMetrics = [
     status: 'Sound Starch Matrix',
     icon: Activity,
     color: '#f4be6b',
-    description: 'Evaluates alpha-amylase enzyme activity. Optimal 380s falling number prevents sticky dough and ensures uniform golden crust color when baked.',
+    description: 'Enzyme activity score that prevents sticky dough and yields golden crust baking.',
     method: 'Perten Falling Number Instrument (ICC 107/1)',
-    keyBenefit: 'Crisp golden crust with zero sticky dough problems'
+    keyBenefit: 'Crisp golden crust with zero sticky dough'
   },
   {
     id: 'ash',
@@ -70,9 +70,9 @@ const labMetrics = [
     status: 'Ultra-Pure Endosperm',
     icon: Zap,
     color: '#9fc152',
-    description: 'Measures flour purity. Lower mineral ash content indicates clean endosperm extraction without excess outer pericarp husk fragments.',
+    description: 'Purity index measuring clean endosperm extraction with zero chemical bleaching.',
     method: 'High-Temperature Muffle Furnace Incineration (550°C)',
-    keyBenefit: 'Pure bright flour color with zero chemical bleaching'
+    keyBenefit: 'Naturally bright flour with zero bleaching'
   }
 ];
 
@@ -82,28 +82,28 @@ const infraPillars = [
     icon: Cpu,
     tag: 'Swiss Milling Tech',
     metric: '100–300 Mesh',
-    desc: 'Chilled cast iron breaker rolls crack kernels cleanly, while high-velocity air purifiers separate dense endosperm from bran with zero thermal heat degradation.'
+    desc: 'Chilled iron rolls crack kernels cleanly, separating endosperm with zero thermal heat loss.'
   },
   {
     title: 'In-House Cereal Testing Laboratory',
     icon: Microscope,
     tag: 'Quality Control Lab',
     metric: 'Batch-Wise COA',
-    desc: 'Equipped with Brabender Farinographs, Glutomatic systems, and rapid moisture analyzers to issue certified Certificate of Analysis for every batch.'
+    desc: 'Brabender Farinographs & Glutomatic analyzers issuing certified COAs for every batch.'
   },
   {
     title: 'Specific Gravity De-Stoning & Magnets',
     icon: Layers,
     tag: 'Zero-Impurity System',
     metric: '10,000 Gauss',
-    desc: 'Multi-deck vibratory de-stoning tables and high-intensity neodymium rare-earth magnetic traps ensure 100% elimination of stones and metal particles.'
+    desc: 'Vibratory de-stoning tables and 10,000 Gauss neodymium traps remove all stones and metals.'
   },
   {
     title: 'Cleanroom Positive-Air Bagging Lines',
     icon: Thermometer,
     tag: 'Hygienic Packaging',
     metric: 'ISO 22000 & FSSAI',
-    desc: 'Automated positive-pressure packaging chambers with nitrogen flushing and metal detection ensure zero infestation and 9-month freshness.'
+    desc: 'Positive-pressure packaging with nitrogen flushing for 9-month pest-free freshness.'
   }
 ];
 
@@ -163,7 +163,7 @@ export default function QualityInfrastructure() {
             lineHeight: 1.6,
             fontWeight: 400
           }}>
-            Our state-of-the-art cereal testing laboratory evaluates wet gluten, water absorption, and falling number to guarantee 100% consistent flour performance.
+            Certified in-house lab testing wet gluten, hydration, and falling number for 100% batch consistency.
           </p>
         </div>
 
@@ -499,7 +499,7 @@ export default function QualityInfrastructure() {
                 Certified Batch Quality &amp; Zero Additives
               </h4>
               <p style={{ color: '#efe8d8', fontSize: '0.88rem', margin: '0.3rem 0 0 0' }}>
-                Request a formal Certificate of Analysis (COA) for your bulk wheat flour order or schedule a physical plant audit.
+                Request a formal batch COA report or schedule an on-site plant audit.
               </p>
             </div>
           </div>
@@ -509,7 +509,7 @@ export default function QualityInfrastructure() {
             className="btn btn-primary btn-md" 
             style={{ flexShrink: 0, whiteSpace: 'nowrap' }}
           >
-            Request Batch COA / Schedule Audit <ArrowRight size={16} />
+            Request Batch COA / Audit <ArrowRight size={16} />
           </a>
         </div>
 
