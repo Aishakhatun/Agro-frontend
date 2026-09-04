@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { 
   Mail, 
   Phone, 
@@ -7,16 +7,28 @@ import {
   Send, 
   ShieldCheck, 
   CheckCircle2, 
-  AlertCircle,
-  Copy,
-  Check,
-  MessageSquare,
-  Sparkles,
-  Lock,
-  Building2,
-  Globe2
+  AlertCircle, 
+  Copy, 
+  Check, 
+  MessageSquare, 
+  Sparkles, 
+  Lock, 
+  Building2, 
+  Globe2,
+  ChevronDown,
+  Truck,
+  Package,
+  Tag
 } from 'lucide-react';
 import { api } from '../services/api';
+
+const inquiryOptions = [
+  { value: 'Wholesale Supply', label: 'Wholesale Supply (Domestic)', icon: Truck },
+  { value: 'Export & International Trade', label: 'Export & International Trade', icon: Globe2 },
+  { value: 'Retail & Distribution', label: 'Retail & Distribution', icon: Package },
+  { value: 'Private Labelling', label: 'Private Labelling / OEM', icon: Tag },
+  { value: 'General Inquiry', label: 'General Inquiry', icon: MessageSquare }
+];
 
 export default function ContactSection({ preFilledData, onClearPreFill, onOpenTracker }) {
   const [formData, setFormData] = useState({
@@ -39,6 +51,23 @@ export default function ContactSection({ preFilledData, onClearPreFill, onOpenTr
   const [submissionSuccess, setSubmissionSuccess] = useState(null);
   const [submissionError, setSubmissionError] = useState(null);
   const [copiedRef, setCopiedRef] = useState(false);
+  const [inquiryDropdownOpen, setInquiryDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
+
+  // Close dropdown on outside click
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+        setInquiryDropdownOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener('touchstart', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('touchstart', handleClickOutside);
+    };
+  }, []);
 
   // Sync pre-filled data when provided by product cards or export wizard
   useEffect(() => {
@@ -665,33 +694,117 @@ export default function ContactSection({ preFilledData, onClearPreFill, onOpenTr
                 </div>
 
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '1.25rem', marginBottom: '1.25rem' }}>
-                  {/* Inquiry Type */}
-                  <div>
+                  {/* Inquiry Type Custom Dropdown */}
+                  <div ref={dropdownRef} style={{ position: 'relative' }}>
                     <label style={{ display: 'block', fontSize: '0.8rem', fontWeight: 800, color: '#2b2319', marginBottom: '0.4rem' }}>
                       Inquiry Category
                     </label>
-                    <select
-                      name="inquiryType"
-                      value={formData.inquiryType}
-                      onChange={handleChange}
+                    <button
+                      type="button"
+                      onClick={() => setInquiryDropdownOpen(!inquiryDropdownOpen)}
                       style={{
                         width: '100%',
                         padding: '0.85rem 1rem',
                         borderRadius: '12px',
-                        border: '1.5px solid #e8dfc9',
+                        border: inquiryDropdownOpen ? '2px solid #54b435' : '1.5px solid #e8dfc9',
                         fontSize: '0.9rem',
                         backgroundColor: '#faf7f2',
                         color: '#2b2319',
-                        fontWeight: 600,
-                        outline: 'none'
+                        fontWeight: 700,
+                        outline: 'none',
+                        cursor: 'pointer',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        gap: '0.5rem',
+                        transition: 'all 0.2s ease',
+                        boxShadow: inquiryDropdownOpen ? '0 0 0 4px rgba(84, 180, 53, 0.15)' : 'none'
                       }}
                     >
-                      <option value="Wholesale Supply">Wholesale Supply (Domestic)</option>
-                      <option value="Export & International Trade">Export &amp; International Trade</option>
-                      <option value="Retail & Distribution">Retail &amp; Distribution</option>
-                      <option value="Private Labelling">Private Labelling / OEM</option>
-                      <option value="General Inquiry">General Inquiry</option>
-                    </select>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', overflow: 'hidden' }}>
+                        {(() => {
+                          const currentOpt = inquiryOptions.find(o => o.value === formData.inquiryType) || inquiryOptions[0];
+                          const IconComp = currentOpt.icon;
+                          return (
+                            <>
+                              <IconComp size={18} color="#54b435" style={{ flexShrink: 0 }} />
+                              <span style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                                {currentOpt.label}
+                              </span>
+                            </>
+                          );
+                        })()}
+                      </div>
+                      <ChevronDown
+                        size={18}
+                        color="#6b8e23"
+                        style={{
+                          transition: 'transform 0.25s ease',
+                          transform: inquiryDropdownOpen ? 'rotate(180deg)' : 'rotate(0deg)',
+                          flexShrink: 0
+                        }}
+                      />
+                    </button>
+
+                    {/* Custom Styled Dropdown Menu */}
+                    {inquiryDropdownOpen && (
+                      <div
+                        style={{
+                          position: 'absolute',
+                          top: 'calc(100% + 6px)',
+                          left: 0,
+                          right: 0,
+                          zIndex: 100,
+                          backgroundColor: '#ffffff',
+                          border: '1.5px solid #e8dfc9',
+                          borderRadius: '16px',
+                          boxShadow: '0 16px 40px rgba(43, 35, 25, 0.16)',
+                          padding: '0.45rem',
+                          display: 'flex',
+                          flexDirection: 'column',
+                          gap: '0.25rem'
+                        }}
+                      >
+                        {inquiryOptions.map((opt) => {
+                          const isSelected = formData.inquiryType === opt.value;
+                          const IconComp = opt.icon;
+                          return (
+                            <div
+                              key={opt.value}
+                              onClick={() => {
+                                setFormData(prev => ({ ...prev, inquiryType: opt.value }));
+                                setInquiryDropdownOpen(false);
+                              }}
+                              style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'space-between',
+                                padding: '0.75rem 0.9rem',
+                                borderRadius: '10px',
+                                backgroundColor: isSelected ? '#edfbe2' : 'transparent',
+                                color: isSelected ? '#2d7a2d' : '#2b2319',
+                                fontWeight: isSelected ? 800 : 600,
+                                fontSize: '0.88rem',
+                                cursor: 'pointer',
+                                transition: 'all 0.15s ease'
+                              }}
+                              onMouseEnter={(e) => {
+                                if (!isSelected) e.currentTarget.style.backgroundColor = '#faf7f2';
+                              }}
+                              onMouseLeave={(e) => {
+                                if (!isSelected) e.currentTarget.style.backgroundColor = 'transparent';
+                              }}
+                            >
+                              <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
+                                <IconComp size={17} color={isSelected ? '#54b435' : '#888'} />
+                                <span>{opt.label}</span>
+                              </div>
+                              {isSelected && <Check size={16} color="#379237" />}
+                            </div>
+                          );
+                        })}
+                      </div>
+                    )}
                   </div>
 
                   {/* Product Interest */}
@@ -827,7 +940,7 @@ export default function ContactSection({ preFilledData, onClearPreFill, onOpenTr
                     'Recording Secure Inquiry...'
                   ) : (
                     <>
-                      <Send size={18} /> Submit Official Commercial Trade Inquiry
+                      <Send size={18} /> Submit The Inquiry
                     </>
                   )}
                 </button>
