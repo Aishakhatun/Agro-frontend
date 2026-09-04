@@ -1,18 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   Search, 
   Sparkles, 
   ArrowUpRight, 
   ShieldCheck, 
   Package, 
-  Wheat,
-  X,
-  FileText,
-  Send,
-  SlidersHorizontal,
-  CheckCircle2,
-  Layers,
-  Sprout
+  Wheat, 
+  X, 
+  FileText, 
+  Send, 
+  SlidersHorizontal, 
+  CheckCircle2, 
+  Layers, 
+  Sprout,
+  ChevronDown,
+  ChevronUp
 } from 'lucide-react';
 
 const categories = [
@@ -26,6 +28,16 @@ const categories = [
 export default function ProductShowcase({ products, onSelectProduct, onQuickInquiry }) {
   const [activeCategory, setActiveCategory] = useState('all');
   const [searchTerm, setSearchTerm] = useState('');
+  const [isMobile, setIsMobile] = useState(() => typeof window !== 'undefined' ? window.innerWidth <= 768 : false);
+  const [showAllMobile, setShowAllMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   // Robust category matching for Khushbu Agro Industries full catalog
   const isCategoryMatch = (item, catId) => {
@@ -57,6 +69,11 @@ export default function ProductShowcase({ products, onSelectProduct, onQuickInqu
       item.categoryLabel?.toLowerCase().includes(searchTerm.toLowerCase());
     return matchesCat && matchesSearch;
   });
+
+  // In mobile mode, display 5 products unless the user clicks "See More"
+  const displayedProducts = isMobile && !showAllMobile 
+    ? filteredProducts.slice(0, 5) 
+    : filteredProducts;
 
   // Calculate count for each category badge
   const getCategoryCount = (catId) => {
@@ -296,236 +313,291 @@ export default function ProductShowcase({ products, onSelectProduct, onQuickInqu
             </button>
           </div>
         ) : (
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 280px), 1fr))',
-            gap: '1.75rem'
-          }}>
-            {filteredProducts.map((product) => (
-              <div
-                key={product.slug || product._id}
-                onClick={() => onSelectProduct(product)}
-                style={{
-                  backgroundColor: '#ffffff',
-                  borderRadius: '22px',
-                  border: '1.5px solid #e8dfc9',
-                  overflow: 'hidden',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  boxShadow: '0 8px 25px rgba(43, 35, 25, 0.05)',
-                  transition: 'all 0.35s cubic-bezier(0.16, 1, 0.3, 1)',
-                  cursor: 'pointer'
-                }}
-                className="card-khushbu-hover"
-              >
-                {/* Image Container with Badges */}
-                <div style={{
-                  height: '260px',
-                  position: 'relative',
-                  overflow: 'hidden',
-                  backgroundColor: '#f9f6f0',
-                  borderBottom: '1px solid #e8dfc9',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  padding: '1.25rem'
-                }}>
-                  <img
-                    src={product.imageUrl}
-                    alt={product.name}
-                    loading="lazy"
-                    style={{
-                      maxHeight: '100%',
-                      maxWidth: '100%',
-                      objectFit: 'contain',
-                      filter: 'drop-shadow(0 10px 18px rgba(43, 35, 25, 0.18))',
-                      transition: 'transform 0.45s cubic-bezier(0.16, 1, 0.3, 1)'
-                    }}
-                  />
-
-                  {/* Top-Left Category Badge */}
+          <>
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 280px), 1fr))',
+              gap: '1.75rem'
+            }}>
+              {displayedProducts.map((product) => (
+                <div
+                  key={product.slug || product._id}
+                  onClick={() => onSelectProduct(product)}
+                  style={{
+                    backgroundColor: '#ffffff',
+                    borderRadius: '22px',
+                    border: '1.5px solid #e8dfc9',
+                    overflow: 'hidden',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    boxShadow: '0 8px 25px rgba(43, 35, 25, 0.05)',
+                    transition: 'all 0.35s cubic-bezier(0.16, 1, 0.3, 1)',
+                    cursor: 'pointer'
+                  }}
+                  className="card-khushbu-hover"
+                >
+                  {/* Image Container with Badges */}
                   <div style={{
-                    position: 'absolute',
-                    top: '0.85rem',
-                    left: '0.85rem',
-                    backgroundColor: 'rgba(43, 35, 25, 0.88)',
-                    backdropFilter: 'blur(8px)',
-                    color: '#9fc152',
-                    padding: '0.3rem 0.75rem',
-                    borderRadius: '8px',
-                    fontSize: '0.72rem',
-                    fontWeight: 800,
-                    letterSpacing: '0.04em',
-                    border: '1px solid rgba(107, 142, 35, 0.4)',
-                    boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
+                    height: '260px',
+                    position: 'relative',
+                    overflow: 'hidden',
+                    backgroundColor: '#f9f6f0',
+                    borderBottom: '1px solid #e8dfc9',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    padding: '1.25rem'
                   }}>
-                    {product.categoryLabel || 'Wheat Flour'}
-                  </div>
+                    <img
+                      src={product.imageUrl}
+                      alt={product.name}
+                      loading="lazy"
+                      style={{
+                        maxHeight: '100%',
+                        maxWidth: '100%',
+                        objectFit: 'contain',
+                        filter: 'drop-shadow(0 10px 18px rgba(43, 35, 25, 0.18))',
+                        transition: 'transform 0.45s cubic-bezier(0.16, 1, 0.3, 1)'
+                      }}
+                    />
 
-                  {/* Top-Right Net Weight Badge */}
-                  {product.netWeight && (
+                    {/* Top-Left Category Badge */}
                     <div style={{
                       position: 'absolute',
                       top: '0.85rem',
-                      right: '0.85rem',
-                      backgroundColor: '#6b8e23',
-                      color: '#ffffff',
+                      left: '0.85rem',
+                      backgroundColor: 'rgba(43, 35, 25, 0.88)',
+                      backdropFilter: 'blur(8px)',
+                      color: '#9fc152',
                       padding: '0.3rem 0.75rem',
                       borderRadius: '8px',
                       fontSize: '0.72rem',
                       fontWeight: 800,
-                      boxShadow: '0 2px 8px rgba(0,0,0,0.12)'
+                      letterSpacing: '0.04em',
+                      border: '1px solid rgba(107, 142, 35, 0.4)',
+                      boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
                     }}>
-                      {product.netWeight}
+                      {product.categoryLabel || 'Wheat Flour'}
                     </div>
-                  )}
 
-                  {/* Bottom Purity Badge */}
-                  {product.specifications?.purity && (
-                    <div style={{
-                      position: 'absolute',
-                      bottom: '0.85rem',
-                      right: '0.85rem',
-                      backgroundColor: 'rgba(255, 255, 255, 0.95)',
-                      backdropFilter: 'blur(6px)',
-                      color: '#2b2319',
-                      padding: '0.25rem 0.65rem',
-                      borderRadius: '6px',
-                      fontSize: '0.7rem',
-                      fontWeight: 800,
-                      display: 'flex',
-                      alignItems: 'center',
-                      gap: '0.35rem',
-                      border: '1px solid #d4c5a9',
-                      boxShadow: '0 2px 8px rgba(0,0,0,0.06)'
-                    }}>
-                      <ShieldCheck size={13} color="#6b8e23" /> {product.specifications.purity}
-                    </div>
-                  )}
-                </div>
+                    {/* Top-Right Net Weight Badge */}
+                    {product.netWeight && (
+                      <div style={{
+                        position: 'absolute',
+                        top: '0.85rem',
+                        right: '0.85rem',
+                        backgroundColor: '#6b8e23',
+                        color: '#ffffff',
+                        padding: '0.3rem 0.75rem',
+                        borderRadius: '8px',
+                        fontSize: '0.72rem',
+                        fontWeight: 800,
+                        boxShadow: '0 2px 8px rgba(0,0,0,0.12)'
+                      }}>
+                        {product.netWeight}
+                      </div>
+                    )}
 
-                {/* Content Container */}
-                <div style={{
-                  padding: '1.75rem',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  flexGrow: 1
-                }}>
-                  {/* Tagline / Subtitle */}
-                  {product.tagline && (
-                    <div style={{
-                      fontSize: '0.75rem',
-                      fontWeight: 800,
-                      color: '#d99b38',
-                      textTransform: 'uppercase',
-                      letterSpacing: '0.05em',
-                      marginBottom: '0.35rem'
-                    }}>
-                      {product.tagline}
-                    </div>
-                  )}
+                    {/* Bottom Purity Badge */}
+                    {product.specifications?.purity && (
+                      <div style={{
+                        position: 'absolute',
+                        bottom: '0.85rem',
+                        right: '0.85rem',
+                        backgroundColor: 'rgba(255, 255, 255, 0.95)',
+                        backdropFilter: 'blur(6px)',
+                        color: '#2b2319',
+                        padding: '0.25rem 0.65rem',
+                        borderRadius: '6px',
+                        fontSize: '0.7rem',
+                        fontWeight: 800,
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '0.35rem',
+                        border: '1px solid #d4c5a9',
+                        boxShadow: '0 2px 8px rgba(0,0,0,0.06)'
+                      }}>
+                        <ShieldCheck size={13} color="#6b8e23" /> {product.specifications.purity}
+                      </div>
+                    )}
+                  </div>
 
-                  {/* Title */}
-                  <h3 style={{
-                    fontFamily: 'var(--font-heading)',
-                    fontSize: '1.25rem',
-                    fontWeight: 900,
-                    color: '#2b2319',
-                    marginBottom: '0.6rem',
-                    lineHeight: 1.25
-                  }}>
-                    {product.name}
-                  </h3>
-
-                  {/* Description */}
-                  <p style={{
-                    fontSize: '0.88rem',
-                    color: '#55493b',
-                    lineHeight: 1.55,
-                    marginBottom: '1.25rem',
+                  {/* Content Container */}
+                  <div style={{
+                    padding: '1.75rem',
+                    display: 'flex',
+                    flexDirection: 'column',
                     flexGrow: 1
                   }}>
-                    {product.description}
-                  </p>
+                    {/* Tagline / Subtitle */}
+                    {product.tagline && (
+                      <div style={{
+                        fontSize: '0.75rem',
+                        fontWeight: 800,
+                        color: '#d99b38',
+                        textTransform: 'uppercase',
+                        letterSpacing: '0.05em',
+                        marginBottom: '0.35rem'
+                      }}>
+                        {product.tagline}
+                      </div>
+                    )}
 
-                  {/* Key Specifications Chips */}
-                  <div style={{
-                    display: 'grid',
-                    gridTemplateColumns: 'repeat(2, 1fr)',
-                    gap: '0.5rem',
-                    backgroundColor: '#faf7f2',
-                    border: '1px solid #e8dfc9',
-                    borderRadius: '12px',
-                    padding: '0.75rem',
-                    marginBottom: '1.25rem'
-                  }}>
-                    <div>
-                      <div style={{ fontSize: '0.68rem', color: '#888888', fontWeight: 600 }}>Moisture Level</div>
-                      <div style={{ fontSize: '0.82rem', color: '#2b2319', fontWeight: 800 }}>{product.specifications?.moisture || 'Max 11.5%'}</div>
+                    {/* Title */}
+                    <h3 style={{
+                      fontFamily: 'var(--font-heading)',
+                      fontSize: '1.25rem',
+                      fontWeight: 900,
+                      color: '#2b2319',
+                      marginBottom: '0.6rem',
+                      lineHeight: 1.25
+                    }}>
+                      {product.name}
+                    </h3>
+
+                    {/* Description */}
+                    <p style={{
+                      fontSize: '0.88rem',
+                      color: '#55493b',
+                      lineHeight: 1.55,
+                      marginBottom: '1.25rem',
+                      flexGrow: 1
+                    }}>
+                      {product.description}
+                    </p>
+
+                    {/* Key Specifications Chips */}
+                    <div style={{
+                      display: 'grid',
+                      gridTemplateColumns: 'repeat(2, 1fr)',
+                      gap: '0.5rem',
+                      backgroundColor: '#faf7f2',
+                      border: '1px solid #e8dfc9',
+                      borderRadius: '12px',
+                      padding: '0.75rem',
+                      marginBottom: '1.25rem'
+                    }}>
+                      <div>
+                        <div style={{ fontSize: '0.68rem', color: '#888888', fontWeight: 600 }}>Moisture Level</div>
+                        <div style={{ fontSize: '0.82rem', color: '#2b2319', fontWeight: 800 }}>{product.specifications?.moisture || 'Max 11.5%'}</div>
+                      </div>
+                      <div>
+                        <div style={{ fontSize: '0.68rem', color: '#888888', fontWeight: 600 }}>Gluten Value</div>
+                        <div style={{ fontSize: '0.82rem', color: '#2b2319', fontWeight: 800 }}>{product.specifications?.gluten || 'Min 9.5% Wet'}</div>
+                      </div>
                     </div>
-                    <div>
-                      <div style={{ fontSize: '0.68rem', color: '#888888', fontWeight: 600 }}>Gluten Value</div>
-                      <div style={{ fontSize: '0.82rem', color: '#2b2319', fontWeight: 800 }}>{product.specifications?.gluten || 'Min 9.5% Wet'}</div>
+
+                    {/* Packaging Options */}
+                    <div style={{ marginBottom: '1.5rem' }}>
+                      <div style={{ fontSize: '0.72rem', fontWeight: 800, color: '#6b8e23', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.45rem' }}>
+                        Available Packaging Formats:
+                      </div>
+                      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.35rem' }}>
+                        {product.packageSizes?.map((size, sIdx) => (
+                          <span
+                            key={sIdx}
+                            style={{
+                              fontSize: '0.74rem',
+                              fontWeight: 700,
+                              color: '#2b2319',
+                              backgroundColor: '#faf7f2',
+                              padding: '0.22rem 0.6rem',
+                              borderRadius: '6px',
+                              border: '1px solid #e8dfc9'
+                            }}
+                          >
+                            {size}
+                          </span>
+                        ))}
+                      </div>
                     </div>
+
+                    {/* Action Buttons */}
+                    <div style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '0.75rem',
+                      paddingTop: '1rem',
+                      borderTop: '1px solid #e8dfc9'
+                    }}>
+                      <button
+                        onClick={() => onSelectProduct(product)}
+                        className="btn btn-outline btn-sm"
+                        style={{ flex: 1, padding: '0.6rem 0.5rem', fontSize: '0.82rem' }}
+                      >
+                        Specifications
+                      </button>
+
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          onQuickInquiry(product);
+                        }}
+                        className="btn btn-primary btn-sm"
+                        style={{ flex: 1, padding: '0.6rem 0.5rem', fontSize: '0.82rem' }}
+                      >
+                        Contact Us <ArrowUpRight size={15} />
+                      </button>
+                    </div>
+
                   </div>
-
-                  {/* Packaging Options */}
-                  <div style={{ marginBottom: '1.5rem' }}>
-                    <div style={{ fontSize: '0.72rem', fontWeight: 800, color: '#6b8e23', textTransform: 'uppercase', letterSpacing: '0.05em', marginBottom: '0.45rem' }}>
-                      Available Packaging Formats:
-                    </div>
-                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.35rem' }}>
-                      {product.packageSizes?.map((size, sIdx) => (
-                        <span
-                          key={sIdx}
-                          style={{
-                            fontSize: '0.74rem',
-                            fontWeight: 700,
-                            color: '#2b2319',
-                            backgroundColor: '#faf7f2',
-                            padding: '0.22rem 0.6rem',
-                            borderRadius: '6px',
-                            border: '1px solid #e8dfc9'
-                          }}
-                        >
-                          {size}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Action Buttons */}
-                  <div style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '0.75rem',
-                    paddingTop: '1rem',
-                    borderTop: '1px solid #e8dfc9'
-                  }}>
-                    <button
-                      onClick={() => onSelectProduct(product)}
-                      className="btn btn-outline btn-sm"
-                      style={{ flex: 1, padding: '0.6rem 0.5rem', fontSize: '0.82rem' }}
-                    >
-                      Specifications
-                    </button>
-
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        onQuickInquiry(product);
-                      }}
-                      className="btn btn-primary btn-sm"
-                      style={{ flex: 1, padding: '0.6rem 0.5rem', fontSize: '0.82rem' }}
-                    >
-                      Contact Us <ArrowUpRight size={15} />
-                    </button>
-                  </div>
-
                 </div>
+              ))}
+            </div>
+
+            {/* Mobile "See More" / "Show Less" Button */}
+            {isMobile && filteredProducts.length > 5 && (
+              <div style={{
+                display: 'flex',
+                justifyContent: 'center',
+                marginTop: '2.5rem'
+              }}>
+                {!showAllMobile ? (
+                  <button
+                    onClick={() => setShowAllMobile(true)}
+                    className="btn btn-primary btn-lg"
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '0.75rem',
+                      padding: '0.85rem 2rem',
+                      borderRadius: '9999px',
+                      fontSize: '0.98rem',
+                      fontWeight: 800,
+                      boxShadow: '0 8px 25px rgba(84, 180, 53, 0.35)',
+                      cursor: 'pointer'
+                    }}
+                  >
+                    <Sparkles size={18} />
+                    <span>See More Products ({filteredProducts.length - 5} More)</span>
+                    <ChevronDown size={18} />
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => {
+                      setShowAllMobile(false);
+                      const el = document.getElementById('products');
+                      if (el) el.scrollIntoView({ behavior: 'smooth' });
+                    }}
+                    className="btn btn-outline btn-md"
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '0.65rem',
+                      padding: '0.75rem 1.8rem',
+                      borderRadius: '9999px',
+                      fontSize: '0.88rem',
+                      fontWeight: 700,
+                      cursor: 'pointer'
+                    }}
+                  >
+                    <span>Show Less (Displaying 5 Only)</span>
+                    <ChevronUp size={16} />
+                  </button>
+                )}
               </div>
-            ))}
-          </div>
+            )}
+          </>
         )}
       </div>
     </section>
