@@ -42,8 +42,8 @@ export default function StatsBand({ stats }) {
       <div className="container-custom">
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
-          gap: '1.5rem'
+          gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 160px), 1fr))',
+          gap: '1rem'
         }}>
           {defaultStats.map((item, idx) => {
             const Icon = item.icon;
@@ -54,8 +54,8 @@ export default function StatsBand({ stats }) {
                 style={{
                   backgroundColor: '#ffffff',
                   border: '1.5px solid #e8dfc9',
-                  borderRadius: '20px',
-                  padding: '1.75rem',
+                  borderRadius: '18px',
+                  padding: 'clamp(1rem, 2.5vw, 1.6rem)',
                   display: 'flex',
                   flexDirection: 'column',
                   alignItems: 'center',
@@ -64,42 +64,42 @@ export default function StatsBand({ stats }) {
                 }}
               >
                 <div style={{
-                  width: '54px',
-                  height: '54px',
-                  borderRadius: '16px',
-                  backgroundColor: '#eaf3d5',
-                  border: '1.5px solid #9fc152',
-                  color: '#6b8e23',
+                  width: '46px',
+                  height: '46px',
+                  borderRadius: '14px',
+                  backgroundColor: '#edfbe2',
+                  border: '1.5px solid #88dc6a',
+                  color: '#379237',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  marginBottom: '1rem',
-                  boxShadow: '0 4px 12px rgba(107, 142, 35, 0.15)'
+                  marginBottom: '0.75rem',
+                  boxShadow: '0 4px 12px rgba(84, 180, 53, 0.15)'
                 }}>
-                  <Icon size={28} />
+                  <Icon size={24} />
                 </div>
                 <div style={{
                   fontFamily: 'var(--font-heading)',
-                  fontSize: '2rem',
+                  fontSize: 'clamp(1.3rem, 3.5vw, 1.85rem)',
                   fontWeight: 900,
                   color: '#2b2319',
                   letterSpacing: '-0.02em',
-                  marginBottom: '0.25rem'
+                  marginBottom: '0.2rem'
                 }}>
                   {item.value}
                 </div>
                 <div style={{
-                  fontSize: '0.88rem',
+                  fontSize: '0.84rem',
                   fontWeight: 800,
-                  color: '#6b8e23',
-                  marginBottom: '0.25rem'
+                  color: '#379237',
+                  marginBottom: '0.2rem'
                 }}>
                   {item.label}
                 </div>
                 <div style={{
-                  fontSize: '0.78rem',
-                  color: '#64748b',
-                  fontWeight: 500
+                  fontSize: '0.75rem',
+                  color: '#666666',
+                  lineHeight: 1.4
                 }}>
                   {item.sub}
                 </div>

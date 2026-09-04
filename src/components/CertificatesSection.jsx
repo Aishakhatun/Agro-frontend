@@ -80,8 +80,8 @@ export default function CertificatesSection({ certificates }) {
         {/* Certificates Cards Grid */}
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-          gap: '2rem'
+          gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 280px), 1fr))',
+          gap: '1.75rem'
         }}>
           {certificates && certificates.map((cert, idx) => {
             const Icon = iconMap[cert.iconName] || ShieldCheck;
@@ -92,13 +92,13 @@ export default function CertificatesSection({ certificates }) {
                 key={idx}
                 style={{
                   backgroundColor: '#ffffff',
-                  borderRadius: '24px',
+                  borderRadius: '22px',
                   border: '1.5px solid #e8dfc9',
-                  padding: '2rem',
+                  padding: 'clamp(1.25rem, 3.5vw, 2rem)',
                   display: 'flex',
                   flexDirection: 'column',
                   justifyContent: 'space-between',
-                  boxShadow: '0 10px 30px rgba(43, 35, 25, 0.04)',
+                  boxShadow: '0 8px 25px rgba(43, 35, 25, 0.04)',
                   transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
                   position: 'relative',
                   overflow: 'hidden'

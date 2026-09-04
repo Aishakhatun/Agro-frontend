@@ -241,15 +241,19 @@ export default function ProcessingJourney() {
             }} />
           </div>
 
-          <div style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            position: 'relative',
-            zIndex: 2,
-            overflowX: 'auto',
-            gap: '0.5rem'
-          }}>
+          <div 
+            className="horizontal-scroll-touch"
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              position: 'relative',
+              zIndex: 2,
+              overflowX: 'auto',
+              gap: '0.5rem',
+              padding: '0.25rem 0'
+            }}
+          >
             {processSteps.map((s, idx) => {
               const isActive = idx === activeStep;
               const isPassed = idx < activeStep;
@@ -266,26 +270,27 @@ export default function ProcessingJourney() {
                     alignItems: 'center',
                     gap: '0.5rem',
                     cursor: 'pointer',
-                    minWidth: '75px',
-                    outline: 'none'
+                    minWidth: '70px',
+                    outline: 'none',
+                    flexShrink: 0
                   }}
                 >
                   <div style={{
-                    width: isActive ? '46px' : '36px',
-                    height: isActive ? '46px' : '36px',
+                    width: isActive ? '44px' : '34px',
+                    height: isActive ? '44px' : '34px',
                     borderRadius: '50%',
-                    backgroundColor: isActive ? '#6b8e23' : isPassed ? '#2b2319' : '#1c1712',
+                    backgroundColor: isActive ? '#54b435' : isPassed ? '#2b2319' : '#1c1712',
                     border: isActive 
-                      ? '3px solid #9fc152' 
+                      ? '3px solid #88dc6a' 
                       : isPassed 
-                      ? '2px solid #6b8e23' 
+                      ? '2px solid #54b435' 
                       : '2px solid rgba(255, 255, 255, 0.2)',
-                    boxShadow: isActive ? '0 0 20px rgba(159, 193, 82, 0.6)' : 'none',
-                    color: isActive ? '#ffffff' : isPassed ? '#9fc152' : '#888888',
+                    boxShadow: isActive ? '0 0 18px rgba(84, 180, 53, 0.6)' : 'none',
+                    color: isActive ? '#ffffff' : isPassed ? '#88dc6a' : '#888888',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    fontSize: isActive ? '0.95rem' : '0.8rem',
+                    fontSize: isActive ? '0.92rem' : '0.78rem',
                     fontWeight: 900,
                     fontFamily: 'var(--font-heading)',
                     transition: 'all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)'
@@ -294,9 +299,9 @@ export default function ProcessingJourney() {
                   </div>
 
                   <span style={{
-                    fontSize: '0.72rem',
+                    fontSize: '0.7rem',
                     fontWeight: isActive ? 800 : 500,
-                    color: isActive ? '#9fc152' : '#888888',
+                    color: isActive ? '#88dc6a' : '#888888',
                     textAlign: 'center',
                     whiteSpace: 'nowrap'
                   }}>
@@ -311,9 +316,9 @@ export default function ProcessingJourney() {
         {/* 3. Detailed Stage Spotlight Card */}
         <div style={{
           backgroundColor: '#1f1a14',
-          border: '2px solid #6b8e23',
+          border: '2px solid #54b435',
           borderRadius: '24px',
-          padding: '2.25rem',
+          padding: 'clamp(1.25rem, 4vw, 2.25rem)',
           marginBottom: '2.5rem',
           boxShadow: '0 20px 50px rgba(0, 0, 0, 0.5)',
           position: 'relative',
@@ -321,27 +326,27 @@ export default function ProcessingJourney() {
         }}>
           <div style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-            gap: '2.25rem',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))',
+            gap: '2rem',
             alignItems: 'center'
           }}>
             
             {/* Left Side: Stage Information */}
             <div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1.2rem' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1.2rem', flexWrap: 'wrap' }}>
                 <div style={{
-                  width: '54px',
-                  height: '54px',
-                  borderRadius: '16px',
-                  backgroundColor: '#6b8e23',
+                  width: '50px',
+                  height: '50px',
+                  borderRadius: '14px',
+                  backgroundColor: '#54b435',
                   color: '#ffffff',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  boxShadow: '0 8px 20px rgba(107, 142, 35, 0.4)',
+                  boxShadow: '0 8px 20px rgba(84, 180, 53, 0.4)',
                   flexShrink: 0
                 }}>
-                  <CurrentIcon size={28} />
+                  <CurrentIcon size={26} />
                 </div>
 
                 <div>

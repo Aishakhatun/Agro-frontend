@@ -1,4 +1,5 @@
 import React from 'react';
+import { logo } from '../assets';
 import { 
   Wheat, 
   Phone, 
@@ -33,8 +34,9 @@ export default function Footer({ onOpenTracker, onOpenAdmin, onSelectCategory })
     <footer style={{
       backgroundColor: '#14110e',
       color: '#ffffff',
-      borderTop: '2px solid #6b8e23',
+      borderTop: '2px solid #54b435',
       position: 'relative',
+      zIndex: 2,
       overflow: 'hidden'
     }}>
       
@@ -70,40 +72,42 @@ export default function Footer({ onOpenTracker, onOpenAdmin, onSelectCategory })
       </div>
 
       {/* 2. Main Footer Grid Content */}
-      <div className="container-custom" style={{ paddingTop: '4.5rem', paddingBottom: '3.5rem' }}>
+      <div className="container-custom" style={{ paddingTop: 'clamp(2.5rem, 5vw, 4.5rem)', paddingBottom: 'clamp(2rem, 4vw, 3.5rem)' }}>
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
-          gap: '3rem',
-          marginBottom: '3.5rem'
+          gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 220px), 1fr))',
+          gap: 'clamp(1.75rem, 4vw, 3rem)',
+          marginBottom: '3rem'
         }}>
           
           {/* Column 1: Brand Emblem & Profile */}
           <div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1.25rem' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1.25rem', flexWrap: 'wrap' }}>
               <div style={{
                 width: '46px',
                 height: '46px',
                 borderRadius: '12px',
-                backgroundColor: '#1f1a14',
-                border: '2px solid #6b8e23',
+                backgroundColor: '#ffffff',
+                border: '1.5px solid #54b435',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                color: '#ffffff',
-                fontWeight: 900,
-                fontSize: '1rem',
-                boxShadow: '0 4px 14px rgba(107, 142, 35, 0.3)',
-                position: 'relative'
+                padding: '3px',
+                boxShadow: '0 4px 14px rgba(84, 180, 53, 0.3)',
+                overflow: 'hidden',
+                flexShrink: 0
               }}>
-                <span>KAI</span>
-                <Leaf size={12} color="#6b8e23" style={{ position: 'absolute', top: '3px', right: '3px' }} />
+                <img 
+                  src={logo} 
+                  alt="Khushbu Agro Industries" 
+                  style={{ width: '100%', height: '100%', objectFit: 'contain' }} 
+                />
               </div>
               <div>
-                <div style={{ fontFamily: 'var(--font-heading)', fontSize: '1.35rem', fontWeight: 900, color: '#ffffff', lineHeight: 1.1 }}>
-                  KHUSHBU <span style={{ color: '#6b8e23' }}>AGRO</span>
+                <div style={{ fontFamily: 'var(--font-heading)', fontSize: 'clamp(1.15rem, 3vw, 1.35rem)', fontWeight: 900, color: '#ffffff', lineHeight: 1.1 }}>
+                  KHUSHBU <span style={{ color: '#88dc6a' }}>AGRO</span>
                 </div>
-                <div style={{ fontSize: '0.68rem', fontWeight: 800, color: '#9fc152', letterSpacing: '0.05em', textTransform: 'uppercase' }}>
+                <div style={{ fontSize: '0.68rem', fontWeight: 800, color: '#88dc6a', letterSpacing: '0.04em', textTransform: 'uppercase' }}>
                   Wheat &amp; Flour Mills · Since 1988
                 </div>
               </div>

@@ -144,13 +144,13 @@ export default function ExportWizard({ onPreFillInquiry }) {
         {/* Master Estimator Dashboard */}
         <div style={{
           backgroundColor: '#1f1a14',
-          border: '2px solid #6b8e23',
-          borderRadius: '28px',
-          padding: '2.5rem',
+          border: '2px solid #54b435',
+          borderRadius: '24px',
+          padding: 'clamp(1.25rem, 4vw, 2.5rem)',
           boxShadow: '0 25px 60px rgba(0,0,0,0.5)',
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-          gap: '2.5rem'
+          gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))',
+          gap: '2rem'
         }}>
 
           {/* Left Controls Column */}
@@ -158,7 +158,7 @@ export default function ExportWizard({ onPreFillInquiry }) {
             <div style={{
               fontSize: '0.82rem',
               fontWeight: 800,
-              color: '#9fc152',
+              color: '#88dc6a',
               textTransform: 'uppercase',
               letterSpacing: '0.05em',
               marginBottom: '1.2rem',
@@ -180,8 +180,8 @@ export default function ExportWizard({ onPreFillInquiry }) {
                     key={p}
                     onClick={() => setSelectedProduct(p)}
                     style={{
-                      backgroundColor: selectedProduct === p ? 'rgba(107, 142, 35, 0.25)' : 'rgba(15, 12, 10, 0.6)',
-                      border: selectedProduct === p ? '1.5px solid #9fc152' : '1px solid rgba(255, 255, 255, 0.1)',
+                      backgroundColor: selectedProduct === p ? 'rgba(84, 180, 53, 0.25)' : 'rgba(15, 12, 10, 0.6)',
+                      border: selectedProduct === p ? '1.5px solid #54b435' : '1px solid rgba(255, 255, 255, 0.1)',
                       color: selectedProduct === p ? '#ffffff' : '#aaaaaa',
                       padding: '0.65rem 1rem',
                       borderRadius: '12px',
@@ -204,14 +204,14 @@ export default function ExportWizard({ onPreFillInquiry }) {
               <label style={{ display: 'block', fontSize: '0.78rem', fontWeight: 800, color: '#f4be6b', textTransform: 'uppercase', marginBottom: '0.6rem' }}>
                 2. Shipment Container Volume:
               </label>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: '0.6rem' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 130px), 1fr))', gap: '0.6rem' }}>
                 {containerOptions.map((c) => (
                   <button
                     key={c.id}
                     onClick={() => setContainerType(c.id)}
                     style={{
-                      backgroundColor: containerType === c.id ? '#6b8e23' : 'rgba(15, 12, 10, 0.6)',
-                      border: containerType === c.id ? '2px solid #9fc152' : '1px solid rgba(255, 255, 255, 0.1)',
+                      backgroundColor: containerType === c.id ? '#54b435' : 'rgba(15, 12, 10, 0.6)',
+                      border: containerType === c.id ? '2px solid #88dc6a' : '1px solid rgba(255, 255, 255, 0.1)',
                       color: '#ffffff',
                       padding: '0.75rem 0.85rem',
                       borderRadius: '14px',
@@ -221,7 +221,7 @@ export default function ExportWizard({ onPreFillInquiry }) {
                       outline: 'none'
                     }}
                   >
-                    <div style={{ fontSize: '0.7rem', color: containerType === c.id ? '#ffffff' : '#9fc152', fontWeight: 800 }}>
+                    <div style={{ fontSize: '0.7rem', color: containerType === c.id ? '#ffffff' : '#88dc6a', fontWeight: 800 }}>
                       {c.badge}
                     </div>
                     <div style={{ fontSize: '0.88rem', fontWeight: 900, fontFamily: 'var(--font-heading)' }}>

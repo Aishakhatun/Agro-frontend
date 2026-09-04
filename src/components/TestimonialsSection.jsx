@@ -178,7 +178,8 @@ export default function TestimonialsSection() {
             position: 'relative',
             maxWidth: '1080px',
             margin: '0 auto',
-            padding: '1rem 0'
+            padding: '1rem 0',
+            overflow: 'hidden'
           }}
         >
           {/* Main Cards Row */}
@@ -186,9 +187,9 @@ export default function TestimonialsSection() {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            gap: '1.5rem',
             position: 'relative',
-            minHeight: '340px'
+            minHeight: '390px',
+            width: '100%'
           }}>
             {testimonials.map((item, idx) => {
               const total = testimonials.length;
@@ -207,18 +208,18 @@ export default function TestimonialsSection() {
 
               if (isActive) {
                 opacity = 1;
-                scale = 1.03;
+                scale = 1;
                 translateX = '0%';
                 zIndex = 10;
               } else if (isPrev) {
-                opacity = 0.55;
+                opacity = 0.35;
                 scale = 0.88;
-                translateX = '-85%';
+                translateX = '-75%';
                 zIndex = 5;
               } else if (isNext) {
-                opacity = 0.55;
+                opacity = 0.35;
                 scale = 0.88;
-                translateX = '85%';
+                translateX = '75%';
                 zIndex = 5;
               }
 
@@ -228,26 +229,29 @@ export default function TestimonialsSection() {
                   onClick={() => setActiveIndex(idx)}
                   className="card-khushbu"
                   style={{
-                    position: isActive ? 'relative' : 'absolute',
-                    width: '100%',
-                    maxWidth: '520px',
+                    position: 'absolute',
+                    top: '50%',
+                    left: '50%',
+                    width: 'calc(100% - 32px)',
+                    maxWidth: '540px',
                     opacity: opacity,
-                    transform: `translateX(${translateX}) scale(${scale})`,
+                    transform: `translate(calc(-50% + ${translateX}), -50%) scale(${scale})`,
                     zIndex: zIndex,
                     pointerEvents: opacity > 0 ? 'auto' : 'none',
-                    transition: 'all 0.5s cubic-bezier(0.16, 1, 0.3, 1)',
+                    transition: 'opacity 0.5s ease, transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)',
                     borderRadius: '24px',
-                    padding: '2.25rem',
-                    border: isActive ? '2.5px solid #6b8e23' : '1.5px solid #e8dfc9',
+                    padding: 'clamp(1.25rem, 3.5vw, 2.25rem)',
+                    border: isActive ? '2.5px solid #54b435' : '1.5px solid #e8dfc9',
                     backgroundColor: isActive ? '#ffffff' : '#faf7f2',
                     boxShadow: isActive 
-                      ? '0 25px 50px -10px rgba(107, 142, 35, 0.25)' 
-                      : '0 10px 25px rgba(0,0,0,0.05)',
-                    cursor: 'pointer'
+                      ? '0 20px 45px -10px rgba(84, 180, 53, 0.25)' 
+                      : '0 8px 20px rgba(0,0,0,0.04)',
+                    cursor: 'pointer',
+                    willChange: 'transform, opacity'
                   }}
                 >
                   {/* Category Pill & Rating */}
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem', flexWrap: 'wrap', gap: '0.5rem' }}>
                     <span style={{
                       backgroundColor: '#eaf3d5',
                       color: '#5c7b1e',

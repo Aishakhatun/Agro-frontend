@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { 
+  product10, 
+  product17, 
+  product13,
+  product16,
+  product1
+} from '../assets';
+import { 
   ArrowRight, 
   Package, 
   Truck, 
@@ -8,24 +15,36 @@ import {
   Zap,
   Leaf,
   ChevronLeft,
-  ChevronRight
+  ChevronRight,
+  ShieldCheck,
+  Sparkles
 } from 'lucide-react';
+import FloatingWheatBackground from './FloatingWheatBackground';
 
 const heroSlides = [
   {
     image: 'https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?auto=format&fit=crop&w=1600&q=85',
+    productImg: product10,
+    productName: 'Super SIXER Whole Wheat Chakki Fresh Atta',
+    productNet: '25 Kg · 0% Maida 100% Atta',
     kicker: 'KAI KHUSHBU WHEAT MILLS SINCE 1988',
     title: 'Pure MP Sharbati Wheat & Chakki Fresh Atta.',
     desc: 'Processing & supplying 100% natural Whole Wheat Flour (Atta), Superfine Maida, Sooji/Semolina, and Durum Wheat for bakeries, retail shelf brands, and global exports.'
   },
   {
     image: 'https://images.unsplash.com/photo-1500937386664-56d1dfef3854?auto=format&fit=crop&w=1600&q=85',
+    productImg: product17,
+    productName: 'Khushbu Khajana 100% MP Sharbati Wheat',
+    productNet: '30 Kg · Golden Amber Kernels',
     kicker: 'COLD AIR-COOLED STONE CHAKKI MILLING',
     title: 'Natural Sweetness & 12+ Hour Soft Rotis Guaranteed.',
     desc: 'Milled from sun-drenched golden kernels with zero chemical bleaching, preserving 100% natural wheat germ nutrition and rich digestive bran.'
   },
   {
     image: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=1600&q=85',
+    productImg: product13,
+    productName: 'Luxury Natural Whole Wheat Chakki Atta',
+    productNet: '5 Kg Pouch · Retail Masterpack',
     kicker: 'COMMERCIAL ROLLER MILLS & BULK EXPORT',
     title: 'Export-Grade Flour Packed To Exact Mesh Specifications.',
     desc: 'From 1kg consumer pouches to 50kg HDPE export bags and container FCL consignments. Certified by FSSAI, ISO 22000, and APEDA.'
@@ -79,6 +98,9 @@ export default function Hero({ onOpenQuote, onSelectPath }) {
           background: 'radial-gradient(circle at 50% 30%, rgba(217, 155, 56, 0.22) 0%, rgba(43, 35, 25, 0.85) 60%, rgba(25, 20, 14, 0.98) 100%)'
         }} />
       </div>
+
+      {/* Floating Animated Wheat Layer inside Hero Banner */}
+      <FloatingWheatBackground isAbsolute={true} zIndex={2} count={28} opacityBoost={1.35} />
 
       {/* Floating Badges */}
       <div 
@@ -157,7 +179,7 @@ export default function Hero({ onOpenQuote, onSelectPath }) {
 
       <div className="container-custom" style={{
         position: 'relative',
-        zIndex: 2,
+        zIndex: 5,
         paddingTop: '5rem',
         paddingBottom: '4.5rem',
         display: 'flex',
@@ -187,44 +209,97 @@ export default function Hero({ onOpenQuote, onSelectPath }) {
           <span>{slide.kicker}</span>
         </div>
 
-        {/* Title */}
-        <h1 style={{
-          color: '#ffffff',
-          fontSize: 'clamp(1.75rem, 5vw, 4.5rem)',
-          fontWeight: 900,
-          lineHeight: 1.12,
-          maxWidth: '960px',
-          marginBottom: '1.25rem',
-          textShadow: '0 4px 25px rgba(0,0,0,0.8)',
-          fontFamily: 'var(--font-heading)'
-        }}>
-          {slide.title}
-        </h1>
+        {/* Title Container with Stable Minimum Height */}
+        <div style={{ minHeight: 'clamp(3.8rem, 8vw, 6.8rem)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '1.25rem' }}>
+          <h1 style={{
+            color: '#ffffff',
+            fontSize: 'clamp(1.75rem, 5vw, 4.5rem)',
+            fontWeight: 900,
+            lineHeight: 1.12,
+            maxWidth: '960px',
+            textShadow: '0 4px 25px rgba(0,0,0,0.8)',
+            fontFamily: 'var(--font-heading)',
+            margin: 0
+          }}>
+            {slide.title}
+          </h1>
+        </div>
 
-        {/* Subtitle */}
-        <p style={{
-          color: '#efe8d8',
-          fontSize: 'clamp(1rem, 2vw, 1.25rem)',
-          maxWidth: '800px',
-          lineHeight: 1.65,
+        {/* Subtitle Container with Stable Minimum Height */}
+        <div style={{ minHeight: 'clamp(3.8rem, 6vw, 4.8rem)', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '2rem' }}>
+          <p style={{
+            color: '#efe8d8',
+            fontSize: 'clamp(1rem, 2vw, 1.25rem)',
+            maxWidth: '800px',
+            lineHeight: 1.65,
+            fontWeight: 500,
+            margin: 0
+          }}>
+            {slide.desc}
+          </p>
+        </div>
+
+        {/* Active Slide Product Packaging Showcase */}
+        <div style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: '1.25rem',
+          backgroundColor: 'rgba(25, 20, 14, 0.82)',
+          border: '1.5px solid rgba(217, 155, 56, 0.5)',
+          backdropFilter: 'blur(16px)',
+          borderRadius: '20px',
+          padding: 'clamp(0.65rem, 2.5vw, 0.85rem) clamp(0.9rem, 3vw, 1.6rem)',
           marginBottom: '2.5rem',
-          fontWeight: 500
+          boxShadow: '0 20px 45px rgba(0, 0, 0, 0.5)',
+          transition: 'all 0.3s ease',
+          maxWidth: '100%',
+          minHeight: '86px'
         }}>
-          {slide.desc}
-        </p>
+          <div style={{
+            width: '60px',
+            height: '70px',
+            borderRadius: '12px',
+            backgroundColor: '#ffffff',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '4px',
+            flexShrink: 0,
+            boxShadow: '0 8px 20px rgba(0,0,0,0.35)'
+          }}>
+            <img 
+              src={slide.productImg} 
+              alt={slide.productName} 
+              style={{ maxHeight: '100%', maxWidth: '100%', objectFit: 'contain' }}
+            />
+          </div>
+          <div style={{ textAlign: 'left', minWidth: 0 }}>
+            <div style={{ fontSize: '0.7rem', color: '#88dc6a', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+              ✦ Flagship Khushbu Brand Packaging
+            </div>
+            <div style={{ fontSize: 'clamp(0.92rem, 2.5vw, 1.05rem)', color: '#ffffff', fontWeight: 900, fontFamily: 'var(--font-heading)', wordBreak: 'break-word' }}>
+              {slide.productName}
+            </div>
+            <div style={{ fontSize: '0.78rem', color: '#f4be6b', fontWeight: 700 }}>
+              {slide.productNet}
+            </div>
+          </div>
+        </div>
 
         {/* Action Buttons */}
         <div style={{
           display: 'flex',
-          gap: '1.25rem',
+          gap: '1rem',
           flexWrap: 'wrap',
           justifyContent: 'center',
-          marginBottom: '3.5rem'
+          marginBottom: '3.5rem',
+          width: '100%',
+          maxWidth: '520px'
         }}>
           <button
             onClick={() => onOpenQuote('Wholesale Wheat & Atta Inquiry')}
             className="btn btn-primary btn-lg"
-            style={{ minWidth: '220px' }}
+            style={{ flex: '1 1 200px' }}
           >
             Get Wholesale Atta Quote <ArrowRight size={18} />
           </button>
@@ -232,7 +307,7 @@ export default function Hero({ onOpenQuote, onSelectPath }) {
           <a
             href="#products"
             className="btn btn-outline-white btn-lg"
-            style={{ minWidth: '220px' }}
+            style={{ flex: '1 1 200px' }}
           >
             Explore Wheat Range
           </a>
@@ -268,7 +343,7 @@ export default function Hero({ onOpenQuote, onSelectPath }) {
                       width: i === activeSlide ? '36px' : '10px',
                       height: '8px',
                       borderRadius: '4px',
-                      backgroundColor: i === activeSlide ? '#6b8e23' : 'rgba(255,255,255,0.3)',
+                      backgroundColor: i === activeSlide ? '#54b435' : 'rgba(255,255,255,0.3)',
                       border: 'none',
                       cursor: 'pointer',
                       transition: 'all 0.3s ease',
@@ -286,7 +361,7 @@ export default function Hero({ onOpenQuote, onSelectPath }) {
                           left: 0,
                           bottom: 0,
                           width: '100%',
-                          backgroundColor: '#9fc152',
+                          backgroundColor: '#88dc6a',
                           animation: 'slide3sProgress 3s linear infinite'
                         }}
                       />
@@ -315,7 +390,7 @@ export default function Hero({ onOpenQuote, onSelectPath }) {
             </button>
           </div>
 
-          <div style={{ fontSize: '0.72rem', color: '#9fc152', fontWeight: 800, letterSpacing: '0.06em', textTransform: 'uppercase' }}>
+          <div style={{ fontSize: '0.72rem', color: '#88dc6a', fontWeight: 800, letterSpacing: '0.06em', textTransform: 'uppercase' }}>
             ⚡ 3-Second Auto Slidebar Transition
           </div>
         </div>
@@ -324,7 +399,7 @@ export default function Hero({ onOpenQuote, onSelectPath }) {
         <div style={{
           width: '100%',
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 260px), 1fr))',
           gap: '1.5rem',
           textAlign: 'left'
         }}>
@@ -332,7 +407,7 @@ export default function Hero({ onOpenQuote, onSelectPath }) {
           <div 
             onClick={() => onSelectPath('Retail & Distribution')}
             className="card-khushbu-dark"
-            style={{ padding: '1.5rem', cursor: 'pointer' }}
+            style={{ padding: 'clamp(1.2rem, 3vw, 1.5rem)', cursor: 'pointer' }}
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem', marginBottom: '0.75rem' }}>
               <div style={{

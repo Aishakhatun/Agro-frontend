@@ -91,27 +91,32 @@ export default function ProductDetailModal({ product, onClose, onInquire }) {
         </div>
 
         {/* Modal Body */}
-        <div style={{ padding: '1.75rem' }}>
+        <div style={{ padding: 'clamp(1rem, 3.5vw, 1.75rem)' }}>
           <div style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-            gap: '2rem',
-            marginBottom: '2rem'
+            gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 260px), 1fr))',
+            gap: '1.5rem',
+            marginBottom: '1.75rem'
           }}>
             {/* Left: Image & Key Highlights */}
             <div>
               <div style={{
-                borderRadius: '14px',
+                borderRadius: '16px',
                 overflow: 'hidden',
-                height: '240px',
+                height: 'clamp(200px, 35vw, 300px)',
                 marginBottom: '1.25rem',
-                backgroundColor: '#0f392b',
-                boxShadow: '0 4px 12px rgba(0,0,0,0.1)'
+                backgroundColor: '#faf7f2',
+                border: '1.5px solid #e8dfc9',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                padding: '1rem',
+                boxShadow: '0 8px 24px rgba(43, 35, 25, 0.08)'
               }}>
                 <img
                   src={product.imageUrl}
                   alt={product.name}
-                  style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                  style={{ width: '100%', height: '100%', objectFit: 'contain', filter: 'drop-shadow(0 10px 15px rgba(0,0,0,0.12))' }}
                 />
               </div>
 

@@ -231,8 +231,8 @@ export default function QualityInfrastructure() {
           {/* Metric Selector Buttons (4 Tabs) */}
           <div style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
-            gap: '1rem',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 150px), 1fr))',
+            gap: '0.85rem',
             marginBottom: '2.25rem'
           }}>
             {labMetrics.map((m) => {
@@ -243,47 +243,47 @@ export default function QualityInfrastructure() {
                   key={m.id}
                   onClick={() => setActiveMetricId(m.id)}
                   style={{
-                    backgroundColor: isActive ? 'rgba(107, 142, 35, 0.25)' : 'rgba(15, 12, 10, 0.6)',
-                    border: isActive ? '2px solid #9fc152' : '1px solid rgba(255, 255, 255, 0.1)',
-                    borderRadius: '18px',
-                    padding: '1.15rem 1.25rem',
+                    backgroundColor: isActive ? 'rgba(84, 180, 53, 0.25)' : 'rgba(15, 12, 10, 0.6)',
+                    border: isActive ? '2px solid #54b435' : '1px solid rgba(255, 255, 255, 0.1)',
+                    borderRadius: '16px',
+                    padding: 'clamp(0.85rem, 3vw, 1.25rem)',
                     cursor: 'pointer',
                     textAlign: 'left',
                     transition: 'all 0.3s ease',
-                    boxShadow: isActive ? '0 8px 25px rgba(107, 142, 35, 0.3)' : 'none',
-                    transform: isActive ? 'translateY(-3px)' : 'none',
+                    boxShadow: isActive ? '0 6px 20px rgba(84, 180, 53, 0.3)' : 'none',
+                    transform: isActive ? 'translateY(-2px)' : 'none',
                     outline: 'none'
                   }}
                 >
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.6rem' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.5rem' }}>
                     <div style={{
-                      width: '36px',
-                      height: '36px',
+                      width: '34px',
+                      height: '34px',
                       borderRadius: '10px',
-                      backgroundColor: isActive ? '#6b8e23' : 'rgba(255, 255, 255, 0.08)',
-                      color: isActive ? '#ffffff' : '#9fc152',
+                      backgroundColor: isActive ? '#54b435' : 'rgba(255, 255, 255, 0.08)',
+                      color: isActive ? '#ffffff' : '#88dc6a',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center'
                     }}>
-                      <Icon size={18} />
+                      <Icon size={17} />
                     </div>
                     <span style={{
-                      fontSize: '0.72rem',
+                      fontSize: '0.7rem',
                       fontWeight: 800,
-                      color: isActive ? '#9fc152' : '#888888',
+                      color: isActive ? '#88dc6a' : '#888888',
                       backgroundColor: 'rgba(0,0,0,0.3)',
-                      padding: '0.15rem 0.5rem',
+                      padding: '0.15rem 0.45rem',
                       borderRadius: '6px'
                     }}>
                       {m.unit}
                     </span>
                   </div>
 
-                  <div style={{ fontSize: '0.78rem', color: '#aaaaaa', fontWeight: 600, marginBottom: '0.2rem' }}>
+                  <div style={{ fontSize: '0.75rem', color: '#aaaaaa', fontWeight: 600, marginBottom: '0.15rem' }}>
                     {m.name}
                   </div>
-                  <div style={{ fontSize: '1.4rem', color: '#ffffff', fontWeight: 900, fontFamily: 'var(--font-heading)' }}>
+                  <div style={{ fontSize: 'clamp(1.15rem, 3vw, 1.4rem)', color: '#ffffff', fontWeight: 900, fontFamily: 'var(--font-heading)' }}>
                     {m.value}
                   </div>
                 </button>
@@ -294,28 +294,29 @@ export default function QualityInfrastructure() {
           {/* Detailed Metric Showcase Panel */}
           <div style={{
             backgroundColor: '#181410',
-            border: '1.5px solid rgba(107, 142, 35, 0.3)',
+            border: '1.5px solid rgba(84, 180, 53, 0.3)',
             borderRadius: '22px',
-            padding: '2rem',
+            padding: 'clamp(1.25rem, 4vw, 2rem)',
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))',
             gap: '2rem',
             alignItems: 'center'
           }}>
             {/* Left Info Column */}
             <div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.75rem' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.75rem', flexWrap: 'wrap' }}>
                 <div style={{
-                  width: '46px',
-                  height: '46px',
-                  borderRadius: '14px',
-                  backgroundColor: '#6b8e23',
+                  width: '44px',
+                  height: '44px',
+                  borderRadius: '12px',
+                  backgroundColor: '#54b435',
                   color: '#ffffff',
                   display: 'flex',
                   alignItems: 'center',
-                  justifyContent: 'center'
+                  justifyContent: 'center',
+                  flexShrink: 0
                 }}>
-                  <ActiveIcon size={24} />
+                  <ActiveIcon size={22} />
                 </div>
                 <div>
                   <span style={{ fontSize: '0.75rem', color: '#f4be6b', fontWeight: 800, textTransform: 'uppercase' }}>

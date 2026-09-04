@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { logo } from '../assets';
 import { 
   X, 
   Wheat, 
@@ -81,27 +82,29 @@ export default function SidebarDrawer({ isOpen, onClose, onOpenQuote, onOpenTrac
           }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
               <div style={{
-                width: '42px',
-                height: '42px',
+                width: '44px',
+                height: '44px',
                 borderRadius: '10px',
-                backgroundColor: '#19140e',
-                border: '2px solid #6b8e23',
+                backgroundColor: '#ffffff',
+                border: '1.5px solid #54b435',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                color: '#ffffff',
-                fontWeight: 900,
-                fontSize: '1rem',
-                position: 'relative'
+                padding: '3px',
+                boxShadow: '0 4px 14px rgba(84, 180, 53, 0.3)',
+                overflow: 'hidden'
               }}>
-                KAI
-                <Leaf size={12} color="#6b8e23" style={{ position: 'absolute', top: '2px', right: '2px' }} />
+                <img 
+                  src={logo} 
+                  alt="Khushbu Agro Logo" 
+                  style={{ width: '100%', height: '100%', objectFit: 'contain' }} 
+                />
               </div>
               <div>
                 <div style={{ fontWeight: 900, fontSize: '1.2rem', fontFamily: 'var(--font-heading)' }}>
-                  KHUSHBU <span style={{ color: '#6b8e23' }}>AGRO</span>
+                  KHUSHBU <span style={{ color: '#88dc6a' }}>AGRO</span>
                 </div>
-                <div style={{ fontSize: '0.68rem', color: '#9fc152', fontWeight: 700, letterSpacing: '0.05em' }}>
+                <div style={{ fontSize: '0.68rem', color: '#88dc6a', fontWeight: 700, letterSpacing: '0.05em' }}>
                   WHEAT &amp; FLOUR MILLS SINCE 1988
                 </div>
               </div>
@@ -227,25 +230,6 @@ export default function SidebarDrawer({ isOpen, onClose, onOpenQuote, onOpenTrac
                 Request Quotation <ArrowRight size={14} />
               </button>
             </div>
-          </div>
-        </div>
-
-        {/* Footer Actions */}
-        <div style={{
-          padding: '1.25rem',
-          backgroundColor: '#efe8d8',
-          borderTop: '1px solid #e8dfc9'
-        }}>
-          <button
-            onClick={() => { onClose(); onOpenTracker(); }}
-            className="btn btn-outline btn-block btn-sm"
-            style={{ marginBottom: '0.65rem', backgroundColor: '#ffffff' }}
-          >
-            <FileText size={14} /> Track Order Status
-          </button>
-
-          <div style={{ textAlign: 'center', fontSize: '0.78rem', color: '#64748b', marginTop: '0.5rem' }}>
-            Direct Hotline: <a href="tel:+919426047829" style={{ color: '#6b8e23', fontWeight: 800 }}>+91 94260 47829</a>
           </div>
         </div>
       </div>

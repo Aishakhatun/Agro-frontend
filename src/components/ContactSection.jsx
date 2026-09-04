@@ -170,8 +170,8 @@ export default function ContactSection({ preFilledData, onClearPreFill, onOpenTr
 
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-          gap: '2.5rem',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 300px), 1fr))',
+          gap: 'clamp(1.5rem, 4vw, 2.5rem)',
           alignItems: 'start'
         }}>
           
@@ -180,32 +180,33 @@ export default function ContactSection({ preFilledData, onClearPreFill, onOpenTr
             <div style={{
               backgroundColor: '#1f1a14',
               borderRadius: '24px',
-              padding: '2.25rem',
-              border: '2px solid #6b8e23',
+              padding: 'clamp(1.25rem, 3.5vw, 2.25rem)',
+              border: '2px solid #54b435',
               color: '#ffffff',
               boxShadow: '0 20px 50px rgba(0, 0, 0, 0.4)',
               marginBottom: '1.75rem',
               position: 'relative',
               overflow: 'hidden'
             }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1.5rem' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1.5rem', flexWrap: 'wrap' }}>
                 <div style={{
                   width: '44px',
                   height: '44px',
                   borderRadius: '12px',
-                  backgroundColor: '#6b8e23',
+                  backgroundColor: '#54b435',
                   color: '#ffffff',
                   display: 'flex',
                   alignItems: 'center',
-                  justifyContent: 'center'
+                  justifyContent: 'center',
+                  flexShrink: 0
                 }}>
                   <Building2 size={24} />
                 </div>
                 <div>
-                  <div style={{ fontSize: '0.75rem', color: '#9fc152', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+                  <div style={{ fontSize: '0.75rem', color: '#88dc6a', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.04em' }}>
                     Khushbu Agro Headquarters
                   </div>
-                  <h3 style={{ fontSize: '1.35rem', color: '#ffffff', fontWeight: 900, margin: 0, fontFamily: 'var(--font-heading)' }}>
+                  <h3 style={{ fontSize: 'clamp(1.15rem, 3vw, 1.35rem)', color: '#ffffff', fontWeight: 900, margin: 0, fontFamily: 'var(--font-heading)' }}>
                     Mill &amp; Corporate Office
                   </h3>
                 </div>

@@ -10,22 +10,24 @@ import {
   FileText,
   Send,
   SlidersHorizontal,
-  CheckCircle2
+  CheckCircle2,
+  Layers,
+  Sprout
 } from 'lucide-react';
 
 const categories = [
-  { id: 'all', label: 'All Products' },
-  { id: 'atta', label: 'Chakki Whole Wheat Atta' },
-  { id: 'grain', label: 'MP Wheat Grain' },
-  { id: 'maida', label: 'Refined Maida' }
+  { id: 'all', label: 'All Products', icon: Layers },
+  { id: 'atta', label: 'Chakki Whole Wheat Atta', icon: Wheat },
+  { id: 'grain', label: 'MP Wheat Grain', icon: Wheat },
+  { id: 'bajra', label: 'Bajra (Pearl Millet)', icon: Sprout },
+  { id: 'pulses', label: 'Pulses & Dal', icon: Package }
 ];
 
 export default function ProductShowcase({ products, onSelectProduct, onQuickInquiry }) {
   const [activeCategory, setActiveCategory] = useState('all');
   const [searchTerm, setSearchTerm] = useState('');
 
-  // Robust category matching so legacy database keys ('toor', 'rice', 'urad', 'moong', 'masoor', 'chana')
-  // as well as modern semantic keys ('atta', 'grain', 'maida', 'sooji', 'durum', 'bran') match seamlessly.
+  // Robust category matching for Khushbu Agro Industries full catalog
   const isCategoryMatch = (item, catId) => {
     if (catId === 'all') return true;
     const catLower = (item.category || '').toLowerCase();
@@ -33,22 +35,16 @@ export default function ProductShowcase({ products, onSelectProduct, onQuickInqu
     const nameLower = (item.name || '').toLowerCase();
 
     if (catId === 'atta') {
-      return catLower === 'toor' || catLower === 'atta' || labelLower.includes('atta') || nameLower.includes('atta');
+      return catLower === 'atta' || catLower === 'toor' || labelLower.includes('atta') || nameLower.includes('atta');
     }
     if (catId === 'grain') {
-      return catLower === 'rice' || catLower === 'grain' || labelLower.includes('grain') || nameLower.includes('grain') || nameLower.includes('wheat');
+      return catLower === 'grain' || catLower === 'rice' || (labelLower.includes('wheat') && !labelLower.includes('atta')) || (nameLower.includes('wheat') && !nameLower.includes('atta'));
     }
-    if (catId === 'maida') {
-      return catLower === 'urad' || catLower === 'maida' || labelLower.includes('maida') || nameLower.includes('maida');
+    if (catId === 'bajra') {
+      return catLower === 'bajra' || labelLower.includes('bajra') || labelLower.includes('millet') || nameLower.includes('bajra');
     }
-    if (catId === 'sooji') {
-      return catLower === 'moong' || catLower === 'sooji' || catLower === 'rawa' || labelLower.includes('sooji') || labelLower.includes('rawa') || nameLower.includes('sooji') || nameLower.includes('rawa');
-    }
-    if (catId === 'durum') {
-      return catLower === 'masoor' || catLower === 'durum' || labelLower.includes('durum') || labelLower.includes('pasta') || nameLower.includes('durum');
-    }
-    if (catId === 'bran') {
-      return catLower === 'chana' || catLower === 'bran' || labelLower.includes('bran') || labelLower.includes('choker') || nameLower.includes('bran') || nameLower.includes('choker');
+    if (catId === 'pulses') {
+      return catLower === 'pulses' || labelLower.includes('pulse') || labelLower.includes('dal') || nameLower.includes('pulse');
     }
     return catLower === catId;
   };
@@ -220,21 +216,18 @@ export default function ProductShowcase({ products, onSelectProduct, onQuickInqu
           </div>
 
           {/* Category Filter Pills with Count Badges */}
-          <div style={{
-            display: 'flex',
-            flexWrap: 'wrap',
-            gap: '0.65rem',
-            justifyContent: 'center'
-          }}>
+          <div className="product-category-filters">
             {categories.map((cat) => {
+              const Icon = cat.icon;
               const isActive = activeCategory === cat.id;
               const count = getCategoryCount(cat.id);
               return (
                 <button
                   key={cat.id}
                   onClick={() => setActiveCategory(cat.id)}
+                  className="product-category-pill"
                   style={{
-                    padding: '0.65rem 1.25rem',
+                    padding: '0.65rem 1.15rem',
                     borderRadius: '9999px',
                     fontFamily: 'var(--font-heading)',
                     fontSize: '0.88rem',
@@ -242,23 +235,31 @@ export default function ProductShowcase({ products, onSelectProduct, onQuickInqu
                     cursor: 'pointer',
                     display: 'inline-flex',
                     alignItems: 'center',
-                    gap: '0.5rem',
-                    border: isActive ? '2px solid #6b8e23' : '1.5px solid #e8dfc9',
-                    backgroundColor: isActive ? '#6b8e23' : '#ffffff',
+                    gap: '0.55rem',
+                    border: isActive ? '1.5px solid #379237' : '1.5px solid #e8dfc9',
+                    background: isActive 
+                      ? 'linear-gradient(135deg, #54b435 0%, #379237 100%)' 
+                      : '#ffffff',
                     color: isActive ? '#ffffff' : '#2b2319',
                     transition: 'all 0.25s cubic-bezier(0.16, 1, 0.3, 1)',
-                    boxShadow: isActive ? '0 8px 20px rgba(107, 142, 35, 0.35)' : '0 2px 6px rgba(0,0,0,0.02)',
-                    transform: isActive ? 'translateY(-2px)' : 'none'
+                    boxShadow: isActive 
+                      ? '0 6px 20px -2px rgba(84, 180, 53, 0.45)' 
+                      : '0 2px 6px rgba(0,0,0,0.02)',
+                    transform: isActive ? 'scale(1.02)' : 'scale(1)',
+                    whiteSpace: 'nowrap',
+                    flexShrink: 0
                   }}
                 >
+                  <Icon size={16} color={isActive ? '#ffffff' : '#54b435'} />
                   <span>{cat.label}</span>
                   <span style={{
-                    backgroundColor: isActive ? 'rgba(255, 255, 255, 0.25)' : '#f0e8d5',
-                    color: isActive ? '#ffffff' : '#5c7b1e',
+                    backgroundColor: isActive ? 'rgba(255, 255, 255, 0.28)' : '#edfbe2',
+                    color: isActive ? '#ffffff' : '#2d7a2d',
                     fontSize: '0.72rem',
                     padding: '0.15rem 0.5rem',
                     borderRadius: '9999px',
-                    fontWeight: 900
+                    fontWeight: 900,
+                    border: isActive ? '1px solid rgba(255,255,255,0.4)' : '1px solid rgba(84,180,53,0.3)'
                   }}>
                     {count}
                   </span>
@@ -272,18 +273,18 @@ export default function ProductShowcase({ products, onSelectProduct, onQuickInqu
         {filteredProducts.length === 0 ? (
           <div style={{
             textAlign: 'center',
-            padding: '4.5rem 1.5rem',
+            padding: '4rem 1.5rem',
             backgroundColor: '#ffffff',
             borderRadius: '24px',
             border: '2px dashed #e8dfc9',
             maxWidth: '540px',
             margin: '0 auto'
           }}>
-            <Package size={52} color="#6b8e23" style={{ marginBottom: '1.2rem' }} />
-            <h3 style={{ fontSize: '1.35rem', color: '#2b2319', marginBottom: '0.5rem', fontWeight: 900, fontFamily: 'var(--font-heading)' }}>
+            <Package size={48} color="#54b435" style={{ marginBottom: '1.2rem' }} />
+            <h3 style={{ fontSize: '1.3rem', color: '#2b2319', marginBottom: '0.5rem', fontWeight: 900, fontFamily: 'var(--font-heading)' }}>
               No matching wheat products found
             </h3>
-            <p style={{ color: '#666666', fontSize: '0.92rem', lineHeight: 1.5, marginBottom: '1.75rem' }}>
+            <p style={{ color: '#666666', fontSize: '0.9rem', lineHeight: 1.5, marginBottom: '1.5rem' }}>
               We mill custom flour mesh formulations. Contact our technical flour sales desk for specific bulk requirements.
             </p>
             <button 
@@ -297,86 +298,106 @@ export default function ProductShowcase({ products, onSelectProduct, onQuickInqu
         ) : (
           <div style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fill, minmax(330px, 1fr))',
-            gap: '2.25rem'
+            gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 280px), 1fr))',
+            gap: '1.75rem'
           }}>
             {filteredProducts.map((product) => (
               <div
                 key={product.slug || product._id}
                 style={{
                   backgroundColor: '#ffffff',
-                  borderRadius: '24px',
+                  borderRadius: '22px',
                   border: '1.5px solid #e8dfc9',
                   overflow: 'hidden',
                   display: 'flex',
                   flexDirection: 'column',
-                  boxShadow: '0 10px 30px rgba(43, 35, 25, 0.05)',
+                  boxShadow: '0 8px 25px rgba(43, 35, 25, 0.05)',
                   transition: 'all 0.35s cubic-bezier(0.16, 1, 0.3, 1)'
                 }}
                 className="card-khushbu-hover"
               >
                 {/* Image Container with Badges */}
                 <div style={{
-                  height: '230px',
+                  height: '260px',
                   position: 'relative',
                   overflow: 'hidden',
-                  backgroundColor: '#19140e'
+                  backgroundColor: '#f9f6f0',
+                  borderBottom: '1px solid #e8dfc9',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  padding: '1.25rem'
                 }}>
                   <img
                     src={product.imageUrl}
                     alt={product.name}
                     loading="lazy"
                     style={{
-                      width: '100%',
-                      height: '100%',
-                      objectFit: 'cover',
-                      transition: 'transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)'
+                      maxHeight: '100%',
+                      maxWidth: '100%',
+                      objectFit: 'contain',
+                      filter: 'drop-shadow(0 10px 18px rgba(43, 35, 25, 0.18))',
+                      transition: 'transform 0.45s cubic-bezier(0.16, 1, 0.3, 1)'
                     }}
                   />
-
-                  {/* Gradient Shadow Overlay */}
-                  <div style={{
-                    position: 'absolute',
-                    inset: 0,
-                    background: 'linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0) 50%, rgba(25, 20, 14, 0.75) 100%)'
-                  }} />
 
                   {/* Top-Left Category Badge */}
                   <div style={{
                     position: 'absolute',
-                    top: '1rem',
-                    left: '1rem',
-                    backgroundColor: 'rgba(43, 35, 25, 0.9)',
-                    backdropFilter: 'blur(10px)',
+                    top: '0.85rem',
+                    left: '0.85rem',
+                    backgroundColor: 'rgba(43, 35, 25, 0.88)',
+                    backdropFilter: 'blur(8px)',
                     color: '#9fc152',
-                    padding: '0.35rem 0.85rem',
+                    padding: '0.3rem 0.75rem',
                     borderRadius: '8px',
-                    fontSize: '0.75rem',
+                    fontSize: '0.72rem',
                     fontWeight: 800,
                     letterSpacing: '0.04em',
-                    border: '1px solid rgba(107, 142, 35, 0.4)'
+                    border: '1px solid rgba(107, 142, 35, 0.4)',
+                    boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
                   }}>
                     {product.categoryLabel || 'Wheat Flour'}
                   </div>
 
-                  {/* Bottom-Right Purity Badge */}
+                  {/* Top-Right Net Weight Badge */}
+                  {product.netWeight && (
+                    <div style={{
+                      position: 'absolute',
+                      top: '0.85rem',
+                      right: '0.85rem',
+                      backgroundColor: '#6b8e23',
+                      color: '#ffffff',
+                      padding: '0.3rem 0.75rem',
+                      borderRadius: '8px',
+                      fontSize: '0.72rem',
+                      fontWeight: 800,
+                      boxShadow: '0 2px 8px rgba(0,0,0,0.12)'
+                    }}>
+                      {product.netWeight}
+                    </div>
+                  )}
+
+                  {/* Bottom Purity Badge */}
                   {product.specifications?.purity && (
                     <div style={{
                       position: 'absolute',
-                      bottom: '1rem',
-                      right: '1rem',
-                      backgroundColor: '#6b8e23',
-                      color: '#ffffff',
-                      padding: '0.35rem 0.85rem',
-                      borderRadius: '8px',
-                      fontSize: '0.75rem',
+                      bottom: '0.85rem',
+                      right: '0.85rem',
+                      backgroundColor: 'rgba(255, 255, 255, 0.95)',
+                      backdropFilter: 'blur(6px)',
+                      color: '#2b2319',
+                      padding: '0.25rem 0.65rem',
+                      borderRadius: '6px',
+                      fontSize: '0.7rem',
                       fontWeight: 800,
                       display: 'flex',
                       alignItems: 'center',
-                      gap: '0.4rem',
-                      boxShadow: '0 4px 14px rgba(0,0,0,0.3)'
+                      gap: '0.35rem',
+                      border: '1px solid #d4c5a9',
+                      boxShadow: '0 2px 8px rgba(0,0,0,0.06)'
                     }}>
-                      <ShieldCheck size={14} /> {product.specifications.purity}
+                      <ShieldCheck size={13} color="#6b8e23" /> {product.specifications.purity}
                     </div>
                   )}
                 </div>
