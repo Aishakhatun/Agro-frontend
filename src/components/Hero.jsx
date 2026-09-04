@@ -32,7 +32,7 @@ const heroSlides = [
     desc: 'Processing & supplying 100% natural Whole Wheat Flour (Atta), Superfine Maida, Sooji/Semolina, and Durum Wheat for bakeries, retail shelf brands, and global exports.'
   },
   {
-    image: 'https://images.unsplash.com/photo-1500937386664-56d1dfef3854?auto=format&fit=crop&w=1600&q=85',
+    image: 'https://images.unsplash.com/photo-1543257580-7269da773bf5?auto=format&fit=crop&w=1600&q=85',
     productImg: product17,
     productName: 'Khushbu Khajana 100% MP Sharbati Wheat',
     productNet: '30 Kg · Golden Amber Kernels',
@@ -85,8 +85,8 @@ export default function Hero({ onOpenQuote, onSelectPath, onSelectProduct, produ
               backgroundImage: `url(${s.image})`,
               backgroundSize: 'cover',
               backgroundPosition: 'center',
-              opacity: idx === activeSlide ? 0.48 : 0,
-              transform: idx === activeSlide ? 'scale(1.05)' : 'scale(1)',
+              opacity: idx === activeSlide ? 0.55 : 0,
+              transform: idx === activeSlide ? 'scale(1.04)' : 'scale(1)',
               transition: 'opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 3s ease-out',
             }}
           />
@@ -95,7 +95,7 @@ export default function Hero({ onOpenQuote, onSelectPath, onSelectProduct, produ
         <div style={{
           position: 'absolute',
           inset: 0,
-          background: 'radial-gradient(circle at 50% 30%, rgba(217, 155, 56, 0.22) 0%, rgba(43, 35, 25, 0.85) 60%, rgba(25, 20, 14, 0.98) 100%)'
+          background: 'radial-gradient(circle at 50% 25%, rgba(217, 155, 56, 0.28) 0%, rgba(35, 28, 18, 0.82) 55%, rgba(18, 14, 10, 0.97) 100%)'
         }} />
       </div>
 
@@ -192,9 +192,9 @@ export default function Hero({ onOpenQuote, onSelectPath, onSelectProduct, produ
           display: 'inline-flex',
           alignItems: 'center',
           gap: '0.55rem',
-          backgroundColor: 'rgba(107, 142, 35, 0.22)',
-          border: '1.5px solid rgba(107, 142, 35, 0.5)',
-          color: '#9fc152',
+          backgroundColor: 'rgba(107, 142, 35, 0.28)',
+          border: '1.5px solid rgba(136, 220, 106, 0.65)',
+          color: '#a3e635',
           padding: '0.45rem 1.35rem',
           borderRadius: '9999px',
           fontSize: '0.82rem',
@@ -202,10 +202,10 @@ export default function Hero({ onOpenQuote, onSelectPath, onSelectProduct, produ
           letterSpacing: '0.08em',
           textTransform: 'uppercase',
           marginBottom: '1.5rem',
-          backdropFilter: 'blur(12px)',
-          boxShadow: '0 4px 20px rgba(107, 142, 35, 0.25)'
+          backdropFilter: 'blur(16px)',
+          boxShadow: '0 4px 22px rgba(107, 142, 35, 0.3), inset 0 1px 0 rgba(255,255,255,0.15)'
         }}>
-          <Leaf size={15} color="#6b8e23" />
+          <Leaf size={15} color="#88dc6a" />
           <span>{slide.kicker}</span>
         </div>
 
@@ -217,7 +217,7 @@ export default function Hero({ onOpenQuote, onSelectPath, onSelectProduct, produ
             fontWeight: 900,
             lineHeight: 1.12,
             maxWidth: '960px',
-            textShadow: '0 4px 25px rgba(0,0,0,0.8)',
+            textShadow: '0 4px 25px rgba(0,0,0,0.85)',
             fontFamily: 'var(--font-heading)',
             margin: 0
           }}>
@@ -233,7 +233,8 @@ export default function Hero({ onOpenQuote, onSelectPath, onSelectProduct, produ
             maxWidth: '800px',
             lineHeight: 1.65,
             fontWeight: 500,
-            margin: 0
+            margin: 0,
+            textShadow: '0 2px 12px rgba(0,0,0,0.7)'
           }}>
             {slide.desc}
           </p>
@@ -254,45 +255,47 @@ export default function Hero({ onOpenQuote, onSelectPath, onSelectProduct, produ
             display: 'flex',
             alignItems: 'center',
             gap: '1.25rem',
-            backgroundColor: 'rgba(25, 20, 14, 0.82)',
-            border: '1.5px solid rgba(217, 155, 56, 0.5)',
-            backdropFilter: 'blur(16px)',
+            background: 'linear-gradient(135deg, rgba(38, 30, 20, 0.9) 0%, rgba(22, 17, 12, 0.94) 100%)',
+            border: '1.5px solid rgba(217, 155, 56, 0.55)',
+            backdropFilter: 'blur(20px)',
             borderRadius: '20px',
-            padding: 'clamp(0.65rem, 2.5vw, 0.85rem) clamp(0.9rem, 3vw, 1.6rem)',
+            padding: 'clamp(0.7rem, 2.5vw, 0.9rem) clamp(1rem, 3vw, 1.75rem)',
             marginBottom: '2.5rem',
-            boxShadow: '0 20px 45px rgba(0, 0, 0, 0.5)',
+            boxShadow: '0 20px 45px rgba(0, 0, 0, 0.6), 0 0 25px rgba(217, 155, 56, 0.12)',
             transition: 'all 0.3s ease',
             maxWidth: '100%',
-            minHeight: '86px',
+            minHeight: '90px',
             cursor: 'pointer'
           }}
         >
           <div style={{
-            width: '60px',
-            height: '70px',
-            borderRadius: '12px',
-            backgroundColor: '#ffffff',
+            width: '64px',
+            height: '74px',
+            borderRadius: '14px',
+            background: 'linear-gradient(145deg, #ffffff 0%, #fef9f0 100%)',
+            border: '1.5px solid rgba(217, 155, 56, 0.35)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            padding: '4px',
+            padding: '5px',
             flexShrink: 0,
-            boxShadow: '0 8px 20px rgba(0,0,0,0.35)'
+            boxShadow: '0 8px 24px rgba(0,0,0,0.4)'
           }}>
             <img 
               src={slide.productImg} 
               alt={slide.productName} 
-              style={{ maxHeight: '100%', maxWidth: '100%', objectFit: 'contain' }}
+              style={{ maxHeight: '100%', maxWidth: '100%', objectFit: 'contain', filter: 'drop-shadow(0 2px 5px rgba(0,0,0,0.15))' }}
             />
           </div>
           <div style={{ textAlign: 'left', minWidth: 0 }}>
-            <div style={{ fontSize: '0.7rem', color: '#88dc6a', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.04em' }}>
-              ✦ Flagship Khushbu Brand Packaging
+            <div style={{ fontSize: '0.72rem', color: '#88dc6a', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.04em', display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
+              <Sparkles size={12} color="#88dc6a" />
+              <span>Flagship Khushbu Brand Packaging</span>
             </div>
-            <div style={{ fontSize: 'clamp(0.92rem, 2.5vw, 1.05rem)', color: '#ffffff', fontWeight: 900, fontFamily: 'var(--font-heading)', wordBreak: 'break-word' }}>
+            <div style={{ fontSize: 'clamp(0.92rem, 2.5vw, 1.05rem)', color: '#ffffff', fontWeight: 900, fontFamily: 'var(--font-heading)', wordBreak: 'break-word', marginTop: '2px' }}>
               {slide.productName}
             </div>
-            <div style={{ fontSize: '0.78rem', color: '#f4be6b', fontWeight: 700 }}>
+            <div style={{ fontSize: '0.8rem', color: '#f4be6b', fontWeight: 700, marginTop: '2px' }}>
               {slide.productNet}
             </div>
           </div>
