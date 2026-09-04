@@ -274,8 +274,29 @@ export default function Footer({ onOpenTracker, onOpenAdmin, onSelectCategory })
           fontSize: '0.82rem',
           color: '#aaaaaa'
         }}>
-          <div>
-            &copy; {new Date().getFullYear()} KAI Khushbu Agro Industries Ltd. All Rights Reserved. · Premium Whole Wheat &amp; Flour Milling.
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.35rem' }}>
+            <div>
+              &copy; {new Date().getFullYear()} KAI Khushbu Agro Industries Ltd. All Rights Reserved. · Premium Whole Wheat &amp; Flour Milling.
+            </div>
+            <div style={{ fontSize: '0.8rem', color: '#888888', display: 'flex', alignItems: 'center', gap: '0.35rem', flexWrap: 'wrap' }}>
+              <span>Created by:</span>
+              <a
+                href="mailto:aishasabugar1@gmail.com"
+                style={{
+                  color: '#88dc6a',
+                  fontWeight: 700,
+                  textDecoration: 'none',
+                  transition: 'color 0.2s ease',
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: '0.3rem'
+                }}
+                onMouseEnter={(e) => (e.currentTarget.style.color = '#f4be6b')}
+                onMouseLeave={(e) => (e.currentTarget.style.color = '#88dc6a')}
+              >
+                <Mail size={13} color="#88dc6a" /> aishasabugar1@gmail.com
+              </a>
+            </div>
           </div>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
