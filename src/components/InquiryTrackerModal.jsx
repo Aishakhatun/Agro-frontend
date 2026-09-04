@@ -262,7 +262,7 @@ export default function InquiryTrackerModal({ initialRefId, onClose }) {
                 Need instant clarification on this inquiry?
               </span>
               <a
-                href={`https://wa.me/919426047829?text=Hello%20Agro%20Industries%2C%20regarding%20my%20inquiry%20reference%20${inquiryData.referenceId}`}
+                href={`https://wa.me/919825070448?text=Hello%20Agro%20Industries%2C%20regarding%20my%20inquiry%20reference%20${inquiryData.referenceId}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn btn-outline btn-sm"

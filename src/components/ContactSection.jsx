@@ -360,7 +360,7 @@ export default function ContactSection({ preFilledData, onClearPreFill, onOpenTr
               {/* Instant WhatsApp Action Button */}
               <div style={{ marginTop: '2rem', paddingTop: '1.25rem', borderTop: '1px solid rgba(255,255,255,0.1)' }}>
                 <a
-                  href="https://wa.me/919974250749?text=Hello%20Khushbu%20Agro%2C%20I%20would%20like%20to%20inquire%20about%20chakki%20atta%20and%20wheat%20flour%20supply."
+                  href="https://wa.me/919825070448?text=Hello%20Khushbu%20Agro%2C%20I%20would%20like%20to%20inquire%20about%20chakki%20atta%20and%20wheat%20flour%20supply."
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn btn-primary btn-block btn-lg"

@@ -210,7 +210,7 @@ export default function App() {
 
       {/* Floating Instant WhatsApp Action */}
       <a
-        href="https://wa.me/919974250749?text=Hello%20Khushbu%20Agro%2C%20I%20would%20like%20to%20inquire%20about%20chakki%20atta%20and%20wheat%20supply."
+        href="https://wa.me/919825070448?text=Hello%20Khushbu%20Agro%2C%20I%20would%20like%20to%20inquire%20about%20chakki%20atta%20and%20wheat%20supply."
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Chat on WhatsApp"
